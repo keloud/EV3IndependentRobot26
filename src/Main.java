@@ -63,16 +63,23 @@ public class Main {
         // スレッド起動
         Scheduler st = new Scheduler(this);
         st.start();
+        /* 選択*/
+        Menu menu = new Menu();
         /* 開始確認*/
         LCD.drawString("Press Enter to Start", 1, 6);
         Button.ENTER.waitForPress();
         /* メイン処理*/
         LCD.drawString("Running", 1, 6);
         int wait = 10;
-        moveStraight(300, wait, 90);
-        moveRight(300, wait, 360);
-        moveArm(wait, true);
-        moveArm(wait, false);
+        if (menu.select() == 0) {
+            moveStraight(300, wait, 90);
+            moveRight(300, wait, 360);
+            moveArm(wait, true);
+            moveArm(wait, false);
+        } else if (menu.select() == 1) {
+            moveArm(wait, true);
+            moveArm(wait, false);
+        }
         /* 終了処理*/
         LCD.drawString("All Complete", 1, 6);
         st.countStop();
