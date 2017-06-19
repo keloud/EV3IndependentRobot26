@@ -23,8 +23,8 @@ public class Scheduler extends Thread {
             i++;
             if (mode) {
                 LCD.drawInt(i, 14, 7);
-                LCD.refresh();
             }
+            parent.lcdUpdate();
             try {
                 Thread.sleep(sleepTime);
             } catch (InterruptedException ie) {

@@ -63,11 +63,16 @@ public class Main {
         // スレッド起動
         Scheduler st = new Scheduler(this);
         st.start();
-        /* ディスプレイ更新*/
-        lcdUpdate();
         /* 開始確認*/
-
-
+        LCD.drawString("Press Enter to Start", 1, 6);
+        Button.ENTER.waitForPress();
+        /* メイン処理*/
+        LCD.drawString("Running", 1, 6);
+        int wait = 10;
+        moveStraight(300, wait, 90);
+        moveRight(300, wait, 360);
+        moveArm(wait, true);
+        moveArm(wait, false);
         /* 終了処理*/
         LCD.drawString("All Complete", 1, 6);
         st.countStop();
@@ -78,13 +83,17 @@ public class Main {
         new Main();
     }
 
-    private void lcdUpdate() {
-        LCD.clear();
+    void lcdUpdate() {
+        LCD.clear(0);
         LCD.drawString(String.valueOf((float) ((int) (Battery.getVoltage() * 10 + 0.5) / 10.0)), 15, 0);
+        LCD.clear(1);
         LCD.drawString("C:" + accumulationCenter + " L:" + accumulationLeft + " R:" + accumulationRight, 1, 1);
+        LCD.clear(2);
         LCD.drawString("Color:" + colorFloat[0], 1, 2);
         LCD.drawString("ColorN:" + colorID.getName(), 10, 2);
+        LCD.clear(3);
         LCD.drawString("Ultrasonic:" + ultrasonicFloat[0], 1, 3);
+        LCD.clear(4);
         LCD.drawString("Gyro:" + gyroFloat[0], 1, 4);
         LCD.refresh();
     }
@@ -102,6 +111,9 @@ public class Main {
     }
 
     private void moveStraight(int speedMax, int wait, double distance) {
+        LCD.clear(6);
+        LCD.drawString("moveStraight", 1, 6);
+        LCD.refresh();
         // 初期化
         int tacho_L = motorLeft.getTachoCount();
         int speedNow;
@@ -146,11 +158,14 @@ public class Main {
         // 停止 flt()はフロート状態になる
         motorLeft.stop(true);
         motorRight.stop(true);
-        lcdUpdate();
-        LCD.drawString("stopped", 1, 6);
+        LCD.clear(6);
+        LCD.drawString("Stopped", 1, 6);
     }
 
     private void moveRight(int speedMax, int wait, double angle) {
+        LCD.clear(6);
+        LCD.drawString("moveRight", 1, 6);
+        LCD.refresh();
         // 初期化
         int tacho_L = motorLeft.getTachoCount();
         int speedNow;
@@ -195,14 +210,17 @@ public class Main {
 
         }
 
-        // 停止 flt()はフロート状態になる
+        // 停止
         motorLeft.stop(true);
         motorRight.stop(true);
-        lcdUpdate();
-        LCD.drawString("stopped", 1, 6);
+        LCD.clear(6);
+        LCD.drawString("Stopped", 1, 6);
     }
 
     private void moveArm(int wait, boolean direction) {
+        LCD.clear(6);
+        LCD.drawString("moveArm", 1, 6);
+        LCD.refresh();
         // 初期化
         int tacho_C = motorCenter.getTachoCount();
         int speedNow;
@@ -269,10 +287,10 @@ public class Main {
             }
         }
 
-        // 停止 flt()はフロート状態になる
+        // 停止
         motorLeft.stop(true);
         motorRight.stop(true);
-        lcdUpdate();
-        LCD.drawString("stopped", 1, 6);
+        LCD.clear(6);
+        LCD.drawString("Stopped", 1, 6);
     }
 }
