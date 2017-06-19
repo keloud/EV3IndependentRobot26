@@ -11,11 +11,11 @@ import lejos.robotics.RegulatedMotor;
 import lejos.robotics.SampleProvider;
 
 public class Main {
-    /* モーター登録*/
+    /* モーター*/
     final RegulatedMotor motorCenter;
     final RegulatedMotor motorLeft;
     final RegulatedMotor motorRight;
-    /* 車両情報登録*/
+    /* 車両情報*/
     // タイヤ直径(cm)
     private final float diameter = 5.6F;
     // 車輪の幅
