@@ -12,9 +12,9 @@ import lejos.robotics.SampleProvider;
 
 public class Main {
     /* モーター登録*/
-    final RegulatedMotor motorCenter = Motor.A;
-    final RegulatedMotor motorLeft = Motor.B;
-    final RegulatedMotor motorRight = Motor.C;
+    final RegulatedMotor motorCenter;
+    final RegulatedMotor motorLeft;
+    final RegulatedMotor motorRight;
     /* 車両情報登録*/
     // タイヤ直径(cm)
     private final float diameter = 5.6F;
@@ -40,7 +40,13 @@ public class Main {
         // ディスプレイ案内
         LCD.clear();
         LCD.drawString("Initializing", 1, 6);
-        LCD.refresh();
+        // モーター
+        motorCenter = Motor.A;
+        motorCenter.resetTachoCount();
+        motorLeft = Motor.B;
+        motorLeft.resetTachoCount();
+        motorRight = Motor.C;
+        motorRight.resetTachoCount();
         // カラーセンサー
         color = new EV3ColorSensor(SensorPort.S1);
         colorID = color.getColorIDMode();
@@ -56,10 +62,6 @@ public class Main {
         gyroProvider = gyro.getAngleMode();
         gyroFloat = new float[gyroProvider.sampleSize()];
         gyroUpdate();
-        // モーター
-        motorCenter.resetTachoCount();
-        motorLeft.resetTachoCount();
-        motorRight.resetTachoCount();
         // スレッド起動
         Scheduler st = new Scheduler(this);
         st.start();
