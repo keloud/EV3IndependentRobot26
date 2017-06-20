@@ -10,7 +10,7 @@ import lejos.hardware.sensor.SensorMode;
 import lejos.robotics.RegulatedMotor;
 import lejos.robotics.SampleProvider;
 
-public class Main {
+public class leJOS_26 {
     /* モーター*/
     final RegulatedMotor motorCenter;
     final RegulatedMotor motorLeft;
@@ -30,7 +30,7 @@ public class Main {
     private SampleProvider gyroProvider;
     private float[] gyroFloat;
 
-    private Main() {
+    private leJOS_26() {
         /* 初期化処理*/
         // ディスプレイ案内
         LCD.clear();
@@ -77,7 +77,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        new Main();
+        new leJOS_26();
     }
 
     void lcdUpdate() {

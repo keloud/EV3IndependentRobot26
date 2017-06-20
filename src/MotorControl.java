@@ -6,9 +6,9 @@ public class MotorControl {
     private final float diameter = 5.6F;
     // 車輪の幅
     private final float width = 9.2F;
-    private Main parent = null;
+    private leJOS_26 parent = null;
 
-    MotorControl(Main parent) {
+    MotorControl(leJOS_26 parent) {
         this.parent = parent;
     }
 

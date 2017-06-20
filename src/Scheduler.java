@@ -2,11 +2,11 @@ import lejos.hardware.lcd.LCD;
 
 public class Scheduler extends Thread {
     private final int sleepTime = 20;
-    private Main parent = null;
+    private leJOS_26 parent = null;
     private boolean start = false;
     private boolean mode = true;
 
-    public Scheduler(Main parent) {
+    public Scheduler(leJOS_26 parent) {
         this.parent = parent;
         start = true;
     }
