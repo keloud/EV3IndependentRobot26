@@ -61,14 +61,15 @@ public class Main {
         Scheduler st = new Scheduler(this);
         st.start();
         /* オブジェクト化*/
-        MotorControl motor = new MotorControl(this);
         Menu menu = new Menu();
+        MotorControl motor = new MotorControl(this);
         /* 開始確認*/
         LCD.drawString("Press Enter to Start", 1, 6);
         Button.ENTER.waitForPress();
         /* メイン処理*/
         LCD.drawString("Running", 1, 6);
         int wait = 10;
+        motor.moveStraight(500, wait, 90);
         /* 終了処理*/
         LCD.drawString("All Complete", 1, 6);
         st.countStop();
