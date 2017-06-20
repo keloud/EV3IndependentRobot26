@@ -121,7 +121,7 @@ public class leJOS_26 {
         LCD.clear(3);
         LCD.drawString("Sonic:" + ultrasonicFloat[0], 1, 3);
         LCD.clear(4);
-        LCD.drawString("Gyro:" + gyroFloat[0], 1, 4);
+        LCD.drawString("Gyro:" + gyroFloat[0] + " ℃", 1, 4);
         LCD.refresh();
     }
 
