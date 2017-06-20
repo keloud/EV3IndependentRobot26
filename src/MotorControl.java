@@ -186,8 +186,8 @@ public class MotorControl {
         double distanceVariable = 45;
 
         // 移動開始
-        parent.motorLeft.backward();
-        parent.motorRight.forward();
+        parent.motorLeft.forward();
+        parent.motorRight.backward();
 
         // 移動判定
         try {
