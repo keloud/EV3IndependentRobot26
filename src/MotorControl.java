@@ -76,7 +76,7 @@ public class MotorControl {
         parent.motorRight.setSpeed(speedMin);
 
         //速度から必要な距離を求める(可変距離)
-        double distanceVariable = speedMax * 0.18F;
+        double distanceVariable = speedMax * 0.24F;
 
         // 移動開始
         parent.motorLeft.forward();
