@@ -170,6 +170,44 @@ public class MotorControl {
         LCD.drawString("Stopped", 1, 6);
     }
 
+    void moveRightUseGyro(int speedMax, int wait, double angle) {
+        LCD.clear(6);
+        LCD.drawString("moveLeft", 1, 6);
+        LCD.refresh();
+        // 初期化
+        float gyroInit = parent.gyroFloat[0];
+        float degreeGyro = 0;
+        int speedNow = speedMax;
+        int speedMin = 100;
+        parent.motorRight.setSpeed(speedMin);
+        parent.motorRight.setSpeed(speedMin);
+
+        //可変速度に必要な角度を求める
+        double distanceVariable = 45;
+
+        // 移動開始
+        parent.motorLeft.backward();
+        parent.motorRight.forward();
+
+        // 移動判定
+        try {
+            while (degreeGyro > angle) {
+                parent.motorLeft.setSpeed(speedNow);
+                parent.motorRight.setSpeed(speedNow);
+                Thread.sleep(wait);
+                degreeGyro = parent.gyroFloat[0] - gyroInit;
+            }
+        } catch (InterruptedException ignored) {
+
+        }
+
+        // 停止
+        parent.motorLeft.stop(true);
+        parent.motorRight.stop(true);
+        LCD.clear(6);
+        LCD.drawString("Stopped", 1, 6);
+    }
+
     void moveLeft(int speedMax, int wait, double angle) {
         LCD.clear(6);
         LCD.drawString("moveLeft", 1, 6);
@@ -224,7 +262,7 @@ public class MotorControl {
         LCD.drawString("Stopped", 1, 6);
     }
 
-    void moveDirectionUseGyro(int speedMax, int wait, double angle) {
+    void moveLeftUseGyro(int speedMax, int wait, double angle) {
         LCD.clear(6);
         LCD.drawString("moveLeft", 1, 6);
         LCD.refresh();
