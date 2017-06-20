@@ -88,13 +88,16 @@ public class MotorControl {
         // 移動判定
         try {
             while (degreeLeft < cum) {
-                if (0.2F > parent.ultrasonicFloat[0] || degreeLeft > cum - distanceVariable) {
+                if (0.3F > parent.ultrasonicFloat[0]) {
                     //減速部
-                    speedNow = (int) ((float) (speedMax - speedMin) * (cum - degreeLeft) / distanceVariable + speedMin);
-                    if (0.11F > parent.ultrasonicFloat[0]) {
+                    speedNow = 100;
+                    if (0.12F > parent.ultrasonicFloat[0]) {
                         break;
                     }
-                } else if (degreeLeft < distanceVariable || degreeLeft < distanceVariable) {
+                } else if (degreeLeft > cum - distanceVariable) {
+                    //減速部
+                    speedNow = (int) ((float) (speedMax - speedMin) * (cum - degreeLeft) / distanceVariable + speedMin);
+                } else if (degreeLeft < distanceVariable) {
                     //加速部
                     speedNow = (int) ((float) ((float) (speedMax - speedMin) * degreeLeft / distanceVariable) + speedMin);
                 } else {
