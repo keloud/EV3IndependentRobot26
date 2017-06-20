@@ -17,18 +17,18 @@ public class leJOS_26 {
     RegulatedMotor motorRight;
     /* 累積モーター角度*/
     int accumulationCenter, accumulationLeft, accumulationRight;
+    float[] colorFloat;
+    float[] ultrasonicFloat;
+    float[] gyroFloat;
     /* カラーセンサー*/
     private EV3ColorSensor color;
     private SensorMode colorID;
-    private float[] colorFloat;
     /* 超音波センサー*/
     private EV3UltrasonicSensor ultrasonic;
     private SampleProvider ultrasonicProvider;
-    private float[] ultrasonicFloat;
     /* ジャイロセンサー*/
     private EV3GyroSensor gyro;
     private SampleProvider gyroProvider;
-    private float[] gyroFloat;
 
     private leJOS_26() {
         /* 初期化処理*/
@@ -94,7 +94,11 @@ public class leJOS_26 {
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
         int wait = 10;
-        motor.moveStraight(500, wait, 90);
+        motor.moveStraight(800, wait, 105);
+        motor.moveLeft(300, wait, 90);
+        motor.moveStraight(800, wait, 55);
+        motor.moveLeft(300, wait, 90);
+        motor.moveStraightUseSonar(800, wait, 80);
         /* 終了処理*/
         LCD.clear(6);
         LCD.drawString("All Complete", 1, 6);
@@ -113,7 +117,7 @@ public class leJOS_26 {
         LCD.clear(1);
         LCD.drawString("C:" + accumulationCenter + " L:" + accumulationLeft + " R:" + accumulationRight, 1, 1);
         LCD.clear(2);
-        LCD.drawString("ColorN:" + colorID.getName(), 1, 2);
+        LCD.drawString("ColorN:" + colorFloat[0], 1, 2);
         LCD.clear(3);
         LCD.drawString("Sonic:" + ultrasonicFloat[0], 1, 3);
         LCD.clear(4);
@@ -132,6 +136,4 @@ public class leJOS_26 {
     void gyroUpdate() {
         gyroProvider.fetchSample(gyroFloat, 0);
     }
-
-
 }
