@@ -139,7 +139,7 @@ public class MotorControl {
         int cum = (int) ((distance / diameter / Math.PI) * 360);
 
         //速度から必要な距離を求める(可変距離)
-        double distanceVariable = speedMax * 0.5F;
+        double distanceVariable = cum * 0.3F;
 
         // 移動開始
         parent.motorLeft.forward();
@@ -193,7 +193,7 @@ public class MotorControl {
         int cum = (int) ((distance / diameter / Math.PI) * 360);
 
         //速度から必要な距離を求める(可変距離)
-        double distanceVariable = speedMax * 1.2F;
+        double distanceVariable = cum * 0.3F;
 
         // 移動開始
         parent.motorLeft.backward();
