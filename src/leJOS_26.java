@@ -35,6 +35,7 @@ public class leJOS_26 {
         // ディスプレイ案内
         LCD.clear();
         LCD.drawString("Initializing", 1, 6);
+        LCD.refresh();
         // モーター
         motorCenter.resetTachoCount();
         motorLeft.resetTachoCount();
@@ -61,14 +62,20 @@ public class leJOS_26 {
         Menu menu = new Menu();
         MotorControl motor = new MotorControl(this);
         /* 開始確認*/
+        LCD.clear(6);
         LCD.drawString("Press Enter to Start", 1, 6);
+        LCD.refresh();
         Button.ENTER.waitForPress();
         /* メイン処理*/
+        LCD.clear(6);
         LCD.drawString("Running", 1, 6);
+        LCD.refresh();
         int wait = 10;
         motor.moveStraight(500, wait, 90);
         /* 終了処理*/
+        LCD.clear(6);
         LCD.drawString("All Complete", 1, 6);
+        LCD.refresh();
         st.countStop();
         Button.DOWN.waitForPress();
     }
