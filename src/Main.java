@@ -15,11 +15,6 @@ public class Main {
     final RegulatedMotor motorCenter;
     final RegulatedMotor motorLeft;
     final RegulatedMotor motorRight;
-    /* 車両情報*/
-    // タイヤ直径(cm)
-    private final float diameter = 5.6F;
-    // 車輪の幅
-    private final float width = 9.2F;
     /* 累積モーター角度*/
     int accumulationCenter, accumulationLeft, accumulationRight;
     /* カラーセンサー*/
@@ -65,7 +60,8 @@ public class Main {
         // スレッド起動
         Scheduler st = new Scheduler(this);
         st.start();
-        /* 選択*/
+        /* オブジェクト化*/
+        MotorControl motor = new MotorControl(this);
         Menu menu = new Menu();
         /* 開始確認*/
         LCD.drawString("Press Enter to Start", 1, 6);
@@ -73,15 +69,6 @@ public class Main {
         /* メイン処理*/
         LCD.drawString("Running", 1, 6);
         int wait = 10;
-        if (menu.select() == 0) {
-            moveStraight(300, wait, 90);
-            moveRight(300, wait, 360);
-            moveArm(wait, true);
-            moveArm(wait, false);
-        } else if (menu.select() == 1) {
-            moveArm(wait, true);
-            moveArm(wait, false);
-        }
         /* 終了処理*/
         LCD.drawString("All Complete", 1, 6);
         st.countStop();
@@ -119,187 +106,5 @@ public class Main {
         gyroProvider.fetchSample(gyroFloat, 0);
     }
 
-    private void moveStraight(int speedMax, int wait, double distance) {
-        LCD.clear(6);
-        LCD.drawString("moveStraight", 1, 6);
-        LCD.refresh();
-        // 初期化
-        int tacho_L = motorLeft.getTachoCount();
-        int speedNow;
-        int speedMin = 100;
-        int degreeLeft = 0;
-        motorLeft.setSpeed(speedMin);
-        motorRight.setSpeed(speedMin);
 
-        // 角度累計計算
-        int cum = (int) ((distance / diameter / Math.PI) * 360);
-
-        //速度から必要な距離を求める(可変距離)
-        double distanceVariable = cum * 0.3F;
-
-        // 移動開始
-        motorLeft.forward();
-        motorRight.forward();
-
-        // 移動判定
-        try {
-            while (degreeLeft < cum) {
-                if (degreeLeft > cum - distanceVariable) {
-                    //減速部
-                    speedNow = (int) ((float) (speedMax - speedMin) * (cum - degreeLeft) / distanceVariable + speedMin);
-                } else if (degreeLeft < distanceVariable) {
-                    //加速部
-                    speedNow = (int) ((float) ((float) (speedMax - speedMin) * degreeLeft / distanceVariable) + speedMin);
-                } else {
-                    //巡航部
-                    speedNow = speedMax;
-                }
-                motorLeft.setSpeed(speedNow);
-                motorRight.setSpeed(speedNow);
-                lcdUpdate();
-                Thread.sleep(wait);
-                degreeLeft = motorLeft.getTachoCount() - tacho_L;
-            }
-        } catch (InterruptedException ignored) {
-
-        }
-
-        // 停止 flt()はフロート状態になる
-        motorLeft.stop(true);
-        motorRight.stop(true);
-        LCD.clear(6);
-        LCD.drawString("Stopped", 1, 6);
-    }
-
-    private void moveRight(int speedMax, int wait, double angle) {
-        LCD.clear(6);
-        LCD.drawString("moveRight", 1, 6);
-        LCD.refresh();
-        // 初期化
-        int tacho_L = motorLeft.getTachoCount();
-        int speedNow;
-        int speedMin = 100;
-        int degreeLeft = 0;
-        motorLeft.setSpeed(speedMin);
-        motorRight.setSpeed(speedMin);
-
-        // 移動距離計算
-        double distance = (angle * width * Math.PI) / 360;
-
-        // 角度累計計算
-        int cum = (int) ((distance / diameter / Math.PI) * 360);
-
-        //速度から必要な距離を求める(可変距離)
-        double distanceVariable = cum * 0.3F;
-
-        // 移動開始
-        motorLeft.forward();
-        motorRight.backward();
-
-        // 移動判定
-        try {
-            while (degreeLeft < cum) {
-                if (degreeLeft > cum - distanceVariable) {
-                    //減速部
-                    speedNow = (int) ((float) (speedMax - speedMin) * (cum - degreeLeft) / distanceVariable + speedMin);
-                } else if (degreeLeft < distanceVariable) {
-                    //加速部
-                    speedNow = (int) ((float) ((float) (speedMax - speedMin) * degreeLeft / distanceVariable) + speedMin);
-                } else {
-                    //巡航部
-                    speedNow = speedMax;
-                }
-                motorLeft.setSpeed(speedNow);
-                motorRight.setSpeed(speedNow);
-                lcdUpdate();
-                Thread.sleep(wait);
-                degreeLeft = motorLeft.getTachoCount() - tacho_L;
-            }
-        } catch (InterruptedException ignored) {
-
-        }
-
-        // 停止
-        motorLeft.stop(true);
-        motorRight.stop(true);
-        LCD.clear(6);
-        LCD.drawString("Stopped", 1, 6);
-    }
-
-    private void moveArm(int wait, boolean direction) {
-        LCD.clear(6);
-        LCD.drawString("moveArm", 1, 6);
-        LCD.refresh();
-        // 初期化
-        int tacho_C = motorCenter.getTachoCount();
-        int speedNow;
-        int speedMax = 300;
-        int speedMin = 100;
-        int degreeLeft = 0;
-        int angle = 300;
-        motorCenter.setSpeed(speedMin);
-
-        // 移動距離計算
-        double distance = (angle * width * Math.PI) / 360;
-
-        // 角度累計計算
-        int cum = (int) ((distance / diameter / Math.PI) * 360);
-
-        //速度から必要な距離を求める(可変距離)
-        double distanceVariable = cum * 0.3F;
-
-        // 移動判定
-        if (direction) {
-            motorCenter.forward();
-            try {
-                while (degreeLeft < cum) {
-                    if (degreeLeft > cum - distanceVariable) {
-                        //減速部
-                        speedNow = (int) ((float) (speedMax - speedMin) * (cum - degreeLeft) / distanceVariable + speedMin);
-                    } else if (degreeLeft < distanceVariable) {
-                        //加速部
-                        speedNow = (int) ((float) ((float) (speedMax - speedMin) * degreeLeft / distanceVariable) + speedMin);
-                    } else {
-                        //巡航部
-                        speedNow = speedMax;
-                    }
-                    motorCenter.setSpeed(speedNow);
-                    lcdUpdate();
-                    Thread.sleep(wait);
-                    degreeLeft = motorCenter.getTachoCount() - tacho_C;
-                }
-            } catch (InterruptedException ignored) {
-
-            }
-        } else {
-            motorCenter.backward();
-            cum = -cum;
-            try {
-                while (degreeLeft < cum) {
-                    if (degreeLeft > cum - distanceVariable) {
-                        //減速部
-                        speedNow = (int) ((float) (speedMax - speedMin) * (cum - degreeLeft) / distanceVariable + speedMin);
-                    } else if (degreeLeft < distanceVariable) {
-                        //加速部
-                        speedNow = (int) ((float) ((float) (speedMax - speedMin) * degreeLeft / distanceVariable) + speedMin);
-                    } else {
-                        //巡航部
-                        speedNow = speedMax;
-                    }
-                    motorCenter.setSpeed(speedNow);
-                    lcdUpdate();
-                    Thread.sleep(wait);
-                    degreeLeft = motorCenter.getTachoCount() - tacho_C;
-                }
-            } catch (InterruptedException ignored) {
-
-            }
-        }
-
-        // 停止
-        motorLeft.stop(true);
-        motorRight.stop(true);
-        LCD.clear(6);
-        LCD.drawString("Stopped", 1, 6);
-    }
 }
