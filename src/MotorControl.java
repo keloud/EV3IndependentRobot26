@@ -75,12 +75,8 @@ public class MotorControl {
         parent.motorLeft.setSpeed(speedMin);
         parent.motorRight.setSpeed(speedMin);
 
-        // 角度累計計算
-        int cum = (int) ((distance / diameter / Math.PI) * 360);
-
         //速度から必要な距離を求める(可変距離)
         double distanceVariable = speedMax * 0.18F;
-        double decelerationDistance = distanceVariable;
 
         // 移動開始
         parent.motorLeft.forward();
@@ -88,16 +84,15 @@ public class MotorControl {
 
         // 移動判定
         try {
-            while (degreeLeft < cum) {
-                if (0.2F > parent.ultrasonicFloat[0]) {
+            while (true) {
+                if (distance * 3 > parent.ultrasonicFloat[0]) {
+                    //減速に必要な事前距離
+                    final int decelerationDistance = degreeLeft + (int) distanceVariable;
                     //減速部
-                    speedNow = 100;
-                    if (0.06F > parent.ultrasonicFloat[0]) {
+                    speedNow = (int) ((float) (speedMax - speedMin) * (decelerationDistance - degreeLeft) / distanceVariable + speedMin);
+                    if (distance > parent.ultrasonicFloat[0]) {
                         break;
                     }
-                } else if (degreeLeft > cum - distanceVariable) {
-                    //減速部
-                    speedNow = (int) ((float) (speedMax - speedMin) * (cum - degreeLeft) / distanceVariable + speedMin);
                 } else if (degreeLeft < distanceVariable) {
                     //加速部
                     speedNow = (int) ((float) ((float) (speedMax - speedMin) * degreeLeft / distanceVariable) + speedMin);

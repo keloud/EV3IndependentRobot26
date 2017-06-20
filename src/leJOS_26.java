@@ -98,7 +98,7 @@ public class leJOS_26 {
         motor.moveLeft(300, wait, 90);
         motor.moveStraight(800, wait, 55);
         motor.moveLeft(300, wait, 90);
-        motor.moveStraightUseSonar(800, wait, 80);
+        motor.moveStraightUseSonar(800, wait, 0.06F);
         /* 終了処理*/
         LCD.clear(6);
         LCD.drawString("All Complete", 1, 6);
