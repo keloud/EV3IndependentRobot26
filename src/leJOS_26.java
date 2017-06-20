@@ -12,9 +12,9 @@ import lejos.robotics.SampleProvider;
 
 public class leJOS_26 {
     /* モーター*/
-    final RegulatedMotor motorCenter = Motor.A;
-    final RegulatedMotor motorLeft = Motor.B;
-    final RegulatedMotor motorRight = Motor.C;
+    RegulatedMotor motorCenter;
+    RegulatedMotor motorLeft;
+    RegulatedMotor motorRight;
     /* 累積モーター角度*/
     int accumulationCenter, accumulationLeft, accumulationRight;
     /* カラーセンサー*/
@@ -36,34 +36,57 @@ public class leJOS_26 {
         LCD.clear();
         LCD.drawString("Initializing", 1, 6);
         LCD.refresh();
-        // モーター
-        motorCenter.resetTachoCount();
-        motorLeft.resetTachoCount();
-        motorRight.resetTachoCount();
         // カラーセンサー
         color = new EV3ColorSensor(SensorPort.S1);
         colorID = color.getColorIDMode();
         colorFloat = new float[colorID.sampleSize()];
         colorUpdate();
+        // ディスプレイ案内
+        LCD.clear();
+        LCD.drawString("Initializing.", 1, 6);
+        LCD.refresh();
         // 超音波センサー
         ultrasonic = new EV3UltrasonicSensor(SensorPort.S2);
         ultrasonicProvider = ultrasonic.getDistanceMode();
         ultrasonicFloat = new float[ultrasonicProvider.sampleSize()];
         ultrasonicUpdate();
+        // ディスプレイ案内
+        LCD.clear();
+        LCD.drawString("Initializing..", 1, 6);
+        LCD.refresh();
         // ジャイロセンサー
         gyro = new EV3GyroSensor(SensorPort.S3);
         gyroProvider = gyro.getAngleMode();
         gyroFloat = new float[gyroProvider.sampleSize()];
         gyroUpdate();
+        // ディスプレイ案内
+        LCD.clear();
+        LCD.drawString("Initializing...", 1, 6);
+        LCD.refresh();
+        // モーター
+        motorCenter = Motor.A;
+        motorCenter.resetTachoCount();
+        motorLeft = Motor.B;
+        motorLeft.resetTachoCount();
+        motorRight = Motor.C;
+        motorRight.resetTachoCount();
+        // ディスプレイ案内
+        LCD.clear();
+        LCD.drawString("Initializing....", 1, 6);
+        LCD.refresh();
         // スレッド起動
         Scheduler st = new Scheduler(this);
         st.start();
+        // ディスプレイ案内
+        LCD.clear();
+        LCD.drawString("Initializing.....", 1, 6);
+        LCD.refresh();
         /* オブジェクト化*/
         Menu menu = new Menu();
         MotorControl motor = new MotorControl(this);
         /* 開始確認*/
         LCD.clear(6);
-        LCD.drawString("Press Enter to Start", 1, 6);
+        LCD.drawString("Press Enter", 1, 6);
         LCD.refresh();
         Button.ENTER.waitForPress();
         /* メイン処理*/
@@ -90,10 +113,9 @@ public class leJOS_26 {
         LCD.clear(1);
         LCD.drawString("C:" + accumulationCenter + " L:" + accumulationLeft + " R:" + accumulationRight, 1, 1);
         LCD.clear(2);
-        LCD.drawString("Color:" + colorFloat[0], 1, 2);
-        LCD.drawString("ColorN:" + colorID.getName(), 10, 2);
+        LCD.drawString("ColorN:" + colorID.getName(), 1, 2);
         LCD.clear(3);
-        LCD.drawString("Ultrasonic:" + ultrasonicFloat[0], 1, 3);
+        LCD.drawString("Sonic:" + ultrasonicFloat[0], 1, 3);
         LCD.clear(4);
         LCD.drawString("Gyro:" + gyroFloat[0], 1, 4);
         LCD.refresh();
