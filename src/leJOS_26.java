@@ -12,9 +12,9 @@ import lejos.robotics.SampleProvider;
 
 public class leJOS_26 {
     /* モーター*/
-    final RegulatedMotor motorCenter;
-    final RegulatedMotor motorLeft;
-    final RegulatedMotor motorRight;
+    final RegulatedMotor motorCenter = Motor.A;
+    final RegulatedMotor motorLeft = Motor.B;
+    final RegulatedMotor motorRight = Motor.C;
     /* 累積モーター角度*/
     int accumulationCenter, accumulationLeft, accumulationRight;
     /* カラーセンサー*/
@@ -36,11 +36,8 @@ public class leJOS_26 {
         LCD.clear();
         LCD.drawString("Initializing", 1, 6);
         // モーター
-        motorCenter = Motor.A;
         motorCenter.resetTachoCount();
-        motorLeft = Motor.B;
         motorLeft.resetTachoCount();
-        motorRight = Motor.C;
         motorRight.resetTachoCount();
         // カラーセンサー
         color = new EV3ColorSensor(SensorPort.S1);
