@@ -224,7 +224,7 @@ public class MotorControl {
         LCD.drawString("Stopped", 1, 6);
     }
 
-    void moveLeftUseGyro(int speedMax, int wait, double angle) {
+    void moveDirectionUseGyro(int speedMax, int wait, double angle) {
         LCD.clear(6);
         LCD.drawString("moveLeft", 1, 6);
         LCD.refresh();
@@ -245,7 +245,7 @@ public class MotorControl {
 
         // 移動判定
         try {
-            while (degreeGyro < -angle) {
+            while (degreeGyro < angle) {
                 parent.motorLeft.setSpeed(speedNow);
                 parent.motorRight.setSpeed(speedNow);
                 Thread.sleep(wait);
