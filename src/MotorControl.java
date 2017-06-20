@@ -88,10 +88,10 @@ public class MotorControl {
         // 移動判定
         try {
             while (degreeLeft < cum) {
-                if (0.3F > parent.ultrasonicFloat[0]) {
+                if (0.2F > parent.ultrasonicFloat[0]) {
                     //減速部
                     speedNow = 100;
-                    if (0.12F > parent.ultrasonicFloat[0]) {
+                    if (0.1F > parent.ultrasonicFloat[0]) {
                         break;
                     }
                 } else if (degreeLeft > cum - distanceVariable) {
@@ -193,7 +193,7 @@ public class MotorControl {
         int cum = (int) ((distance / diameter / Math.PI) * 360);
 
         //速度から必要な距離を求める(可変距離)
-        double distanceVariable = speedMax * 0.5F;
+        double distanceVariable = speedMax * 1.2F;
 
         // 移動開始
         parent.motorLeft.backward();
