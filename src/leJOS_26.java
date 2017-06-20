@@ -95,7 +95,7 @@ public class leJOS_26 {
         LCD.refresh();
         int wait = 10;
         motor.moveStraight(800, wait, 105);
-        motor.moveLeft(300, wait, 90);
+        motor.moveLeftUseGyro(100, wait, 90);
         motor.moveStraight(800, wait, 55);
         motor.moveLeft(300, wait, 90);
         motor.moveStraightUseSonar(800, wait, 0.1F);

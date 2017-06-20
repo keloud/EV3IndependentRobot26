@@ -135,7 +135,7 @@ public class MotorControl {
         int cum = (int) ((distance / diameter / Math.PI) * 360);
 
         //速度から必要な距離を求める(可変距離)
-        double distanceVariable = cum * 0.4F;
+        double distanceVariable = speedMax * 0.24F;
 
         // 移動開始
         parent.motorLeft.forward();
@@ -189,7 +189,7 @@ public class MotorControl {
         int cum = (int) ((distance / diameter / Math.PI) * 360);
 
         //速度から必要な距離を求める(可変距離)
-        double distanceVariable = cum * 0.4F;
+        double distanceVariable = speedMax * 0.24F;
 
         // 移動開始
         parent.motorLeft.backward();
@@ -212,6 +212,44 @@ public class MotorControl {
                 parent.motorRight.setSpeed(speedNow);
                 Thread.sleep(wait);
                 degreeRight = parent.motorRight.getTachoCount() - tacho_L;
+            }
+        } catch (InterruptedException ignored) {
+
+        }
+
+        // 停止
+        parent.motorLeft.stop(true);
+        parent.motorRight.stop(true);
+        LCD.clear(6);
+        LCD.drawString("Stopped", 1, 6);
+    }
+
+    void moveLeftUseGyro(int speedMax, int wait, double angle) {
+        LCD.clear(6);
+        LCD.drawString("moveLeft", 1, 6);
+        LCD.refresh();
+        // 初期化
+        float gyroInit = parent.gyroFloat[0];
+        float degreeGyro = 0;
+        int speedNow = speedMax;
+        int speedMin = 100;
+        parent.motorRight.setSpeed(speedMin);
+        parent.motorRight.setSpeed(speedMin);
+
+        //可変速度に必要な角度を求める
+        double distanceVariable = 45;
+
+        // 移動開始
+        parent.motorLeft.backward();
+        parent.motorRight.forward();
+
+        // 移動判定
+        try {
+            while (degreeGyro < -angle) {
+                parent.motorLeft.setSpeed(speedNow);
+                parent.motorRight.setSpeed(speedNow);
+                Thread.sleep(wait);
+                degreeGyro = parent.gyroFloat[0] - gyroInit;
             }
         } catch (InterruptedException ignored) {
 
