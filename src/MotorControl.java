@@ -61,6 +61,7 @@ public class MotorControl {
         parent.motorRight.stop(true);
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);
+        LCD.refresh();
     }
 
     void moveStraightUseSonar(int speedMax, int wait, float valueUltrasonic) {
@@ -180,6 +181,7 @@ public class MotorControl {
         parent.motorRight.stop(true);
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);
+        LCD.refresh();
     }
 
     void moveLeft(int speedMax, int wait, double angle) {
@@ -234,6 +236,7 @@ public class MotorControl {
         parent.motorRight.stop(true);
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);
+        LCD.refresh();
     }
 
     void moveLeftUseGyro(int speedMax, int wait, double angle) {
@@ -272,6 +275,7 @@ public class MotorControl {
         parent.motorRight.stop(true);
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);
+        LCD.refresh();
     }
 
     void moveArm(int wait, boolean direction, int angle) {
@@ -295,56 +299,41 @@ public class MotorControl {
         //速度から必要な距離を求める(可変距離)
         double distanceVariable = cum * 0.3F;
 
-        // 移動判定
-        if (direction) {
-            parent.motorCenter.forward();
-            try {
-                while (degreeCenter < cum) {
-                    if (degreeCenter > cum - distanceVariable) {
-                        //減速部
-                        speedNow = (int) ((float) (speedMax - speedMin) * (cum - degreeCenter) / distanceVariable + speedMin);
-                    } else if (degreeCenter < distanceVariable) {
-                        //加速部
-                        speedNow = (int) ((float) ((float) (speedMax - speedMin) * degreeCenter / distanceVariable) + speedMin);
-                    } else {
-                        //巡航部
-                        speedNow = speedMax;
-                    }
-                    parent.motorCenter.setSpeed(speedNow);
-                    Thread.sleep(wait);
-                    degreeCenter = parent.motorCenter.getTachoCount() - tacho_C;
-                }
-            } catch (InterruptedException ignored) {
-
+        //移動判定v2
+        try {
+            if (direction) {
+                parent.motorCenter.forward();
+            } else {
+                parent.motorCenter.backward();
             }
-        } else {
-            parent.motorCenter.backward();
-            cum = -cum;
-            try {
-                while (degreeCenter < cum) {
-                    if (degreeCenter > cum - distanceVariable) {
-                        //減速部
-                        speedNow = (int) ((float) (speedMax - speedMin) * (cum - degreeCenter) / distanceVariable + speedMin);
-                    } else if (degreeCenter < distanceVariable) {
-                        //加速部
-                        speedNow = (int) ((float) ((float) (speedMax - speedMin) * degreeCenter / distanceVariable) + speedMin);
-                    } else {
-                        //巡航部
-                        speedNow = speedMax;
-                    }
-                    parent.motorCenter.setSpeed(speedNow);
-                    Thread.sleep(wait);
-                    degreeCenter = parent.motorCenter.getTachoCount() - tacho_C;
+            while (degreeCenter < cum) {
+                if (degreeCenter > cum - distanceVariable) {
+                    //減速部
+                    speedNow = (int) ((float) (speedMax - speedMin) * (cum - degreeCenter) / distanceVariable + speedMin);
+                } else if (degreeCenter < distanceVariable) {
+                    //加速部
+                    speedNow = (int) ((float) ((float) (speedMax - speedMin) * degreeCenter / distanceVariable) + speedMin);
+                } else {
+                    //巡航部
+                    speedNow = speedMax;
                 }
-            } catch (InterruptedException ignored) {
-
+                parent.motorCenter.setSpeed(speedNow);
+                Thread.sleep(wait);
+                if (direction) {
+                    degreeCenter = parent.motorCenter.getTachoCount() - tacho_C;
+                } else {
+                    degreeCenter = -parent.motorCenter.getTachoCount() - tacho_C;
+                }
+                Thread.sleep(wait);
             }
+        } catch (InterruptedException ignored) {
+
         }
 
         // 停止
-        parent.motorLeft.stop(true);
-        parent.motorRight.stop(true);
+        parent.motorCenter.stop(true);
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);
+        LCD.refresh();
     }
 }
