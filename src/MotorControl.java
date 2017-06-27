@@ -63,7 +63,7 @@ public class MotorControl {
         LCD.drawString("Stopped", 1, 6);
     }
 
-    void moveStraightUseSonar(int speedMax, int wait, double distance) {
+    void moveStraightUseSonar(int speedMax, int wait, float distance) {
         LCD.clear(6);
         LCD.drawString("moveStraight", 1, 6);
         LCD.refresh();
@@ -78,6 +78,9 @@ public class MotorControl {
         //速度から必要な距離を求める(可変距離)
         double distanceVariable = speedMax * 0.24F;
 
+        //減速に必要な事前距離
+        int decelerationDistance = degreeLeft;
+
         // 移動開始
         parent.motorLeft.forward();
         parent.motorRight.forward();
@@ -85,12 +88,14 @@ public class MotorControl {
         // 移動判定
         try {
             while (true) {
-                if (distance * 3 > parent.ultrasonicFloat[0]) {
-                    //減速に必要な事前距離
-                    final int decelerationDistance = degreeLeft + (int) distanceVariable;
+                //減速に必要な事前距離
+                if (distance + 0.1F <= parent.ultrasonicFloat[0]) {
+                    decelerationDistance = degreeLeft;
+                }
+                if (degreeLeft < decelerationDistance) {
                     //減速部
                     speedNow = (int) ((float) (speedMax - speedMin) * (decelerationDistance - degreeLeft) / distanceVariable + speedMin);
-                    if (distance > parent.ultrasonicFloat[0]) {
+                    if (parent.ultrasonicFloat[0] < distance) {
                         break;
                     }
                 } else if (degreeLeft < distanceVariable) {
@@ -158,44 +163,6 @@ public class MotorControl {
                 parent.motorRight.setSpeed(speedNow);
                 Thread.sleep(wait);
                 degreeLeft = parent.motorLeft.getTachoCount() - tacho_L;
-            }
-        } catch (InterruptedException ignored) {
-
-        }
-
-        // 停止
-        parent.motorLeft.stop(true);
-        parent.motorRight.stop(true);
-        LCD.clear(6);
-        LCD.drawString("Stopped", 1, 6);
-    }
-
-    void moveRightUseGyro(int speedMax, int wait, double angle) {
-        LCD.clear(6);
-        LCD.drawString("moveLeft", 1, 6);
-        LCD.refresh();
-        // 初期化
-        float gyroInit = parent.gyroFloat[0];
-        float degreeGyro = 0;
-        int speedNow = speedMax;
-        int speedMin = 100;
-        parent.motorRight.setSpeed(speedMin);
-        parent.motorRight.setSpeed(speedMin);
-
-        //可変速度に必要な角度を求める
-        double distanceVariable = 45;
-
-        // 移動開始
-        parent.motorLeft.forward();
-        parent.motorRight.backward();
-
-        // 移動判定
-        try {
-            while (degreeGyro > angle) {
-                parent.motorLeft.setSpeed(speedNow);
-                parent.motorRight.setSpeed(speedNow);
-                Thread.sleep(wait);
-                degreeGyro = parent.gyroFloat[0] - gyroInit;
             }
         } catch (InterruptedException ignored) {
 
