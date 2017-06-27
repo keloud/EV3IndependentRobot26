@@ -63,7 +63,7 @@ public class MotorControl {
         LCD.drawString("Stopped", 1, 6);
     }
 
-    void moveStraightUseSonar(int speedMax, int wait, float distance) {
+    void moveStraightUseSonar(int speedMax, int wait, float valueUltrasonic) {
         LCD.clear(6);
         LCD.drawString("moveStraight", 1, 6);
         LCD.refresh();
@@ -75,11 +75,14 @@ public class MotorControl {
         parent.motorLeft.setSpeed(speedMin);
         parent.motorRight.setSpeed(speedMin);
 
-        //速度から必要な距離を求める(可変距離)
+        // 速度から必要な距離を求める(可変距離)
         double distanceVariable = speedMax * 0.24F;
 
-        //減速に必要な事前距離
-        int decelerationDistance = degreeLeft;
+        // 設定した超音波センサーの距離を角度累計に変換する
+        int distanceUltrasonic = (int) ((valueUltrasonic * 100 / diameter / Math.PI) * 360);
+
+        // 減速に使用する角度累計
+        int distanceDeceleration = degreeLeft + (int) distanceVariable;
 
         // 移動開始
         parent.motorLeft.forward();
@@ -88,21 +91,25 @@ public class MotorControl {
         // 移動判定
         try {
             while (true) {
-                //減速に必要な事前距離
-                if (distance + 0.1F <= parent.ultrasonicFloat[0]) {
-                    decelerationDistance = degreeLeft;
+                // 設定した超音波センサーの距離+停止までに必要な距離まで更新し続ける。
+                if (distanceUltrasonic + distanceVariable < (int) ((parent.ultrasonicFloat[0] * 100 / diameter / Math.PI) * 360)) {
+                    // 減速に必要な角度累計を代入する
+                    distanceDeceleration = degreeLeft + (int) distanceVariable;
                 }
-                if (degreeLeft < decelerationDistance) {
-                    //減速部
-                    speedNow = (int) ((float) (speedMax - speedMin) * (decelerationDistance - degreeLeft) / distanceVariable + speedMin);
-                    if (parent.ultrasonicFloat[0] < distance) {
-                        break;
-                    }
-                } else if (degreeLeft < distanceVariable) {
-                    //加速部
+                // 停止する
+                if ((int) ((parent.ultrasonicFloat[0] * 100 / diameter / Math.PI) * 360) <= distanceUltrasonic) {
+                    break;
+                }
+                // 減速部
+                if (distanceDeceleration - distanceVariable < degreeLeft) {
+                    speedNow = (int) ((float) (speedMax - speedMin) * (distanceDeceleration - degreeLeft) / distanceVariable + speedMin);
+                }
+                // 加速部
+                else if (degreeLeft < distanceVariable) {
                     speedNow = (int) ((float) ((float) (speedMax - speedMin) * degreeLeft / distanceVariable) + speedMin);
-                } else {
-                    //巡航部
+                }
+                // 巡行部
+                else {
                     speedNow = speedMax;
                 }
                 parent.motorLeft.setSpeed(speedNow);
@@ -267,7 +274,7 @@ public class MotorControl {
         LCD.drawString("Stopped", 1, 6);
     }
 
-    void moveArm(int wait, boolean direction) {
+    void moveArm(int wait, boolean direction, int angle) {
         LCD.clear(6);
         LCD.drawString("moveArm", 1, 6);
         LCD.refresh();
@@ -277,7 +284,6 @@ public class MotorControl {
         int speedMax = 300;
         int speedMin = 100;
         int degreeCenter = 0;
-        int angle = 300;
         parent.motorCenter.setSpeed(speedMin);
 
         // 移動距離計算
