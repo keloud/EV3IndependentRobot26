@@ -1,5 +1,7 @@
 import lejos.hardware.lcd.LCD;
 
+import java.util.Objects;
+
 public class MotorControl {
     /* 車両情報*/
     // タイヤ直径(cm)
@@ -278,17 +280,23 @@ public class MotorControl {
         LCD.refresh();
     }
 
-    void moveArm(int wait, boolean direction, int angle) {
+    void moveArm(int wait, int angle, String type) {
+        if (Objects.equals(type, "Open")) {
+            moveArmOpen(wait, angle);
+        } else if (Objects.equals(type, "Close")) {
+            moveArmClose(wait, angle);
+        }
+    }
+
+    private void moveArmOpen(int wait, int angle) {
         LCD.clear(6);
-        LCD.drawString("moveArm", 1, 6);
+        LCD.drawString("armOpen", 1, 6);
         LCD.refresh();
         // 初期化
         int tacho_C = parent.motorCenter.getTachoCount();
-        int speedNow;
-        int speedMax = 300;
-        int speedMin = 100;
+        int speedNow = 300;
         int degreeCenter = 0;
-        parent.motorCenter.setSpeed(speedMin);
+        parent.motorCenter.setSpeed(speedNow);
 
         // 移動距離計算
         double distance = (angle * width * Math.PI) / 360;
@@ -296,42 +304,55 @@ public class MotorControl {
         // 角度累計計算
         int cum = (int) ((distance / diameter / Math.PI) * 360);
 
-        //速度から必要な距離を求める(可変距離)
-        double distanceVariable = cum * 0.3F;
+        // 移動開始
+        parent.motorCenter.forward();
 
-        //移動判定v2
         try {
-            if (direction) {
-                parent.motorCenter.forward();
-            } else {
-                parent.motorCenter.backward();
-            }
             while (degreeCenter < cum) {
-                if (degreeCenter > cum - distanceVariable) {
-                    //減速部
-                    speedNow = (int) ((float) (speedMax - speedMin) * (cum - degreeCenter) / distanceVariable + speedMin);
-                } else if (degreeCenter < distanceVariable) {
-                    //加速部
-                    speedNow = (int) ((float) ((float) (speedMax - speedMin) * degreeCenter / distanceVariable) + speedMin);
-                } else {
-                    //巡航部
-                    speedNow = speedMax;
-                }
-                parent.motorCenter.setSpeed(speedNow);
                 Thread.sleep(wait);
-                if (direction) {
-                    degreeCenter = parent.motorCenter.getTachoCount() - tacho_C;
-                } else {
-                    degreeCenter = -parent.motorCenter.getTachoCount() - tacho_C;
-                }
-                Thread.sleep(wait);
+                degreeCenter = parent.motorCenter.getTachoCount() - tacho_C;
             }
         } catch (InterruptedException ignored) {
 
         }
 
         // 停止
-        parent.motorCenter.stop(true);
+        parent.motorCenter.flt(true);
+        LCD.clear(6);
+        LCD.drawString("Stopped", 1, 6);
+        LCD.refresh();
+    }
+
+    private void moveArmClose(int wait, int angle) {
+        LCD.clear(6);
+        LCD.drawString("armClose", 1, 6);
+        LCD.refresh();
+        // 初期化
+        int tacho_C = parent.motorCenter.getTachoCount();
+        int speedNow = 300;
+        int degreeCenter = 0;
+        parent.motorCenter.setSpeed(speedNow);
+
+        // 移動距離計算
+        double distance = (angle * width * Math.PI) / 360;
+
+        // 角度累計計算
+        int cum = (int) ((distance / diameter / Math.PI) * 360);
+
+        // 移動開始
+        parent.motorCenter.backward();
+
+        try {
+            while (cum < degreeCenter) {
+                Thread.sleep(wait);
+                degreeCenter = parent.motorCenter.getTachoCount() - tacho_C;
+            }
+        } catch (InterruptedException ignored) {
+
+        }
+
+        // 停止
+        parent.motorCenter.flt(true);
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);
         LCD.refresh();
