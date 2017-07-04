@@ -79,7 +79,7 @@ public class MotorControl {
         parent.motorRight.setSpeed(speedMin);
 
         // 速度から必要な距離を求める(可変距離)
-        double distanceVariable = speedMax * 0.3F;
+        double distanceVariable = speedMax * 0.27F;
 
         // 設定した超音波センサーの距離を角度累計に変換する
         int distanceUltrasonic = (int) ((valueUltrasonic * 100 / diameter / Math.PI) * 360);
