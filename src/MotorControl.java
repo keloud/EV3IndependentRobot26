@@ -338,6 +338,7 @@ public class MotorControl {
 
         // 角度累計計算
         int cum = (int) ((distance / diameter / Math.PI) * 360);
+        cum = -cum;
 
         // 移動開始
         parent.motorCenter.backward();

@@ -94,7 +94,7 @@ public class leJOS_26 {
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
         int wait = 10;
-        motor.moveArm(wait, 300, "Open");
+        motor.moveArm(wait, 300, "Close");
         //motor.moveStraightUseSonar(800, wait, 0.3F);
         //motor.moveStraight(100, wait, 26);
         /* 終了処理*/
@@ -102,7 +102,7 @@ public class leJOS_26 {
         LCD.drawString("All Complete", 1, 6);
         LCD.refresh();
         st.countStop();
-        Button.DOWN.waitForPress();
+        Button.ENTER.waitForPress();
     }
 
     public static void main(String[] args) {
