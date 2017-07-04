@@ -183,7 +183,7 @@ public class MotorControl {
         LCD.refresh();
     }
 
-    void moveBackwardUseColor(int speedMax, int wait, int colorId) {
+    void moveBackwardUseColor(int speedMax, int wait, float colorId) {
         LCD.clear(6);
         LCD.drawString("moveBackwardUC", 1, 6);
         LCD.refresh();
@@ -209,9 +209,10 @@ public class MotorControl {
         try {
             while (true) {
                 //ColorIdまで必要な減速距離を更新し続ける
-                if (parent.colorFloat[0] == colorId) {
+                if (parent.colorFloat[0] != colorId) {
                     distanceDeceleration = degreeLeft + (int) distanceVariable;
                 }
+                //20cm後退して停止する
                 if ((int) ((20 / diameter / Math.PI) * 360) + distanceDeceleration < degreeLeft) {
                     break;
                 }

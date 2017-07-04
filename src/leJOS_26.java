@@ -103,7 +103,7 @@ public class leJOS_26 {
         motor.moveArm(wait, 315, "Open");
         motor.moveBackward(100, wait, 10);
         motor.moveArm(wait, 300, "Close")*/
-        motor.moveBackwardUseColor(800, wait, 0);
+        motor.moveBackwardUseColor(800, wait, 0.0F);
         /* 終了処理*/
         LCD.clear(6);
         LCD.drawString("All Complete", 1, 6);
