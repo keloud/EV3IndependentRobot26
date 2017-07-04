@@ -100,7 +100,7 @@ public class MotorControl {
                     distanceDeceleration = degreeLeft + (int) distanceVariable;
                 }
                 // 停止する
-                if ((int) ((parent.ultrasonicFloat[0] * 100 / diameter / Math.PI) * 360) <= distanceUltrasonic) {
+                if ((int) ((parent.ultrasonicFloat[0] * 100 / diameter / Math.PI) * 360) < distanceUltrasonic) {
                     break;
                 }
                 // 減速部
