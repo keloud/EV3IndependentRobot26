@@ -137,14 +137,17 @@ public class MotorControl {
         LCD.refresh();
         // 初期化
         int tacho_L = parent.motorLeft.getTachoCount();
-        int speedNow = speedMax;
+        int speedNow;
+        int speedMin = 100;
         int degreeLeft = 0;
-        parent.motorLeft.setSpeed(speedNow);
-        parent.motorRight.setSpeed(speedNow);
+        parent.motorLeft.setSpeed(speedMin);
+        parent.motorRight.setSpeed(speedMin);
 
         // 角度累計計算
         int cum = (int) ((distance / diameter / Math.PI) * 360);
-        cum = -cum;
+
+        //速度から必要な距離を求める(可変距離)
+        double distanceVariable = speedMax * 0.24F;
 
         // 移動開始
         parent.motorLeft.backward();
@@ -153,8 +156,20 @@ public class MotorControl {
         // 移動判定
         try {
             while (cum < degreeLeft) {
+                if (degreeLeft > cum - distanceVariable) {
+                    //減速部
+                    speedNow = (int) ((float) (speedMax - speedMin) * (cum - degreeLeft) / distanceVariable + speedMin);
+                } else if (degreeLeft < distanceVariable) {
+                    //加速部
+                    speedNow = (int) ((float) ((float) (speedMax - speedMin) * degreeLeft / distanceVariable) + speedMin);
+                } else {
+                    //巡航部
+                    speedNow = speedMax;
+                }
+                parent.motorLeft.setSpeed(speedNow);
+                parent.motorRight.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeLeft = parent.motorLeft.getTachoCount() - tacho_L;
+                degreeLeft = (-parent.motorLeft.getTachoCount()) - tacho_L;
             }
         } catch (InterruptedException ignored) {
 
@@ -223,7 +238,7 @@ public class MotorControl {
         LCD.refresh();
     }
 
-    void moveRigntUseGyro(int speedMax, int wait, double angle) {
+    void moveRightUseGyro(int speedMax, int wait, double angle) {
         LCD.clear(6);
         LCD.drawString("moveRightUS", 1, 6);
         LCD.refresh();
