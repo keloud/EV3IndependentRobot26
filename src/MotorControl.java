@@ -152,7 +152,7 @@ public class MotorControl {
 
         // 移動判定
         try {
-            while (cum > degreeLeft) {
+            while (cum < degreeLeft) {
                 Thread.sleep(wait);
                 degreeLeft = parent.motorLeft.getTachoCount() - tacho_L;
             }
@@ -223,6 +223,43 @@ public class MotorControl {
         LCD.refresh();
     }
 
+    void moveRigntUseGyro(int speedMax, int wait, double angle) {
+        LCD.clear(6);
+        LCD.drawString("moveRightUS", 1, 6);
+        LCD.refresh();
+        // 初期化
+        float gyroInit = parent.gyroFloat[0];
+        float degreeGyro = 0;
+        int speedNow = speedMax;
+        int speedMin = 100;
+        parent.motorLeft.setSpeed(speedMin);
+        parent.motorRight.setSpeed(speedMin);
+
+        //角度修正
+        angle = -angle;
+
+        // 移動開始
+        parent.motorLeft.forward();
+        parent.motorRight.backward();
+
+        // 移動判定
+        try {
+            while (angle < degreeGyro) {
+                Thread.sleep(wait);
+                degreeGyro = parent.gyroFloat[0] - gyroInit;
+            }
+        } catch (InterruptedException ignored) {
+
+        }
+
+        // 停止
+        parent.motorLeft.stop(true);
+        parent.motorRight.stop(true);
+        LCD.clear(6);
+        LCD.drawString("Stopped", 1, 6);
+        LCD.refresh();
+    }
+
     void moveLeft(int speedMax, int wait, double angle) {
         LCD.clear(6);
         LCD.drawString("moveLeft", 1, 6);
@@ -280,7 +317,7 @@ public class MotorControl {
 
     void moveLeftUseGyro(int speedMax, int wait, double angle) {
         LCD.clear(6);
-        LCD.drawString("moveLeft", 1, 6);
+        LCD.drawString("moveLeftUS", 1, 6);
         LCD.refresh();
         // 初期化
         float gyroInit = parent.gyroFloat[0];

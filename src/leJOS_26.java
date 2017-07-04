@@ -98,10 +98,11 @@ public class leJOS_26 {
         motor.moveArm(wait, 300, "Open");
         motor.moveStraight(100, wait, 23);
         motor.moveArm(wait, 300, "Close");
-        motor.moveLeftUseGyro(400, wait, 90);
+        motor.moveLeftUseGyro(200, wait, 90);
         motor.moveStraight(800, wait, 97);
         motor.moveArm(wait, 300, "Open");
-        motor.moveBackward(100, wait, 5);
+        motor.moveBackward(100, wait, 10);
+        motor.moveArm(wait, 300, "Close");
         /* 終了処理*/
         LCD.clear(6);
         LCD.drawString("All Complete", 1, 6);
