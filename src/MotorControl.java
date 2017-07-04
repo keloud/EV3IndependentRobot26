@@ -155,7 +155,7 @@ public class MotorControl {
 
         // 移動判定
         try {
-            while (cum < degreeLeft) {
+            while (degreeLeft < cum) {
                 if (degreeLeft > cum - distanceVariable) {
                     //減速部
                     speedNow = (int) ((float) (speedMax - speedMin) * (cum - degreeLeft) / distanceVariable + speedMin);
