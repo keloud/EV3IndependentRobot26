@@ -94,9 +94,14 @@ public class leJOS_26 {
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
         int wait = 10;
+        motor.moveStraightUseSonar(800, wait, 0.3F);
+        motor.moveArm(wait, 300, "Open");
+        motor.moveStraight(100, wait, 23);
         motor.moveArm(wait, 300, "Close");
-        //motor.moveStraightUseSonar(800, wait, 0.3F);
-        //motor.moveStraight(100, wait, 26);
+        motor.moveLeftUseGyro(400, wait, 90);
+        motor.moveStraight(800, wait, 97);
+        motor.moveArm(wait, 300, "Open");
+        motor.moveBackward(100, wait, 5);
         /* 終了処理*/
         LCD.clear(6);
         LCD.drawString("All Complete", 1, 6);

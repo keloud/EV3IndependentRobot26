@@ -68,7 +68,7 @@ public class MotorControl {
 
     void moveStraightUseSonar(int speedMax, int wait, float valueUltrasonic) {
         LCD.clear(6);
-        LCD.drawString("moveStraight", 1, 6);
+        LCD.drawString("moveStraightUS", 1, 6);
         LCD.refresh();
         // 初期化
         int tacho_L = parent.motorLeft.getTachoCount();
@@ -129,6 +129,43 @@ public class MotorControl {
         parent.motorRight.stop(true);
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);
+    }
+
+    void moveBackward(int speedMax, int wait, double distance) {
+        LCD.clear(6);
+        LCD.drawString("moveBackward", 1, 6);
+        LCD.refresh();
+        // 初期化
+        int tacho_L = parent.motorLeft.getTachoCount();
+        int speedNow = speedMax;
+        int degreeLeft = 0;
+        parent.motorLeft.setSpeed(speedNow);
+        parent.motorRight.setSpeed(speedNow);
+
+        // 角度累計計算
+        int cum = (int) ((distance / diameter / Math.PI) * 360);
+        cum = -cum;
+
+        // 移動開始
+        parent.motorLeft.backward();
+        parent.motorRight.backward();
+
+        // 移動判定
+        try {
+            while (cum > degreeLeft) {
+                Thread.sleep(wait);
+                degreeLeft = parent.motorLeft.getTachoCount() - tacho_L;
+            }
+        } catch (InterruptedException ignored) {
+
+        }
+
+        // 停止 flt()はフロート状態になる
+        parent.motorLeft.stop(true);
+        parent.motorRight.stop(true);
+        LCD.clear(6);
+        LCD.drawString("Stopped", 1, 6);
+        LCD.refresh();
     }
 
     void moveRight(int speedMax, int wait, double angle) {
@@ -250,11 +287,8 @@ public class MotorControl {
         float degreeGyro = 0;
         int speedNow = speedMax;
         int speedMin = 100;
+        parent.motorLeft.setSpeed(speedMin);
         parent.motorRight.setSpeed(speedMin);
-        parent.motorRight.setSpeed(speedMin);
-
-        //可変速度に必要な角度を求める
-        double distanceVariable = 45;
 
         // 移動開始
         parent.motorLeft.backward();
@@ -263,8 +297,6 @@ public class MotorControl {
         // 移動判定
         try {
             while (degreeGyro < angle) {
-                parent.motorLeft.setSpeed(speedNow);
-                parent.motorRight.setSpeed(speedNow);
                 Thread.sleep(wait);
                 degreeGyro = parent.gyroFloat[0] - gyroInit;
             }
