@@ -198,6 +198,7 @@ public class MotorControl {
 
         //速度から必要な距離を求める(可変距離)
         double distanceVariable = speedMax * 0.24F;
+        double distanceStop = speedMax * 0.5F;
 
         // 減速に使用する角度累計
         int distanceDeceleration = degreeLeft + (int) distanceVariable;
@@ -211,15 +212,15 @@ public class MotorControl {
             while (true) {
                 //ColorIdまで必要な減速距離を更新し続ける
                 if (parent.colorFloat[0] != colorId) {
-                    distanceDeceleration = degreeLeft + (int) distanceVariable;
+                    distanceDeceleration = degreeLeft + (int) distanceStop;
                 }
                 //20cm後退して停止する
-                if (distanceDeceleration - (int) ((20 / diameter / Math.PI) * 360) < degreeLeft) {
+                if (distanceDeceleration + (int) ((20 / diameter / Math.PI) * 360) < degreeLeft) {
                     break;
                 }
-                if (distanceDeceleration - distanceVariable < degreeLeft) {
+                if (distanceDeceleration - distanceStop < degreeLeft) {
                     //減速部
-                    speedNow = (int) ((float) (speedMax - speedMin) * (distanceDeceleration - degreeLeft) / distanceVariable + speedMin);
+                    speedNow = (int) ((float) (speedMax - speedMin) * (distanceDeceleration - degreeLeft) / distanceStop + speedMin);
                 } else if (degreeLeft < distanceVariable) {
                     //加速部
                     speedNow = (int) ((float) ((float) (speedMax - speedMin) * degreeLeft / distanceVariable) + speedMin);
