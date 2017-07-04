@@ -99,7 +99,7 @@ public class leJOS_26 {
         motor.moveStraight(100, wait, 23);
         motor.moveArm(wait, 315, "Close");
         motor.moveRightUseGyro(200, wait, 90);
-        motor.moveBackwardUseColor(800, wait, 0);
+        motor.moveBackwardUseColor(800, wait, 0.0F);
         motor.moveArm(wait, 315, "Open");
         motor.moveBackward(100, wait, 10);
         motor.moveArm(wait, 300, "Close");
