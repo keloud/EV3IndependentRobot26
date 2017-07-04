@@ -145,7 +145,6 @@ public class MotorControl {
 
         // 角度累計計算
         int cum = (int) ((distance / diameter / Math.PI) * 360);
-        cum = -cum;
 
         //速度から必要な距離を求める(可変距離)
         double distanceVariable = speedMax * 0.24F;
