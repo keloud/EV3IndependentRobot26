@@ -80,6 +80,7 @@ public class MotorControl {
 
         // 速度から必要な距離を求める(可変距離)
         double distanceVariable = speedMax * 0.27F;
+        double distanceStop = speedMax * 0.5F;
 
         // 設定した超音波センサーの距離を角度累計に変換する
         int distanceUltrasonic = (int) ((valueUltrasonic * 100 / diameter / Math.PI) * 360);
@@ -95,17 +96,17 @@ public class MotorControl {
         try {
             while (true) {
                 // 設定した超音波センサーの距離+停止までに必要な距離まで更新し続ける。
-                if (distanceUltrasonic + distanceVariable < (int) ((parent.ultrasonicFloat[0] * 100 / diameter / Math.PI) * 360)) {
+                if (distanceUltrasonic + distanceStop < (int) ((parent.ultrasonicFloat[0] * 100 / diameter / Math.PI) * 360)) {
                     // 減速に必要な角度累計を代入する
-                    distanceDeceleration = degreeLeft + (int) distanceVariable;
+                    distanceDeceleration = degreeLeft + (int) distanceStop;
                 }
                 // 停止する
                 if ((int) ((parent.ultrasonicFloat[0] * 100 / diameter / Math.PI) * 360) < distanceUltrasonic) {
                     break;
                 }
                 // 減速部
-                if (distanceDeceleration - distanceVariable < degreeLeft) {
-                    speedNow = (int) ((float) (speedMax - speedMin) * (distanceDeceleration - degreeLeft) / distanceVariable + speedMin);
+                if (distanceDeceleration - distanceStop < degreeLeft) {
+                    speedNow = (int) ((float) (speedMax - speedMin) * (distanceDeceleration - degreeLeft) / distanceStop + speedMin);
                 }
                 // 加速部
                 else if (degreeLeft < distanceVariable) {
