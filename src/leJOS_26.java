@@ -77,6 +77,12 @@ public class leJOS_26 {
         // スレッド起動
         Scheduler st = new Scheduler(this);
         st.start();
+        //初期値取得
+        for (int i = 0; i < 1000; i++) {
+            colorUpdate();
+            ultrasonicUpdate();
+            gyroUpdate();
+        }
         // ディスプレイ案内
         LCD.clear();
         LCD.drawString("Initializing.....", 1, 6);
