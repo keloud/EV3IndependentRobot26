@@ -215,7 +215,7 @@ public class MotorControl {
                     distanceDeceleration = degreeLeft + (int) distanceStop;
                 }
                 //20cm後退して停止する
-                if ((int) ((18 / diameter / Math.PI) * 360) - distanceDeceleration < degreeLeft) {
+                if (degreeLeft < (int) ((18 / diameter / Math.PI) * 360) - distanceDeceleration) {
                     break;
                 }
                 if (distanceDeceleration - distanceStop < degreeLeft) {
