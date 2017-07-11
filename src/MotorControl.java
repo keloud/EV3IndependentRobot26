@@ -389,7 +389,7 @@ public class MotorControl {
         }
 
         // 停止
-        parent.motorCenter.flt(true);
+        parent.motorCenter.stop(true);
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);
         LCD.refresh();
