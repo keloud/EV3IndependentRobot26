@@ -214,8 +214,8 @@ public class MotorControl {
                 if (parent.colorFloat[0] != colorId) {
                     distanceDeceleration = degreeLeft + (int) distanceStop;
                 }
-                //20cm後退して停止する
-                if (degreeLeft < (int) ((18 / diameter / Math.PI) * 360) - distanceDeceleration) {
+                //後退して停止する
+                if (distanceDeceleration < degreeLeft) {
                     break;
                 }
                 if (distanceDeceleration - distanceStop < degreeLeft) {
