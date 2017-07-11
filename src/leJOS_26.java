@@ -106,15 +106,15 @@ public class leJOS_26 {
         motor.moveArm(wait, 318, "Close");
         motor.moveRightUseGyro(200, wait, 90);
         motor.moveBackwardUseColor(400, wait, 0.0F);
-        motor.moveBackward(100, wait, 8);
+        motor.moveBackward(100, wait, 6);
         motor.moveArm(wait, 318, "Open");
         motor.moveBackward(100, wait, 4);
-        motor.moveRightUseGyro(200, wait, 84);
+        motor.moveRightUseGyro(200, wait, 90);
         motor.moveStraightUseSonar(800, wait, 0.16F);
         motor.moveStraight(100, wait, 16);
         motor.moveArm(wait, 318, "Close");
         motor.moveBackwardUseColor(400, wait, 0.0F);
-        motor.moveBackward(100, wait, 8);
+        motor.moveBackward(100, wait, 6);
         motor.moveArm(wait, 318, "Open");
         motor.moveBackward(100, wait, 10);
         motor.moveArm(wait, 318, "Close");
