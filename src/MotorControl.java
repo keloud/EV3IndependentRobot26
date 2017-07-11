@@ -330,7 +330,7 @@ public class MotorControl {
         LCD.refresh();
         // 初期化
         int tacho_C = parent.motorCenter.getTachoCount();
-        int speedNow = 300;
+        int speedNow = 800;
         int degreeCenter = 0;
         parent.motorCenter.setSpeed(speedNow);
 
@@ -365,7 +365,7 @@ public class MotorControl {
         LCD.refresh();
         // 初期化
         int tacho_C = parent.motorCenter.getTachoCount();
-        int speedNow = 300;
+        int speedNow = 800;
         int degreeCenter = 0;
         parent.motorCenter.setSpeed(speedNow);
 
