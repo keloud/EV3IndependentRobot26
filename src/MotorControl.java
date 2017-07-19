@@ -8,9 +8,10 @@ class MotorControl {
     private final float diameter = 5.6F;
     // 車輪の幅
     private final float width = 9.2F;
-    private leJOS_26 parent = null;
-    //待機時間
+    // 待機時間
     int wait = 10;
+    // 親から値を持ってくる
+    private leJOS_26 parent = null;
 
     MotorControl(leJOS_26 parent) {
         this.parent = parent;

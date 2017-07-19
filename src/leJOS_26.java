@@ -83,7 +83,7 @@ public class leJOS_26 {
         LCD.refresh();
         /* オブジェクト化*/
         Menu menu = new Menu();
-        MotorControl motor = new MotorControl(this);
+        MotorControl motorControl = new MotorControl(this);
         Search search = new Search(this);
         /* 開始確認*/
         LCD.clear(6);
@@ -94,16 +94,8 @@ public class leJOS_26 {
         LCD.clear(6);
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
-        int wait = 10;
-        motor.moveArm(360, "Open");
-        motor.moveArm(360, "Close");
-        motor.moveAngle(400, 90);
-        motor.moveAngle(400, -180);
-        motor.moveAngle(400, 90);
-        motor.moveForwardDefault(800, 30);
-        motor.moveBackwardDefault(800, 60);
-        motor.moveForwardDefault(800, 30);
         search.run();
+        motorControl.moveAngle(400, search.gyroValue);
         /* 終了処理*/
         LCD.clear(6);
         LCD.drawString("All Complete", 1, 6);
