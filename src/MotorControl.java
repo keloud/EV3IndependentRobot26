@@ -9,12 +9,18 @@ class MotorControl {
     // 車輪の幅
     private final float width = 9.2F;
     private leJOS_26 parent = null;
+    //待機時間
+    int wait = 10;
 
     MotorControl(leJOS_26 parent) {
         this.parent = parent;
     }
 
-    void moveForward(int speedMax, int wait, double distance) {
+    /*
+    moveForward
+     */
+
+    void moveForwardDefault(int speedMax, double distance) {
         LCD.clear(6);
         LCD.drawString("moveStraight", 1, 6);
         LCD.refresh();
@@ -66,7 +72,7 @@ class MotorControl {
         LCD.refresh();
     }
 
-    void moveForwardUseSonar(int speedMax, int wait, float valueUltrasonic) {
+    void moveForwardUseSonar(int speedMax, float valueUltrasonic) {
         LCD.clear(6);
         LCD.drawString("moveStraightUS", 1, 6);
         LCD.refresh();
@@ -132,7 +138,11 @@ class MotorControl {
         LCD.drawString("Stopped", 1, 6);
     }
 
-    void moveBackward(int speedMax, int wait, double distance) {
+    /*
+    moveBackward
+     */
+
+    void moveBackwardDefault(int speedMax, double distance) {
         LCD.clear(6);
         LCD.drawString("moveBackward", 1, 6);
         LCD.refresh();
@@ -184,7 +194,7 @@ class MotorControl {
         LCD.refresh();
     }
 
-    void moveBackwardUseColor(int speedMax, int wait, float colorId) {
+    void moveBackwardUseColor(int speedMax, float colorId) {
         LCD.clear(6);
         LCD.drawString("moveBackwardUC", 1, 6);
         LCD.refresh();
@@ -245,16 +255,22 @@ class MotorControl {
         LCD.refresh();
     }
 
-    void moveAngle(int speedMax, int wait, double angle) {
+    /*
+    moveAngle
+    Right is +.
+    Left is -.
+     */
+
+    void moveAngle(int speedMax, double angle) {
         if (angle < 0) {
             angle = -angle;
-            moveLeftUseGyro(speedMax, wait, angle);
-        } else {
-            moveRightUseGyro(speedMax, wait, angle);
+            moveLeftUseGyro(speedMax, angle);
+        } else if (0 < angle) {
+            moveRightUseGyro(speedMax, angle);
         }
     }
 
-    private void moveRightUseGyro(int speedMax, int wait, double angle) {
+    private void moveRightUseGyro(int speedMax, double angle) {
         LCD.clear(6);
         LCD.drawString("moveRightUS", 1, 6);
         LCD.refresh();
@@ -291,7 +307,7 @@ class MotorControl {
         LCD.refresh();
     }
 
-    private void moveLeftUseGyro(int speedMax, int wait, double angle) {
+    private void moveLeftUseGyro(int speedMax, double angle) {
         LCD.clear(6);
         LCD.drawString("moveLeftUS", 1, 6);
         LCD.refresh();
@@ -326,24 +342,25 @@ class MotorControl {
     }
 
     /*
-    moveArm can use "Open" or "Close"
+    moveArm
+    It can use "Open" or "Close".
      */
 
-    void moveArm(int wait, int angle, String behavior) {
+    void moveArm(int angle, String behavior) {
         LCD.clear(6);
         LCD.drawString("arm" + behavior, 1, 6);
         LCD.refresh();
         if (Objects.equals(behavior, "Open")) {
-            moveArmOpen(wait, angle);
+            moveArmOpen(angle);
         } else if (Objects.equals(behavior, "Close")) {
-            moveArmClose(wait, angle);
+            moveArmClose(angle);
         }
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);
         LCD.refresh();
     }
 
-    private void moveArmOpen(int wait, int angle) {
+    private void moveArmOpen(int angle) {
         // 初期化
         int tacho_C = parent.motorCenter.getTachoCount();
         int speedNow = 800;
@@ -372,7 +389,7 @@ class MotorControl {
         parent.motorCenter.flt(true);
     }
 
-    private void moveArmClose(int wait, int angle) {
+    private void moveArmClose(int angle) {
         // 初期化
         int tacho_C = parent.motorCenter.getTachoCount();
         int speedNow = 800;
