@@ -98,7 +98,11 @@ public class leJOS_26 {
         motor.moveArm(360, "Open");
         motor.moveArm(360, "Close");
         motor.moveAngle(400, 90);
-        motor.moveAngle(400, -90);
+        motor.moveAngle(400, -180);
+        motor.moveAngle(400, 90);
+        motor.moveForwardDefault(800, 30);
+        motor.moveBackwardDefault(800, 60);
+        motor.moveForwardDefault(800, 30);
         search.run();
         /* 終了処理*/
         LCD.clear(6);

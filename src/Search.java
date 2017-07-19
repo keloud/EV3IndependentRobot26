@@ -44,7 +44,7 @@ class Search {
         //初期化処理
         gyroInit = parent.gyroFloat[0];
         degreeGyro = 0;
-        angle = -360;
+        angle = -390;
 
         // 移動開始
         parent.motorLeft.forward();
