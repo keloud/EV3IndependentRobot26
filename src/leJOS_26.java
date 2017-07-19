@@ -20,14 +20,8 @@ public class leJOS_26 {
     float[] colorFloat;
     float[] ultrasonicFloat;
     float[] gyroFloat;
-    /* カラーセンサー*/
-    private EV3ColorSensor color;
     private SensorMode colorID;
-    /* 超音波センサー*/
-    private EV3UltrasonicSensor ultrasonic;
     private SampleProvider ultrasonicProvider;
-    /* ジャイロセンサー*/
-    private EV3GyroSensor gyro;
     private SampleProvider gyroProvider;
 
     private leJOS_26() {
@@ -37,7 +31,7 @@ public class leJOS_26 {
         LCD.drawString("Initializing", 1, 6);
         LCD.refresh();
         // カラーセンサー
-        color = new EV3ColorSensor(SensorPort.S1);
+        EV3ColorSensor color = new EV3ColorSensor(SensorPort.S1);
         colorID = color.getColorIDMode();
         colorFloat = new float[colorID.sampleSize()];
         colorUpdate();
@@ -46,7 +40,7 @@ public class leJOS_26 {
         LCD.drawString("Initializing.", 1, 6);
         LCD.refresh();
         // 超音波センサー
-        ultrasonic = new EV3UltrasonicSensor(SensorPort.S2);
+        EV3UltrasonicSensor ultrasonic = new EV3UltrasonicSensor(SensorPort.S2);
         ultrasonicProvider = ultrasonic.getDistanceMode();
         ultrasonicFloat = new float[ultrasonicProvider.sampleSize()];
         ultrasonicUpdate();
@@ -55,7 +49,7 @@ public class leJOS_26 {
         LCD.drawString("Initializing..", 1, 6);
         LCD.refresh();
         // ジャイロセンサー
-        gyro = new EV3GyroSensor(SensorPort.S3);
+        EV3GyroSensor gyro = new EV3GyroSensor(SensorPort.S3);
         gyroProvider = gyro.getAngleMode();
         gyroFloat = new float[gyroProvider.sampleSize()];
         gyroUpdate();
