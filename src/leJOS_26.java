@@ -96,7 +96,7 @@ public class leJOS_26 {
         LCD.refresh();
         search.run();
         move.angle(400, search.gyroValue);
-        move.forwardDefault(800, search.ultrasonicValue * 10);
+        move.forwardDefault(400, search.ultrasonicValue * 100);
         /* 終了処理*/
         LCD.clear(6);
         LCD.drawString("All Complete", 1, 6);

@@ -7,8 +7,8 @@ class Search {
     // 車輪の幅
     private final float width = 9.2F;
     // 値
-    float ultrasonicValue;
-    float gyroValue;
+    float ultrasonicValue = 0;
+    float gyroValue = 0;
     // 親から値を持ってくる
     private leJOS_26 parent = null;
 
