@@ -2,28 +2,28 @@ import lejos.hardware.lcd.LCD;
 
 import java.util.Objects;
 
-class MotorControl {
+class Move {
     /* 車両情報*/
     // タイヤ直径(cm)
     private final float diameter = 5.6F;
     // 車輪の幅
     private final float width = 9.2F;
     // 待機時間
-    int wait = 10;
+    private int wait = 10;
     // 親から値を持ってくる
     private leJOS_26 parent = null;
 
-    MotorControl(leJOS_26 parent) {
+    Move(leJOS_26 parent) {
         this.parent = parent;
     }
 
     /*
-    moveForward
+    Forward
      */
 
-    void moveForwardDefault(int speedMax, double distance) {
+    void forwardDefault(int speedMax, double distance) {
         LCD.clear(6);
-        LCD.drawString("moveStraight", 1, 6);
+        LCD.drawString("Straight", 1, 6);
         LCD.refresh();
         // 初期化
         int tacho_L = parent.motorLeft.getTachoCount();
@@ -73,9 +73,9 @@ class MotorControl {
         LCD.refresh();
     }
 
-    void moveForwardUseSonar(int speedMax, float valueUltrasonic) {
+    void forwardUseSonar(int speedMax, float valueUltrasonic) {
         LCD.clear(6);
-        LCD.drawString("moveStraightUS", 1, 6);
+        LCD.drawString("StraightUS", 1, 6);
         LCD.refresh();
         // 初期化
         int tacho_L = parent.motorLeft.getTachoCount();
@@ -140,12 +140,12 @@ class MotorControl {
     }
 
     /*
-    moveBackward
+    Backward
      */
 
-    void moveBackwardDefault(int speedMax, double distance) {
+    void backwardDefault(int speedMax, double distance) {
         LCD.clear(6);
-        LCD.drawString("moveBackward", 1, 6);
+        LCD.drawString("Backward", 1, 6);
         LCD.refresh();
         // 初期化
         int tacho_L = parent.motorLeft.getTachoCount();
@@ -195,9 +195,9 @@ class MotorControl {
         LCD.refresh();
     }
 
-    void moveBackwardUseColor(int speedMax, float colorId) {
+    void backwardUseColor(int speedMax, float colorId) {
         LCD.clear(6);
-        LCD.drawString("moveBackwardUC", 1, 6);
+        LCD.drawString("BackwardUC", 1, 6);
         LCD.refresh();
         // 初期化
         int tacho_L = parent.motorLeft.getTachoCount();
@@ -257,23 +257,23 @@ class MotorControl {
     }
 
     /*
-    moveAngle
+    Angle
     Right is +.
     Left is -.
      */
 
-    void moveAngle(int speedMax, double angle) {
+    void angle(int speedMax, double angle) {
         if (angle < 0) {
             angle = -angle;
-            moveLeftUseGyro(speedMax, angle);
+            leftUseGyro(speedMax, angle);
         } else if (0 < angle) {
-            moveRightUseGyro(speedMax, angle);
+            rightUseGyro(speedMax, angle);
         }
     }
 
-    private void moveRightUseGyro(int speedMax, double angle) {
+    private void rightUseGyro(int speedMax, double angle) {
         LCD.clear(6);
-        LCD.drawString("moveRightUS", 1, 6);
+        LCD.drawString("RightUS", 1, 6);
         LCD.refresh();
         // 初期化
         float gyroInit = parent.gyroFloat[0];
@@ -308,9 +308,9 @@ class MotorControl {
         LCD.refresh();
     }
 
-    private void moveLeftUseGyro(int speedMax, double angle) {
+    private void leftUseGyro(int speedMax, double angle) {
         LCD.clear(6);
-        LCD.drawString("moveLeftUS", 1, 6);
+        LCD.drawString("LeftUS", 1, 6);
         LCD.refresh();
         // 初期化
         float gyroInit = parent.gyroFloat[0];
@@ -343,25 +343,25 @@ class MotorControl {
     }
 
     /*
-    moveArm
+    Arm
     It can use "Open" or "Close".
      */
 
-    void moveArm(int angle, String behavior) {
+    void arm(int angle, String behavior) {
         LCD.clear(6);
         LCD.drawString("arm" + behavior, 1, 6);
         LCD.refresh();
         if (Objects.equals(behavior, "Open")) {
-            moveArmOpen(angle);
+            armOpen(angle);
         } else if (Objects.equals(behavior, "Close")) {
-            moveArmClose(angle);
+            armClose(angle);
         }
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);
         LCD.refresh();
     }
 
-    private void moveArmOpen(int angle) {
+    private void armOpen(int angle) {
         // 初期化
         int tacho_C = parent.motorCenter.getTachoCount();
         int speedNow = 800;
@@ -390,7 +390,7 @@ class MotorControl {
         parent.motorCenter.flt(true);
     }
 
-    private void moveArmClose(int angle) {
+    private void armClose(int angle) {
         // 初期化
         int tacho_C = parent.motorCenter.getTachoCount();
         int speedNow = 800;

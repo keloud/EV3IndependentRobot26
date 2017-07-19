@@ -83,7 +83,7 @@ public class leJOS_26 {
         LCD.refresh();
         /* オブジェクト化*/
         Menu menu = new Menu();
-        MotorControl motorControl = new MotorControl(this);
+        Move move = new Move(this);
         Search search = new Search(this);
         /* 開始確認*/
         LCD.clear(6);
@@ -95,7 +95,7 @@ public class leJOS_26 {
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
         search.run();
-        motorControl.moveAngle(400, search.gyroValue);
+        move.Angle(400, search.gyroValue);
         /* 終了処理*/
         LCD.clear(6);
         LCD.drawString("All Complete", 1, 6);
