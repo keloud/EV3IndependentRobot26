@@ -36,13 +36,13 @@ class Search {
         // 移動判定
         try {
             while (degreeGyro < angle) {
-                if (ultrasonicValue < parent.ultrasonicFloat[0]) {
-                    ultrasonicValue = parent.ultrasonicFloat[0];
-                    gyroValue = degreeGyro;
-                }
                 int wait = 10;
                 Thread.sleep(wait);
                 degreeGyro = parent.gyroFloat[0] - gyroInit;
+                if (parent.ultrasonicFloat[0] < ultrasonicValue) {
+                    ultrasonicValue = parent.ultrasonicFloat[0];
+                    gyroValue = degreeGyro;
+                }
             }
         } catch (InterruptedException ignored) {
 

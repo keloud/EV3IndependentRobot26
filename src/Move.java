@@ -270,17 +270,15 @@ class Move {
         }
     }
 
-    private void rightUseGyro(int speedMax, double angle) {
+    private void rightUseGyro(int speed, double angle) {
         LCD.clear(6);
         LCD.drawString("RightUS", 1, 6);
         LCD.refresh();
         // 初期化
         float gyroInit = parent.gyroFloat[0];
         float degreeGyro = 0;
-        int speedNow = speedMax;
-        int speedMin = 100;
-        parent.motorLeft.setSpeed(speedMin);
-        parent.motorRight.setSpeed(speedMin);
+        parent.motorLeft.setSpeed(speed);
+        parent.motorRight.setSpeed(speed);
 
         //角度修正
         angle = -angle;
@@ -307,17 +305,15 @@ class Move {
         LCD.refresh();
     }
 
-    private void leftUseGyro(int speedMax, double angle) {
+    private void leftUseGyro(int speed, double angle) {
         LCD.clear(6);
         LCD.drawString("LeftUS", 1, 6);
         LCD.refresh();
         // 初期化
         float gyroInit = parent.gyroFloat[0];
         float degreeGyro = 0;
-        int speedNow = speedMax;
-        int speedMin = 100;
-        parent.motorLeft.setSpeed(speedMin);
-        parent.motorRight.setSpeed(speedMin);
+        parent.motorLeft.setSpeed(speed);
+        parent.motorRight.setSpeed(speed);
 
         // 移動開始
         parent.motorLeft.backward();
