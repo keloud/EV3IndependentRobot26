@@ -6,9 +6,9 @@ class Search {
     private final float diameter = 5.6F;
     // 車輪の幅
     private final float width = 9.2F;
+    float gyroValue;
     // 値
-    private float ultrasonicValue = 0;
-    float gyroValue = 0;
+    private float ultrasonicValue;
     // 親から値を持ってくる
     private leJOS_26 parent = null;
 
@@ -24,7 +24,7 @@ class Search {
         // 初期化
         float gyroInit = parent.gyroFloat[0];
         float degreeGyro = 0;
-        float degreeUltrasonic = 0;
+        float degreeUltrasonic;
         int speed = 100;
         int angle = 360;
         parent.motorLeft.setSpeed(speed);
@@ -41,7 +41,7 @@ class Search {
                 Thread.sleep(wait);
                 degreeGyro = parent.gyroFloat[0] - gyroInit;
                 degreeUltrasonic = parent.ultrasonicFloat[0];
-                if (degreeUltrasonic > ultrasonicValue) {
+                if (degreeUltrasonic < ultrasonicValue) {
                     ultrasonicValue = degreeUltrasonic;
                     gyroValue = degreeGyro;
                 }
