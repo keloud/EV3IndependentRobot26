@@ -2,7 +2,7 @@ import lejos.hardware.lcd.LCD;
 
 import java.util.Objects;
 
-public class MotorControl {
+class MotorControl {
     /* 車両情報*/
     // タイヤ直径(cm)
     private final float diameter = 5.6F;
@@ -14,7 +14,7 @@ public class MotorControl {
         this.parent = parent;
     }
 
-    void moveStraight(int speedMax, int wait, double distance) {
+    void moveForward(int speedMax, int wait, double distance) {
         LCD.clear(6);
         LCD.drawString("moveStraight", 1, 6);
         LCD.refresh();
@@ -66,7 +66,7 @@ public class MotorControl {
         LCD.refresh();
     }
 
-    void moveStraightUseSonar(int speedMax, int wait, float valueUltrasonic) {
+    void moveForwardUseSonar(int speedMax, int wait, float valueUltrasonic) {
         LCD.clear(6);
         LCD.drawString("moveStraightUS", 1, 6);
         LCD.refresh();
@@ -245,7 +245,16 @@ public class MotorControl {
         LCD.refresh();
     }
 
-    void moveRightUseGyro(int speedMax, int wait, double angle) {
+    void moveAngle(int speedMax, int wait, double angle) {
+        if (angle < 0) {
+            angle = -angle;
+            moveLeftUseGyro(speedMax, wait, angle);
+        } else {
+            moveRightUseGyro(speedMax, wait, angle);
+        }
+    }
+
+    private void moveRightUseGyro(int speedMax, int wait, double angle) {
         LCD.clear(6);
         LCD.drawString("moveRightUS", 1, 6);
         LCD.refresh();
@@ -282,7 +291,7 @@ public class MotorControl {
         LCD.refresh();
     }
 
-    void moveLeftUseGyro(int speedMax, int wait, double angle) {
+    private void moveLeftUseGyro(int speedMax, int wait, double angle) {
         LCD.clear(6);
         LCD.drawString("moveLeftUS", 1, 6);
         LCD.refresh();
@@ -316,18 +325,25 @@ public class MotorControl {
         LCD.refresh();
     }
 
-    void moveArm(int wait, int angle, String type) {
-        if (Objects.equals(type, "Open")) {
+    /*
+    moveArm can use "Open" or "Close"
+     */
+
+    void moveArm(int wait, int angle, String behavior) {
+        LCD.clear(6);
+        LCD.drawString("arm" + behavior, 1, 6);
+        LCD.refresh();
+        if (Objects.equals(behavior, "Open")) {
             moveArmOpen(wait, angle);
-        } else if (Objects.equals(type, "Close")) {
+        } else if (Objects.equals(behavior, "Close")) {
             moveArmClose(wait, angle);
         }
+        LCD.clear(6);
+        LCD.drawString("Stopped", 1, 6);
+        LCD.refresh();
     }
 
     private void moveArmOpen(int wait, int angle) {
-        LCD.clear(6);
-        LCD.drawString("armOpen", 1, 6);
-        LCD.refresh();
         // 初期化
         int tacho_C = parent.motorCenter.getTachoCount();
         int speedNow = 800;
@@ -354,15 +370,9 @@ public class MotorControl {
 
         // 停止
         parent.motorCenter.flt(true);
-        LCD.clear(6);
-        LCD.drawString("Stopped", 1, 6);
-        LCD.refresh();
     }
 
     private void moveArmClose(int wait, int angle) {
-        LCD.clear(6);
-        LCD.drawString("armClose", 1, 6);
-        LCD.refresh();
         // 初期化
         int tacho_C = parent.motorCenter.getTachoCount();
         int speedNow = 800;
@@ -390,8 +400,5 @@ public class MotorControl {
 
         // 停止
         parent.motorCenter.stop(true);
-        LCD.clear(6);
-        LCD.drawString("Stopped", 1, 6);
-        LCD.refresh();
     }
 }

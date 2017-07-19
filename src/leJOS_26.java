@@ -78,7 +78,7 @@ public class leJOS_26 {
         Scheduler st = new Scheduler(this);
         st.start();
         //初期値取得
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             colorUpdate();
             ultrasonicUpdate();
             gyroUpdate();
@@ -100,18 +100,18 @@ public class leJOS_26 {
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
         int wait = 10;
-        motor.moveStraightUseSonar(800, wait, 0.16F);
+        motor.moveForwardUseSonar(800, wait, 0.16F);
         motor.moveArm(wait, 345, "Open");
-        motor.moveStraight(100, wait, 14);
+        motor.moveForward(100, wait, 14);
         motor.moveArm(wait, 350, "Close");
-        motor.moveRightUseGyro(200, wait, 90);
+        motor.moveAngle(200, wait, 90);
         motor.moveBackwardUseColor(400, wait, 0.0F);
         motor.moveBackward(100, wait, 6);
         motor.moveArm(wait, 345, "Open");
         motor.moveBackward(100, wait, 4);
-        motor.moveRightUseGyro(200, wait, 80);
-        motor.moveStraightUseSonar(800, wait, 0.16F);
-        motor.moveStraight(100, wait, 14);
+        motor.moveAngle(200, wait, 80);
+        motor.moveForwardUseSonar(800, wait, 0.16F);
+        motor.moveForward(100, wait, 14);
         motor.moveArm(wait, 350, "Close");
         motor.moveBackwardUseColor(400, wait, 0.0F);
         motor.moveBackward(100, wait, 6);
