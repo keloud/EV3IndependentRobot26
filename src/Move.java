@@ -264,10 +264,9 @@ class Move {
 
     void angle(int speedMax, double angle) {
         if (angle < 0) {
-            angle = -angle;
-            leftUseGyro(speedMax, angle);
-        } else if (0 < angle) {
             rightUseGyro(speedMax, angle);
+        } else if (0 < angle) {
+            leftUseGyro(speedMax, angle);
         }
     }
 
