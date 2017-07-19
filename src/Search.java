@@ -36,7 +36,7 @@ class Search {
         // 移動判定
         try {
             while (degreeGyro < angle) {
-                if (parent.ultrasonicFloat[0] < ultrasonicValue) {
+                if (ultrasonicValue < parent.ultrasonicFloat[0]) {
                     ultrasonicValue = parent.ultrasonicFloat[0];
                     gyroValue = degreeGyro;
                 }
