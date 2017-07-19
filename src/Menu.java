@@ -1,7 +1,7 @@
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 
-public class Menu {
+class Menu {
     private String[] menuData = {"move All", "move Arm Only"};
 
     int select() {
