@@ -82,7 +82,7 @@ public class leJOS_26 {
         LCD.drawString("Initializing.....", 1, 6);
         LCD.refresh();
         /* オブジェクト化*/
-        Menu menu = new Menu();
+        //Menu menu = new Menu();
         Move move = new Move(this);
         Search search = new Search(this);
         /* 開始確認*/

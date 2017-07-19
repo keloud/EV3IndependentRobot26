@@ -24,6 +24,7 @@ class Search {
         // 初期化
         float gyroInit = parent.gyroFloat[0];
         float degreeGyro = 0;
+        float degreeUltrasonic = 0;
         int speed = 100;
         int angle = 360;
         parent.motorLeft.setSpeed(speed);
@@ -39,8 +40,9 @@ class Search {
                 int wait = 10;
                 Thread.sleep(wait);
                 degreeGyro = parent.gyroFloat[0] - gyroInit;
-                if (parent.ultrasonicFloat[0] < ultrasonicValue) {
-                    ultrasonicValue = parent.ultrasonicFloat[0];
+                degreeUltrasonic = parent.ultrasonicFloat[0];
+                if (degreeUltrasonic < ultrasonicValue) {
+                    ultrasonicValue = degreeUltrasonic;
                     gyroValue = degreeGyro;
                 }
             }
