@@ -98,7 +98,7 @@ public class leJOS_26 {
         move.angle(100, -180);
         move.angle(100, 90);
         search.run();
-        move.angle(400, -search.gyroValue);
+        move.angle(100, search.gyroValue);
         move.forwardUseSonar(800, 0.13F);
         move.forwardDefault(100, 13);
         /* 終了処理*/
