@@ -41,7 +41,7 @@ class Search {
                 Thread.sleep(wait);
                 degreeGyro = parent.gyroFloat[0] - gyroInit;
                 degreeUltrasonic = parent.ultrasonicFloat[0];
-                if (degreeUltrasonic < ultrasonicValue) {
+                if (ultrasonicValue < degreeUltrasonic) {
                     ultrasonicValue = degreeUltrasonic;
                     gyroValue = degreeGyro;
                 }

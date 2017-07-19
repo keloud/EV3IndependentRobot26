@@ -280,9 +280,6 @@ class Move {
         parent.motorLeft.setSpeed(speed);
         parent.motorRight.setSpeed(speed);
 
-        //角度修正
-        angle = -angle;
-
         // 移動開始
         parent.motorLeft.forward();
         parent.motorRight.backward();
