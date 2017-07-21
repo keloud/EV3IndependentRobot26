@@ -94,8 +94,7 @@ public class leJOS_26 {
         LCD.clear(6);
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
-        move.angle(100, 30);
-        search.run(60);
+        search.run();
         move.angle(140, search.gyroValue - 5);
         move.forwardUseSonar(800, 0.13F);
         move.arm(360, "Open");

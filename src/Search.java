@@ -14,7 +14,7 @@ class Search {
         this.parent = parent;
     }
 
-    void run(double angle) {
+    void run() {
         LCD.clear(6);
         LCD.drawString("Searching", 1, 6);
         LCD.refresh();
@@ -26,6 +26,7 @@ class Search {
         float ultrasonicValue = degreeUltrasonic;
         gyroValue = degreeGyro;
         int speed = 100;
+        double angle = 360;
         parent.motorLeft.setSpeed(speed);
         parent.motorRight.setSpeed(speed);
 
