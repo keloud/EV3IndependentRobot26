@@ -23,7 +23,7 @@ class Move {
 
     void forwardDefault(int speedMax, double distance) {
         LCD.clear(6);
-        LCD.drawString("Straight", 1, 6);
+        LCD.drawString("Forward", 1, 6);
         LCD.refresh();
         // 初期化
         int tacho_L = parent.motorLeft.getTachoCount();
@@ -75,7 +75,7 @@ class Move {
 
     void forwardUseSonar(int speedMax, float valueUltrasonic) {
         LCD.clear(6);
-        LCD.drawString("StraightUS", 1, 6);
+        LCD.drawString("ForwardUS", 1, 6);
         LCD.refresh();
         // 初期化
         int tacho_L = parent.motorLeft.getTachoCount();
@@ -141,7 +141,7 @@ class Move {
 
     void forwardUseColor(int speedMax, float colorId) {
         LCD.clear(6);
-        LCD.drawString("BackwardUC", 1, 6);
+        LCD.drawString("ForwardUC", 1, 6);
         LCD.refresh();
         // 初期化
         int tacho_L = parent.motorLeft.getTachoCount();

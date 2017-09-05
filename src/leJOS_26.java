@@ -100,10 +100,10 @@ public class leJOS_26 {
         move.arm(360, "Close");
         move.angle(100, -90);
         move.backwardUseColor(500, 0);
-        move.backwardDefault(100, 15);
         move.arm(360, "Open");
-        move.backwardDefault(500, 15);
-        move.angle(100, 90);
+        move.backwardDefault(100, 15);
+        move.angle(100, -90);
+        search.stopSearching();
         move.forwardUseSonar(800, 0.13F);
         move.forwardDefault(100, 13);
         move.arm(360, "Close");
@@ -111,7 +111,7 @@ public class leJOS_26 {
         move.angle(100, 180);
         move.arm(360, "Open");
         move.backwardDefault(500, 15);
-        move.angle(100, 160);
+        move.angle(100, -120);
         move.forwardUseColor(800, 3);
         move.arm(360, "Close");
 

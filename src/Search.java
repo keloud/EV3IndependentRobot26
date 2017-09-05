@@ -6,42 +6,48 @@ class Search {
     private final float diameter = 5.6F;
     // 車輪の幅
     private final float width = 9.2F;
-    float gyroValue;
+    // 移動用
+    Move move;
     // 親から値を持ってくる
     private leJOS_26 parent = null;
+    // 待機時間
+    private int wait = 10;
 
     Search(leJOS_26 parent) {
         this.parent = parent;
+        move = new Move(parent);
     }
 
-    void run() {
+    void stopSearching() {
+        // 探索初期位置へ旋回
+        move.angle(100, -40);
+
         LCD.clear(6);
-        LCD.drawString("Searching", 1, 6);
+        LCD.drawString("ForwardS", 1, 6);
         LCD.refresh();
 
         // 初期化
         float gyroInit = parent.gyroFloat[0];
         float degreeGyro = 0;
+        float gyroValue = degreeGyro;
         float degreeUltrasonic = parent.ultrasonicFloat[0];
         float ultrasonicValue = degreeUltrasonic;
-        gyroValue = degreeGyro;
         int speed = 100;
-        double angle = 360;
+
         parent.motorLeft.setSpeed(speed);
         parent.motorRight.setSpeed(speed);
 
         // 移動開始
-        parent.motorLeft.backward();
-        parent.motorRight.forward();
+        parent.motorLeft.forward();
+        parent.motorRight.backward();
 
         // 移動判定
         try {
-            while (degreeGyro < angle) {
-                int wait = 10;
+            while (degreeGyro < 80) {
                 Thread.sleep(wait);
                 degreeGyro = parent.gyroFloat[0] - gyroInit;
                 degreeUltrasonic = parent.ultrasonicFloat[0];
-                if (degreeUltrasonic <= ultrasonicValue) {
+                if (degreeUltrasonic < ultrasonicValue) {
                     ultrasonicValue = degreeUltrasonic;
                     gyroValue = degreeGyro;
                 }
@@ -56,5 +62,8 @@ class Search {
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);
         LCD.refresh();
+
+        // 探索角度へ旋回
+        move.angle(100, -gyroValue);
     }
 }
