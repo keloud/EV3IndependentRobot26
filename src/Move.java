@@ -139,6 +139,67 @@ class Move {
         LCD.drawString("Stopped", 1, 6);
     }
 
+    void forwardUseColor(int speedMax, float colorId) {
+        LCD.clear(6);
+        LCD.drawString("BackwardUC", 1, 6);
+        LCD.refresh();
+        // 初期化
+        int tacho_L = parent.motorLeft.getTachoCount();
+        int speedNow;
+        int speedMin = 100;
+        int degreeLeft = 0;
+        parent.motorLeft.setSpeed(speedMin);
+        parent.motorRight.setSpeed(speedMin);
+
+        //速度から必要な距離を求める(可変距離)
+        double distanceVariable = speedMax * 0.24F;
+        double distanceStop = speedMax * 0.5F;
+
+        // 減速に使用する角度累計
+        int distanceDeceleration = degreeLeft + (int) distanceVariable;
+
+        // 移動開始
+        parent.motorLeft.forward();
+        parent.motorRight.forward();
+
+        // 移動判定
+        try {
+            while (true) {
+                //ColorIdまで必要な減速距離を更新し続ける
+                if (parent.colorFloat[0] != colorId) {
+                    distanceDeceleration = degreeLeft + (int) distanceStop;
+                }
+                //後退して停止する
+                if (distanceDeceleration < degreeLeft) {
+                    break;
+                }
+                if (distanceDeceleration - distanceStop < degreeLeft) {
+                    //減速部
+                    speedNow = (int) ((float) (speedMax - speedMin) * (distanceDeceleration - degreeLeft) / distanceStop + speedMin);
+                } else if (degreeLeft < distanceVariable) {
+                    //加速部
+                    speedNow = (int) ((float) ((float) (speedMax - speedMin) * degreeLeft / distanceVariable) + speedMin);
+                } else {
+                    //巡航部
+                    speedNow = speedMax;
+                }
+                parent.motorLeft.setSpeed(speedNow);
+                parent.motorRight.setSpeed(speedNow);
+                Thread.sleep(wait);
+                degreeLeft = parent.motorLeft.getTachoCount() - tacho_L;
+            }
+        } catch (InterruptedException ignored) {
+
+        }
+
+        // 停止 flt()はフロート状態になる
+        parent.motorLeft.stop(true);
+        parent.motorRight.stop(true);
+        LCD.clear(6);
+        LCD.drawString("Stopped", 1, 6);
+        LCD.refresh();
+    }
+
     /*
     Backward
      */
@@ -258,8 +319,8 @@ class Move {
 
     /*
     Angle
-    Right is +.
-    Left is -.
+    Left turn is +.
+    Right turn is -.
      */
 
     void angle(int speedMax, double angle) {
