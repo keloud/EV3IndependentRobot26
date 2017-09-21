@@ -99,21 +99,21 @@ class leJOS {
         arm("Close");
         angle(100,-90);
         backwardColor(600,0);
-        backward(100,15);
         arm("Open");
         backward(300,10);
         angle(100,-90);
-        search.stopSearching(40);
+        forwardColor(400,6);
+        search.stopSearching(50);
         forwardSonar(800,0.06F);
         forward(100,7);
         arm("Close");
         backwardColor(600,0);
-        backward(100,15);
         arm("Open");
         backward(300,10);
-        angle(100,180);
-        forwardColor(400,7);
-        angle(100,90);
+        angle(100,20);
+        forward(800,100);
+        forwardColor(200,7);
+        angle(100,60);
         forwardColor(800,3);
         arm("Close");
 
