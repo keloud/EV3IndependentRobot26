@@ -10,7 +10,7 @@ import lejos.hardware.sensor.SensorMode;
 import lejos.robotics.RegulatedMotor;
 import lejos.robotics.SampleProvider;
 
-public class leJOS {
+class leJOS {
     /* モーター*/
     RegulatedMotor motorCenter;
     RegulatedMotor motorLeft;
@@ -26,58 +26,53 @@ public class leJOS {
 
     leJOS() {
         /* 初期化処理*/
-        // ディスプレイ案内
+        // ディスプレイ案内開始
         LCD.clear();
         LCD.drawString("Initializing", 1, 6);
         LCD.refresh();
-        // カラーセンサー
+        // カラーセンサーの初期化
         EV3ColorSensor color = new EV3ColorSensor(SensorPort.S1);
         colorID = color.getColorIDMode();
         colorFloat = new float[colorID.sampleSize()];
-        colorUpdate();
-        // ディスプレイ案内
+        // ディスプレイ案内更新
         LCD.clear();
         LCD.drawString("Initializing.", 1, 6);
         LCD.refresh();
-        // 超音波センサー
+        // 超音波センサーの初期化
         EV3UltrasonicSensor ultrasonic = new EV3UltrasonicSensor(SensorPort.S2);
         ultrasonicProvider = ultrasonic.getDistanceMode();
         ultrasonicFloat = new float[ultrasonicProvider.sampleSize()];
-        ultrasonicUpdate();
-        // ディスプレイ案内
+        // ディスプレイ案内の更新
         LCD.clear();
         LCD.drawString("Initializing..", 1, 6);
         LCD.refresh();
-        // ジャイロセンサー
+        // ジャイロセンサーの初期化
         EV3GyroSensor gyro = new EV3GyroSensor(SensorPort.S3);
         gyroProvider = gyro.getAngleMode();
         gyroFloat = new float[gyroProvider.sampleSize()];
-        gyroUpdate();
-        // ディスプレイ案内
+        // ディスプレイ案内の更新
         LCD.clear();
         LCD.drawString("Initializing...", 1, 6);
         LCD.refresh();
-        // モーター
+        // モーターの初期化
         motorCenter = Motor.A;
         motorCenter.resetTachoCount();
         motorLeft = Motor.B;
         motorLeft.resetTachoCount();
         motorRight = Motor.C;
         motorRight.resetTachoCount();
-        // ディスプレイ案内
+        // ディスプレイ案内の更新
         LCD.clear();
         LCD.drawString("Initializing....", 1, 6);
         LCD.refresh();
         // スレッド起動
-        Scheduler st = new Scheduler(this);
-        st.start();
+        Scheduler scheduler = new Scheduler(this);
+        scheduler.start();
         //初期値取得
         for (int i = 0; i < 10000; i++) {
-            colorUpdate();
-            ultrasonicUpdate();
-            gyroUpdate();
+            sensorUpdate();
         }
-        // ディスプレイ案内
+        // ディスプレイ案内の更新
         LCD.clear();
         LCD.drawString("Initializing.....", 1, 6);
         LCD.refresh();
@@ -95,41 +90,20 @@ public class leJOS {
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
         //初期位置からペットボトルを検索する
-        search.stopSearching(40);
-        //ペットボトルまで13cm手前まで移動する
-        move.forwardUseSonar(800, 0.13F);
-        //ペットボトル
-        search.stopSearching(20);
-        move.arm(360, "Open");
-        move.forwardDefault(100, 13);
-        move.arm(360, "Close");
-        move.angle(100, -90);
-        move.backwardUseColor(500, 0);
-        move.arm(360, "Open");
-        move.backwardDefault(100, 15);
-        move.angle(100, -90);
-        search.stopSearching(80);
-        move.forwardUseSonar(800, 0.13F);
-        search.stopSearching(20);
-        move.forwardDefault(100, 13);
-        move.arm(360, "Close");
-        move.backwardUseColor(500, 0);
-        move.angle(100, 180);
-        move.arm(360, "Open");
-        move.backwardDefault(500, 15);
-        move.angle(100, -120);
-        move.forwardUseColor(800, 3);
-        move.arm(360, "Close");
+        move.forwardDefault(800, 30);
 
         /* 終了処理*/
         LCD.clear(6);
         LCD.drawString("All Complete", 1, 6);
         LCD.refresh();
-        st.countStop();
         Button.ENTER.waitForPress();
+        scheduler.countStop();
     }
 
-    void lcdUpdate() {
+    void sensorUpdate() {
+        colorID.fetchSample(colorFloat, 0);
+        ultrasonicProvider.fetchSample(ultrasonicFloat, 0);
+        gyroProvider.fetchSample(gyroFloat, 0);
         LCD.clear(0);
         LCD.drawString(String.valueOf((float) ((int) (Battery.getVoltage() * 10 + 0.5) / 10.0)), 15, 0);
         LCD.clear(1);
@@ -141,17 +115,5 @@ public class leJOS {
         LCD.clear(4);
         LCD.drawString("Gyro:" + gyroFloat[0] + " ℃", 1, 4);
         LCD.refresh();
-    }
-
-    void colorUpdate() {
-        colorID.fetchSample(colorFloat, 0);
-    }
-
-    void ultrasonicUpdate() {
-        ultrasonicProvider.fetchSample(ultrasonicFloat, 0);
-    }
-
-    void gyroUpdate() {
-        gyroProvider.fetchSample(gyroFloat, 0);
     }
 }
