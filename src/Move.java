@@ -11,9 +11,9 @@ class Move {
     // Thread wait time
     private int wait = 10;
     // 親から値を持ってくる
-    private leJOS_26 parent = null;
+    private leJOS parent = null;
 
-    Move(leJOS_26 parent) {
+    Move(leJOS parent) {
         this.parent = parent;
     }
 
@@ -62,7 +62,6 @@ class Move {
                 degreeLeft = parent.motorLeft.getTachoCount() - tacho_L;
             }
         } catch (InterruptedException ignored) {
-
         }
 
         // 停止 flt()はフロート状態になる

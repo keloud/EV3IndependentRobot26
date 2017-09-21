@@ -7,13 +7,13 @@ class Search {
     // 車輪の幅
     private final float width = 9.2F;
     // 移動用
-    Move move;
+    private Move move;
     // 親から値を持ってくる
-    private leJOS_26 parent = null;
+    private leJOS parent = null;
     // 待機時間
     private int wait = 10;
 
-    Search(leJOS_26 parent) {
+    Search(leJOS parent) {
         this.parent = parent;
         move = new Move(parent);
     }

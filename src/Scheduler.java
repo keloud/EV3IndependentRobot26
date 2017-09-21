@@ -2,11 +2,11 @@ import lejos.hardware.lcd.LCD;
 
 public class Scheduler extends Thread {
     private final int sleepTime = 20;
-    private leJOS_26 parent = null;
+    private leJOS parent = null;
     private boolean start = false;
     private boolean mode = true;
 
-    public Scheduler(leJOS_26 parent) {
+    Scheduler(leJOS parent) {
         this.parent = parent;
         start = true;
     }
@@ -29,11 +29,14 @@ public class Scheduler extends Thread {
             try {
                 Thread.sleep(sleepTime);
             } catch (InterruptedException ie) {
+                LCD.clear(6);
+                LCD.drawString("Error", 1, 6);
+                LCD.refresh();
             }
         }
     }
 
-    public void countStop() {
+    void countStop() {
         start = false;
     }
 }

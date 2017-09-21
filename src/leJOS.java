@@ -10,7 +10,7 @@ import lejos.hardware.sensor.SensorMode;
 import lejos.robotics.RegulatedMotor;
 import lejos.robotics.SampleProvider;
 
-public class leJOS_26 {
+public class leJOS {
     /* モーター*/
     RegulatedMotor motorCenter;
     RegulatedMotor motorLeft;
@@ -24,7 +24,7 @@ public class leJOS_26 {
     private SampleProvider ultrasonicProvider;
     private SampleProvider gyroProvider;
 
-    private leJOS_26() {
+    leJOS() {
         /* 初期化処理*/
         // ディスプレイ案内
         LCD.clear();
@@ -81,7 +81,7 @@ public class leJOS_26 {
         LCD.clear();
         LCD.drawString("Initializing.....", 1, 6);
         LCD.refresh();
-        /* オブジェクト化*/
+    /* オブジェクト化*/
         //Menu menu = new Menu();
         Move move = new Move(this);
         Search search = new Search(this);
@@ -127,10 +127,6 @@ public class leJOS_26 {
         LCD.refresh();
         st.countStop();
         Button.ENTER.waitForPress();
-    }
-
-    public static void main(String[] args) {
-        new leJOS_26();
     }
 
     void lcdUpdate() {
