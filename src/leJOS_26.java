@@ -94,8 +94,11 @@ public class leJOS_26 {
         LCD.clear(6);
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
+        //初期位置からペットボトルを検索する
         search.stopSearching(40);
+        //ペットボトルまで13cm手前まで移動する
         move.forwardUseSonar(800, 0.13F);
+        //ペットボトル
         search.stopSearching(20);
         move.arm(360, "Open");
         move.forwardDefault(100, 13);

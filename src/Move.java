@@ -3,12 +3,12 @@ import lejos.hardware.lcd.LCD;
 import java.util.Objects;
 
 class Move {
-    /* 車両情報*/
-    // タイヤ直径(cm)
+    /* Vehicle information*/
+    // Diameter of tire(cm)
     private final float diameter = 5.6F;
-    // 車輪の幅
+    // Width of wheel
     private final float width = 9.2F;
-    // 待機時間
+    // Thread wait time
     private int wait = 10;
     // 親から値を持ってくる
     private leJOS_26 parent = null;
