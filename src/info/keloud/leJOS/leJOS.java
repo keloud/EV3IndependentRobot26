@@ -1,15 +1,15 @@
 package info.keloud.leJOS;
+
+import info.keloud.leJOS.motor.Forward;
+import info.keloud.leJOS.motor.ForwardSonar;
+import info.keloud.leJOS.sensor.ColorSensor;
+import info.keloud.leJOS.sensor.GyroSensor;
+import info.keloud.leJOS.sensor.UltrasonicSensor;
 import lejos.hardware.Battery;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.Motor;
-import lejos.hardware.port.SensorPort;
-import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.EV3GyroSensor;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.sensor.SensorMode;
 import lejos.robotics.RegulatedMotor;
-import lejos.robotics.SampleProvider;
 
 import java.util.Objects;
 
@@ -84,6 +84,8 @@ class leJOS {
         LCD.refresh();
         /* オブジェクト化*/
         Search search = new Search(this);
+        Forward forward = new Forward(motorLeft, motorRight);
+        ForwardSonar forwardSonar = new ForwardSonar(motorLeft, motorRight, ultrasonicSensor);
         /* 開始確認*/
         LCD.clear(6);
         LCD.drawString("Press Enter", 1, 6);
@@ -93,9 +95,9 @@ class leJOS {
         LCD.clear(6);
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
-        forwardSonar(800,0.06F);
+        forwardSonar.run(800, 0.06F);
         arm("Open");
-        forward(100,7);
+        forward.run(100, 7);
         arm("Close");
         angle(100,-90);
         backwardColor(600,0);
@@ -104,14 +106,14 @@ class leJOS {
         angle(100,-90);
         forwardColor(400,6);
         search.stopSearching(50);
-        forwardSonar(800,0.06F);
-        forward(100,7);
+        forwardSonar.run(800, 0.06F);
+        forward.run(100, 7);
         arm("Close");
         backwardColor(600,0);
         arm("Open");
         backward(300,10);
         angle(100,20);
-        forward(800,100);
+        forward.run(800, 100);
         forwardColor(200,7);
         angle(100,60);
         forwardColor(800,3);
@@ -146,121 +148,8 @@ class leJOS {
     Forward
      */
 
-    private void forward(int maximumSpeed, double distance) {
-        LCD.clear(6);
-        LCD.drawString("Forward", 1, 6);
-        LCD.refresh();
-        // 初期化
-        int tacho_L = motorLeft.getTachoCount();
-        int speedNow;
-        int speedMin = 100;
-        int degreeLeft = 0;
-        motorLeft.setSpeed(speedMin);
-        motorRight.setSpeed(speedMin);
+    private void forwardSonar() {
 
-        // 角度累計計算
-        int cum = (int) ((distance / diameter / Math.PI) * 360);
-
-        //速度から必要な距離を求める(可変距離)
-        double distanceVariable = maximumSpeed * 0.24F;
-
-        // 移動開始
-        motorLeft.forward();
-        motorRight.forward();
-
-        // 移動判定
-        try {
-            while (degreeLeft < cum) {
-                if (degreeLeft > cum - distanceVariable) {
-                    //減速部
-                    speedNow = (int) ((float) (maximumSpeed - speedMin) * (cum - degreeLeft) / distanceVariable + speedMin);
-                } else if (degreeLeft < distanceVariable) {
-                    //加速部
-                    speedNow = (int) ((float) ((float) (maximumSpeed - speedMin) * degreeLeft / distanceVariable) + speedMin);
-                } else {
-                    //巡航部
-                    speedNow = maximumSpeed;
-                }
-                motorLeft.setSpeed(speedNow);
-                motorRight.setSpeed(speedNow);
-                Thread.sleep(wait);
-                degreeLeft = motorLeft.getTachoCount() - tacho_L;
-            }
-        } catch (InterruptedException ignored) {
-        }
-
-        // 停止 flt()はフロート状態になる
-        motorLeft.stop(true);
-        motorRight.stop(true);
-        LCD.clear(6);
-        LCD.drawString("Stopped", 1, 6);
-        LCD.refresh();
-    }
-
-    private void forwardSonar(int maximumSpeed, float valueUltrasonic) {
-        LCD.clear(6);
-        LCD.drawString("Forward Sonar", 1, 6);
-        LCD.refresh();
-        // 初期化
-        int tacho_L = motorLeft.getTachoCount();
-        int speedNow;
-        int speedMin = 100;
-        int degreeLeft = 0;
-        motorLeft.setSpeed(speedMin);
-        motorRight.setSpeed(speedMin);
-
-        // 速度から必要な距離を求める(可変距離)
-        double distanceVariable = maximumSpeed * 0.27F;
-        double distanceStop = maximumSpeed * 0.5F;
-
-        // 設定した超音波センサーの距離を角度累計に変換する
-        int distanceUltrasonic = (int) ((valueUltrasonic * 100 / diameter / Math.PI) * 360);
-
-        // 減速に使用する角度累計
-        int distanceDeceleration = degreeLeft + (int) distanceVariable;
-
-        // 移動開始
-        motorLeft.forward();
-        motorRight.forward();
-
-        // 移動判定
-        try {
-            while (true) {
-                // 設定した超音波センサーの距離+停止までに必要な距離まで更新し続ける。
-                if (distanceUltrasonic + distanceStop < (int) ((ultrasonicSensor.ultrasonicFloat[0] * 100 / diameter / Math.PI) * 360)) {
-                    // 減速に必要な角度累計を代入する
-                    distanceDeceleration = degreeLeft + (int) distanceStop;
-                }
-                // 停止する
-                if ((int) ((ultrasonicSensor.ultrasonicFloat[0] * 100 / diameter / Math.PI) * 360) < distanceUltrasonic) {
-                    break;
-                }
-                // 減速部
-                if (distanceDeceleration - distanceStop < degreeLeft) {
-                    speedNow = (int) ((float) (maximumSpeed - speedMin) * (distanceDeceleration - degreeLeft) / distanceStop + speedMin);
-                }
-                // 加速部
-                else if (degreeLeft < distanceVariable) {
-                    speedNow = (int) ((float) ((float) (maximumSpeed - speedMin) * degreeLeft / distanceVariable) + speedMin);
-                }
-                // 巡行部
-                else {
-                    speedNow = maximumSpeed;
-                }
-                motorLeft.setSpeed(speedNow);
-                motorRight.setSpeed(speedNow);
-                Thread.sleep(wait);
-                degreeLeft = motorLeft.getTachoCount() - tacho_L;
-            }
-        } catch (InterruptedException ignored) {
-
-        }
-
-        // 停止 flt()はフロート状態になる
-        motorLeft.stop(true);
-        motorRight.stop(true);
-        LCD.clear(6);
-        LCD.drawString("Stopped", 1, 6);
     }
 
     private void forwardColor(int maximumSpeed, float colorId) {
