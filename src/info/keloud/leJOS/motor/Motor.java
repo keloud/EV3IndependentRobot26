@@ -5,7 +5,7 @@ import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
 import lejos.robotics.RegulatedMotor;
 
-public abstract class Motor {
+abstract class Motor {
     /* Vehicle information*/
     // Diameter of tire(cm)
     final float diameter = 5.6F;
