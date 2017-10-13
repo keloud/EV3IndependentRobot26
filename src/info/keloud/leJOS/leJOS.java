@@ -97,7 +97,8 @@ class leJOS {
         LCD.refresh();
         forwardSonar.run(800, 0.06F);
         arm("Open");
-        forward.run(100, 7);
+        forward.setSpeed(100);
+        forward.setDistance(7);
         arm("Close");
         angle(100,-90);
         backwardColor(600,0);
@@ -107,13 +108,15 @@ class leJOS {
         forwardColor(400,6);
         search.stopSearching(50);
         forwardSonar.run(800, 0.06F);
-        forward.run(100, 7);
+        forward.run();
         arm("Close");
         backwardColor(600,0);
         arm("Open");
         backward(300,10);
         angle(100,20);
-        forward.run(800, 100);
+        forward.setSpeed(800);
+        forward.setDistance(100);
+        forward.run();
         forwardColor(200,7);
         angle(100,60);
         forwardColor(800,3);

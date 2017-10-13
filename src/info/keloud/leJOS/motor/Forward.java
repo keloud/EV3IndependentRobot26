@@ -3,13 +3,13 @@ package info.keloud.leJOS.motor;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
-public class Forward extends Motor {
+public class Forward extends MotorAdapter {
     public Forward(RegulatedMotor motorLeft, RegulatedMotor motorRight) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
     }
 
-    public void run(int maximumSpeed, double distance) {
+    public void run() {
         LCD.clear(6);
         LCD.drawString("Forward", 1, 6);
         LCD.refresh();
@@ -25,7 +25,7 @@ public class Forward extends Motor {
         int cum = (int) ((distance / diameter / Math.PI) * 360);
 
         //速度から必要な距離を求める(可変距離)
-        double distanceVariable = maximumSpeed * 0.24F;
+        double distanceVariable = speed * 0.24F;
 
         // 移動開始
         motorLeft.forward();
@@ -36,13 +36,13 @@ public class Forward extends Motor {
             while (degreeLeft < cum) {
                 if (degreeLeft > cum - distanceVariable) {
                     //減速部
-                    speedNow = (int) ((float) (maximumSpeed - speedMin) * (cum - degreeLeft) / distanceVariable + speedMin);
+                    speedNow = (int) ((float) (speed - speedMin) * (cum - degreeLeft) / distanceVariable + speedMin);
                 } else if (degreeLeft < distanceVariable) {
                     //加速部
-                    speedNow = (int) ((float) ((float) (maximumSpeed - speedMin) * degreeLeft / distanceVariable) + speedMin);
+                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeLeft / distanceVariable) + speedMin);
                 } else {
                     //巡航部
-                    speedNow = maximumSpeed;
+                    speedNow = speed;
                 }
                 motorLeft.setSpeed(speedNow);
                 motorRight.setSpeed(speedNow);
