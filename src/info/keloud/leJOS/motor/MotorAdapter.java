@@ -23,4 +23,12 @@ abstract class Motor {
     UltrasonicSensor ultrasonicSensor;
     // the gyro sensor
     GyroSensor gyroSensor;
+
+    public void run(){
+
+    }
+
+    public void set(){
+
+    }
 }
