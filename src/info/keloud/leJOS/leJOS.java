@@ -121,10 +121,14 @@ class leJOS {
         forwardColor(400, 6);
         //停止状態で探索処理
         search.stopSearching(50);
-        //速度(800)手前距離(7cm)で前進
-        forwardSonar.setSpeed(800);
-        forwardSonar.setDistance(7);
+        //速度(700)手前距離(6cm)で前進
+        forwardSonar.setSpeed(700);
+        forwardSonar.setDistance(6);
         forwardSonar.run();
+        //スピード(100)走行距離(7cm)で前進
+        forward.setSpeed(100);
+        forward.setDistance(7);
+        forward.run();
         //アームを閉じる
         arm("Close");
         //速度(600)カラー(赤)で後進
