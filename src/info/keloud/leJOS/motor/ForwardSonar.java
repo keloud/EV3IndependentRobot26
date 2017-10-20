@@ -9,12 +9,14 @@ public class ForwardSonar extends MotorAdapter {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.ultrasonicSensor = ultrasonicSensor;
+        behavior = "Forward Sonar";
     }
 
-    public void run(int maximumSpeed, float valueUltrasonic) {
+    public void run() {
         LCD.clear(6);
-        LCD.drawString("Forward Sonar", 1, 6);
+        LCD.drawString(behavior, 1, 6);
         LCD.refresh();
+
         // 初期化
         int tacho_L = motorLeft.getTachoCount();
         int speedNow;
@@ -24,11 +26,11 @@ public class ForwardSonar extends MotorAdapter {
         motorRight.setSpeed(speedMin);
 
         // 速度から必要な距離を求める(可変距離)
-        double distanceVariable = maximumSpeed * 0.27F;
-        double distanceStop = maximumSpeed * 0.5F;
+        double distanceVariable = speed * 0.27F;
+        double distanceStop = speed * 0.5F;
 
         // 設定した超音波センサーの距離を角度累計に変換する
-        int distanceUltrasonic = (int) ((valueUltrasonic * 100 / diameter / Math.PI) * 360);
+        int distanceUltrasonic = (int) ((distance / diameter / Math.PI) * 360);
 
         // 減速に使用する角度累計
         int distanceDeceleration = degreeLeft + (int) distanceVariable;
@@ -51,15 +53,15 @@ public class ForwardSonar extends MotorAdapter {
                 }
                 // 減速部
                 if (distanceDeceleration - distanceStop < degreeLeft) {
-                    speedNow = (int) ((float) (maximumSpeed - speedMin) * (distanceDeceleration - degreeLeft) / distanceStop + speedMin);
+                    speedNow = (int) ((float) (speed - speedMin) * (distanceDeceleration - degreeLeft) / distanceStop + speedMin);
                 }
                 // 加速部
                 else if (degreeLeft < distanceVariable) {
-                    speedNow = (int) ((float) ((float) (maximumSpeed - speedMin) * degreeLeft / distanceVariable) + speedMin);
+                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeLeft / distanceVariable) + speedMin);
                 }
                 // 巡行部
                 else {
-                    speedNow = maximumSpeed;
+                    speedNow = speed;
                 }
                 motorLeft.setSpeed(speedNow);
                 motorRight.setSpeed(speedNow);
@@ -70,10 +72,12 @@ public class ForwardSonar extends MotorAdapter {
 
         }
 
-        // 停止 flt()はフロート状態になる
+        // 停止
         motorLeft.stop(true);
         motorRight.stop(true);
+
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);
+        LCD.refresh();
     }
 }

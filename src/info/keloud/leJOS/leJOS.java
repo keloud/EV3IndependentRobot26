@@ -96,7 +96,9 @@ class leJOS {
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
         //速度(800)手前距離(6cm)で前進
-        forwardSonar.run(800, 0.06F);
+        forwardSonar.setSpeed(800);
+        forwardSonar.setDistance(6);
+        forwardSonar.run();
         //アームを開ける
         arm("Open");
         //スピード(100)走行距離(7cm)で前進
@@ -119,9 +121,10 @@ class leJOS {
         forwardColor(400, 6);
         //停止状態で探索処理
         search.stopSearching(50);
-        //速度(800)手前距離(6cm)で前進
-        forwardSonar.run(800, 0.06F);
-        forward.run();
+        //速度(800)手前距離(7cm)で前進
+        forwardSonar.setSpeed(800);
+        forwardSonar.setDistance(7);
+        forwardSonar.run();
         //アームを閉じる
         arm("Close");
         //速度(600)カラー(赤)で後進
@@ -141,7 +144,7 @@ class leJOS {
         //速度(100)角度(60°)で回転
         angle(100, 60);
         //速度(600)カラー(黄)で後進
-        forwardColor(600, 3);
+        forwardColor(600, 2);
         //アームを閉じる
         arm("Close");
 
