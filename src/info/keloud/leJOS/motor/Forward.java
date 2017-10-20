@@ -7,12 +7,10 @@ public class Forward extends MotorAdapter {
     public Forward(RegulatedMotor motorLeft, RegulatedMotor motorRight) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
+        behavior = "Forward";
     }
 
-    public void run() {
-        LCD.clear(6);
-        LCD.drawString("Forward", 1, 6);
-        LCD.refresh();
+    public void running() {
         // 初期化
         int tacho_L = motorLeft.getTachoCount();
         int speedNow;
@@ -55,8 +53,5 @@ public class Forward extends MotorAdapter {
         // 停止 flt()はフロート状態になる
         motorLeft.stop(true);
         motorRight.stop(true);
-        LCD.clear(6);
-        LCD.drawString("Stopped", 1, 6);
-        LCD.refresh();
     }
 }

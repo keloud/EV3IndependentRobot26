@@ -95,31 +95,54 @@ class leJOS {
         LCD.clear(6);
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
+        //速度(800)手前距離(6cm)で前進
         forwardSonar.run(800, 0.06F);
+        //アームを開ける
         arm("Open");
+        //スピード(100)走行距離(7cm)で前進
         forward.setSpeed(100);
         forward.setDistance(7);
+        forward.run();
+        //アームを閉じる
         arm("Close");
-        angle(100,-90);
-        backwardColor(600,0);
+        //速度(100)角度(-90度°)で回転
+        angle(100, -90);
+        //速度(600)カラー(赤)で後進
+        backwardColor(600, 0);
+        //アームを開ける
         arm("Open");
-        backward(300,10);
-        angle(100,-90);
-        forwardColor(400,6);
+        //速度(300)走行距離(10cm)で後進
+        backward(300, 10);
+        //速度(100)角度(-90°)で回転
+        angle(100, -90);
+        //速度(400)カラー(白)で前進
+        forwardColor(400, 6);
+        //停止状態で探索処理
         search.stopSearching(50);
+        //速度(800)手前距離(6cm)で前進
         forwardSonar.run(800, 0.06F);
         forward.run();
+        //アームを閉じる
         arm("Close");
-        backwardColor(600,0);
+        //速度(600)カラー(赤)で後進
+        backwardColor(600, 0);
+        //アームを開ける
         arm("Open");
-        backward(300,10);
-        angle(100,20);
+        //速度(300)走行距離(10cm)で後進
+        backward(300, 10);
+        //速度(100)角度(20°)で回転
+        angle(100, 20);
+        //スピード(800)走行距離(100cm)で前進
         forward.setSpeed(800);
         forward.setDistance(100);
         forward.run();
-        forwardColor(200,7);
-        angle(100,60);
-        forwardColor(800,3);
+        //速度(200)カラー(黒)で前進
+        forwardColor(200, 7);
+        //速度(100)角度(60°)で回転
+        angle(100, 60);
+        //速度(600)カラー(黄)で後進
+        forwardColor(600, 3);
+        //アームを閉じる
         arm("Close");
 
         /* 終了処理*/

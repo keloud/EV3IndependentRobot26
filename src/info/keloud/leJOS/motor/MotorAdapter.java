@@ -25,15 +25,15 @@ abstract class MotorAdapter {
     // the gyro sensor
     GyroSensor gyroSensor;
     // Speed
-    int speed=400;
+    int speed = 400;
     // Distance
-    int distance=30;
+    int distance = 30;
     // Angle
-    int angle=90;
+    int angle = 90;
     // Behavior mode information
     String behavior = "Initialize MotorAdapter";
 
-    public void run(){
+    public void run() {
         LCD.clear(6);
         LCD.drawString(behavior, 1, 6);
         LCD.refresh();
@@ -45,19 +45,19 @@ abstract class MotorAdapter {
         LCD.refresh();
     }
 
-    private void running(){
+    private void running() {
 
     }
 
-    public void setSpeed(int speed){
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 
-    public void setDistance(int distance){
+    public void setDistance(int distance) {
         this.distance = distance;
     }
 
-    public void setAngle(int angle){
+    public void setAngle(int angle) {
         this.angle = angle;
     }
 }
