@@ -12,6 +12,7 @@ public class ForwardSonar extends MotorAdapter {
         behavior = "Forward Sonar";
     }
 
+    @Override
     public void run() {
         LCD.clear(6);
         LCD.drawString(behavior, 1, 6);

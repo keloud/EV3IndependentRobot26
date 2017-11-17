@@ -1,4 +1,4 @@
 package info.keloud.leJOS.motor;
 
-public class TurnRight {
+public class LeftTurnGyro {
 }

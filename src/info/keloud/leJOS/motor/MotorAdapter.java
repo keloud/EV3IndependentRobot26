@@ -5,32 +5,36 @@ import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
 import lejos.robotics.RegulatedMotor;
 
-abstract class MotorAdapter {
+public abstract class MotorAdapter {
     /* Vehicle information*/
     // Diameter of tire(cm)
-    final float diameter = 5.6F;
+    protected final float diameter = 5.6F;
     // Width of wheel
-    final float width = 9.2F;
+    protected final float width = 9.2F;
     // Thread wait time
-    final int wait = 10;
+    protected final int wait = 10;
     // the left running motor
-    RegulatedMotor motorLeft;
+    protected RegulatedMotor motorLeft;
     // the right running motor
-    RegulatedMotor motorRight;
+    protected RegulatedMotor motorRight;
+    // the right running motor
+    protected RegulatedMotor motorCenter;
     // the color sensor
-    ColorSensor colorSensor;
+    protected ColorSensor colorSensor;
     // the ultrasonic sensor
-    UltrasonicSensor ultrasonicSensor;
+    protected UltrasonicSensor ultrasonicSensor;
     // the gyro sensor
-    GyroSensor gyroSensor;
+    protected GyroSensor gyroSensor;
     // Speed
-    int speed = 400;
+    protected int speed = 400;
     // Distance
-    int distance = 30;
+    protected double distance = 30;
     // Angle
-    int angle = 90;
+    protected double angle = 90;
+    // Color
+    protected int colorId = 0;
     // Behavior mode information
-    String behavior = "Initialize MotorAdapter";
+    protected String behavior = "Initialize MotorAdapter";
 
     public void run() {
     }
@@ -39,11 +43,15 @@ abstract class MotorAdapter {
         this.speed = speed;
     }
 
-    public void setDistance(int distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 
-    public void setAngle(int angle) {
+    public void setAngle(double angle) {
         this.angle = angle;
+    }
+
+    public void setColorId(int colorId) {
+        this.colorId = colorId;
     }
 }

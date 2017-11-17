@@ -10,6 +10,7 @@ public class Forward extends MotorAdapter {
         behavior = "Forward";
     }
 
+    @Override
     public void run() {
         LCD.clear(6);
         LCD.drawString(behavior, 1, 6);
