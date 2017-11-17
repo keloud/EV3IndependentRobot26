@@ -1,5 +1,6 @@
 package info.keloud.leJOS;
 
+import info.keloud.leJOS.motor.Advanced.GetBottle;
 import info.keloud.leJOS.motor.Advanced.Search;
 import info.keloud.leJOS.motor.*;
 import info.keloud.leJOS.sensor.ColorSensor;
@@ -72,6 +73,7 @@ class leJOS {
         TurnGyro turnGyro = new TurnGyro(motorLeft, motorRight, gyroSensor);
         Arm arm = new Arm(motorCenter);
         Search search = new Search(motorLeft, motorRight, ultrasonicSensor, turnGyro);
+        GetBottle getBottle = new GetBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, arm, forward, forwardSonar);
         // ディスプレイ案内の更新
         LCD.clear();
         LCD.drawString("End of initialization processing", 1, 6);
@@ -95,18 +97,10 @@ class leJOS {
         arm.run();
         arm.run();
 
-        //速度(800)手前距離(6cm)で前進
-        forwardSonar.setSpeed(800);
-        forwardSonar.setDistance(6);
-        forwardSonar.run();
         //アームを開ける
-        arm.run();
-        //スピード(100)走行距離(7cm)で前進
-        forward.setSpeed(100);
-        forward.setDistance(7);
-        forward.run();
-        //アームを閉じる
-        arm.run();
+        arm.run("Open");
+        //ボトルを取得する
+        getBottle.run();
         //速度(100)角度(-90度°)で回転
         turnGyro.setSpeed(100);
         turnGyro.setAngle(-90);
@@ -132,16 +126,8 @@ class leJOS {
         //停止状態で探索処理
         search.setAngle(50);
         search.run();
-        //速度(700)手前距離(6cm)で前進
-        forwardSonar.setSpeed(700);
-        forwardSonar.setDistance(6);
-        forwardSonar.run();
-        //スピード(100)走行距離(7cm)で前進
-        forward.setSpeed(100);
-        forward.setDistance(7);
-        forward.run();
-        //アームを閉じる
-        arm.run();
+        //ボトルを取得する
+        getBottle.run();
         //速度(600)カラー(赤)で後進
         backwardColor.run();
         //アームを開ける
@@ -156,16 +142,8 @@ class leJOS {
         forwardColor.run();
         //停止状態で探索処理
         search.run();
-        //速度(700)手前距離(6cm)で前進
-        forwardSonar.setSpeed(700);
-        forwardSonar.setDistance(6);
-        forwardSonar.run();
-        //スピード(100)走行距離(7cm)で前進
-        forward.setSpeed(100);
-        forward.setDistance(7);
-        forward.run();
-        //アームを閉じる
-        arm.run();
+        //ボトルを取得する
+        getBottle.run();
         //速度(600)カラー(赤)で後進
         backwardColor.run();
         //アームを開ける
@@ -179,16 +157,8 @@ class leJOS {
         forwardColor.run();
         //停止状態で探索処理
         search.run();
-        //速度(700)手前距離(6cm)で前進
-        forwardSonar.setSpeed(700);
-        forwardSonar.setDistance(6);
-        forwardSonar.run();
-        //スピード(100)走行距離(7cm)で前進
-        forward.setSpeed(100);
-        forward.setDistance(7);
-        forward.run();
-        //アームを閉じる
-        arm.run();
+        //ボトルを取得する
+        getBottle.run();
         //速度(600)カラー(赤)で後進
         backwardColor.run();
         //アームを開ける

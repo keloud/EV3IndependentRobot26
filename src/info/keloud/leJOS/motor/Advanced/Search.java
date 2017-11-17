@@ -15,7 +15,7 @@ public class Search extends MotorAdapter {
         this.motorRight = motorRight;
         this.ultrasonicSensor = ultrasonicSensor;
         this.turnGyro = turnGyro;
-        behavior = "StopSearching";
+        behavior = "Searching";
     }
 
     @Override
@@ -61,5 +61,9 @@ public class Search extends MotorAdapter {
         motorRight.stop(true);
 
         turnGyro.setAngle(angle * 0.86 + gyroValue);
+
+        LCD.clear(6);
+        LCD.drawString("Stopped", 1, 6);
+        LCD.refresh();
     }
 }
