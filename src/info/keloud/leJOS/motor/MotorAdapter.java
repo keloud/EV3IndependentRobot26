@@ -54,4 +54,10 @@ public abstract class MotorAdapter {
     public void setColorId(int colorId) {
         this.colorId = colorId;
     }
+
+    public void setColorId(String colorId) {
+        if (colorId == "red") {
+            this.colorId = 0;
+        }
+    }
 }
