@@ -16,6 +16,13 @@ class leJOS {
     private UltrasonicSensor ultrasonicSensor;
     private GyroSensor gyroSensor;
 
+    RegulatedMotor motorCenter;
+    RegulatedMotor motorLeft;
+    RegulatedMotor motorRight;
+
+    // Cumulative rotation of the motor
+    int accumulationMotorCenter, accumulationMotorLeft, accumulationMotorRight;
+
     leJOS() {
         /* 初期化処理*/
         // ディスプレイ案内開始
@@ -44,11 +51,11 @@ class leJOS {
         LCD.drawString("Init Motor", 1, 6);
         LCD.refresh();
         // モーターの初期化
-        RegulatedMotor motorCenter = Motor.A;
+        motorCenter = Motor.A;
         motorCenter.resetTachoCount();
-        RegulatedMotor motorLeft = Motor.B;
+        motorLeft = Motor.B;
         motorLeft.resetTachoCount();
-        RegulatedMotor motorRight = Motor.C;
+        motorRight = Motor.C;
         motorRight.resetTachoCount();
         // ディスプレイ案内の更新
         LCD.clear();
@@ -83,6 +90,17 @@ class leJOS {
         LCD.clear(6);
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
+
+        arm.run("Close");
+        arm.run("Open");
+        arm.run("Close");
+        arm.run("Open");
+        arm.run("Close");
+        arm.run("Open");
+        arm.run("Close");
+        arm.run("Open");
+        arm.run("Close");
+
         //速度(800)手前距離(6cm)で前進
         forwardSonar.setSpeed(800);
         forwardSonar.setDistance(6);
@@ -219,6 +237,8 @@ class leJOS {
         gyroSensor.update();
         LCD.clear(0);
         LCD.drawString(String.valueOf((float) ((int) (Battery.getVoltage() * 10 + 0.5) / 10.0)), 15, 0);
+        LCD.clear(1);
+        LCD.drawString("C:" + accumulationMotorCenter + " L:" + accumulationMotorLeft + " R:" + accumulationMotorRight, 1, 1);
         LCD.clear(2);
         LCD.drawString("ColorN:" + colorSensor.colorFloat[0], 1, 2);
         LCD.clear(3);
