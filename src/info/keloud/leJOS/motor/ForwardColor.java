@@ -64,7 +64,9 @@ public class ForwardColor extends MotorAdapter {
                 degreeLeft = motorLeft.getTachoCount() - tacho_L;
             }
         } catch (InterruptedException ignored) {
-
+            LCD.clear(6);
+            LCD.drawString("Error", 1, 6);
+            LCD.refresh();
         }
 
         // 停止 flt()はフロート状態になる

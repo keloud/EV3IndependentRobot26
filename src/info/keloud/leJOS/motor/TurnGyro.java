@@ -50,7 +50,9 @@ public class TurnGyro extends MotorAdapter {
                 degreeGyro = gyroSensor.gyroFloat[0] - gyroInit;
             }
         } catch (InterruptedException ignored) {
-
+            LCD.clear(6);
+            LCD.drawString("Error", 1, 6);
+            LCD.refresh();
         }
 
         // 停止
@@ -76,7 +78,9 @@ public class TurnGyro extends MotorAdapter {
                 degreeGyro = gyroSensor.gyroFloat[0] - gyroInit;
             }
         } catch (InterruptedException ignored) {
-
+            LCD.clear(6);
+            LCD.drawString("Error", 1, 6);
+            LCD.refresh();
         }
 
         // 停止
