@@ -12,16 +12,14 @@ import lejos.hardware.motor.Motor;
 import lejos.robotics.RegulatedMotor;
 
 class leJOS {
-    private ColorSensor colorSensor;
-    private UltrasonicSensor ultrasonicSensor;
-    private GyroSensor gyroSensor;
-
     RegulatedMotor motorCenter;
     RegulatedMotor motorLeft;
     RegulatedMotor motorRight;
-
     // Cumulative rotation of the motor
     int accumulationMotorCenter, accumulationMotorLeft, accumulationMotorRight;
+    private ColorSensor colorSensor;
+    private UltrasonicSensor ultrasonicSensor;
+    private GyroSensor gyroSensor;
 
     leJOS() {
         /* 初期化処理*/
@@ -91,15 +89,14 @@ class leJOS {
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
 
-        arm.run("Close");
         arm.run("Open");
         arm.run("Close");
         arm.run("Open");
         arm.run("Close");
-        arm.run("Open");
-        arm.run("Close");
-        arm.run("Open");
-        arm.run("Close");
+        arm.run();
+        arm.run();
+        arm.run();
+        arm.run();
 
         //速度(800)手前距離(6cm)で前進
         forwardSonar.setSpeed(800);
