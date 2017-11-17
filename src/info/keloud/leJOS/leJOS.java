@@ -13,13 +13,17 @@ import lejos.hardware.motor.Motor;
 import lejos.robotics.RegulatedMotor;
 
 class leJOS {
+    // Cumulative rotation of the motor
+    int accumulationMotorCenter, accumulationMotorLeft, accumulationMotorRight;
+    // RegulatedMotor
     RegulatedMotor motorCenter;
     RegulatedMotor motorLeft;
     RegulatedMotor motorRight;
-    // Cumulative rotation of the motor
-    int accumulationMotorCenter, accumulationMotorLeft, accumulationMotorRight;
+    // ColorSensor
     private ColorSensor colorSensor;
+    // UltrasonicSensor
     private UltrasonicSensor ultrasonicSensor;
+    // GyroSensor
     private GyroSensor gyroSensor;
 
     leJOS() {
