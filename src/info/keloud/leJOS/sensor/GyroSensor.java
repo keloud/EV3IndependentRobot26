@@ -8,7 +8,7 @@ public class GyroSensor {
     public float[] gyroFloat;
     private SampleProvider gyroProvider;
 
-    public void initialize() {
+    public GyroSensor() {
         EV3GyroSensor gyro = new EV3GyroSensor(SensorPort.S3);
         gyroProvider = gyro.getAngleMode();
         gyroFloat = new float[gyroProvider.sampleSize()];

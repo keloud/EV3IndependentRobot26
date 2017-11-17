@@ -8,7 +8,7 @@ public class ColorSensor {
     public float[] colorFloat;
     private SensorMode colorProvider;
 
-    public void initialize() {
+    public ColorSensor() {
         EV3ColorSensor color = new EV3ColorSensor(SensorPort.S1);
         colorProvider = color.getColorIDMode();
         colorFloat = new float[colorProvider.sampleSize()];

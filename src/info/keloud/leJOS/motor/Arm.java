@@ -69,7 +69,9 @@ public class Arm extends MotorAdapter {
                 degreeCenter = motorCenter.getTachoCount() - tacho_C;
             }
         } catch (InterruptedException ignored) {
-
+            LCD.clear(6);
+            LCD.drawString("Error", 1, 6);
+            LCD.refresh();
         }
 
         // 停止
@@ -104,7 +106,9 @@ public class Arm extends MotorAdapter {
                 degreeCenter = motorCenter.getTachoCount() - tacho_C;
             }
         } catch (InterruptedException ignored) {
-
+            LCD.clear(6);
+            LCD.drawString("Error", 1, 6);
+            LCD.refresh();
         }
 
         // 停止

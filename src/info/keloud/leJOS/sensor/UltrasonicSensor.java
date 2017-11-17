@@ -8,7 +8,7 @@ public class UltrasonicSensor {
     public float[] ultrasonicFloat;
     private SampleProvider ultrasonicProvider;
 
-    public void initialize() {
+    public UltrasonicSensor() {
         EV3UltrasonicSensor ultrasonic = new EV3UltrasonicSensor(SensorPort.S2);
         ultrasonicProvider = ultrasonic.getDistanceMode();
         ultrasonicFloat = new float[ultrasonicProvider.sampleSize()];

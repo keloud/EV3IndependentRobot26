@@ -29,21 +29,18 @@ class leJOS {
         LCD.refresh();
         // カラーセンサーの初期化
         colorSensor = new ColorSensor();
-        colorSensor.initialize();
         // ディスプレイ案内更新
         LCD.clear();
         LCD.drawString("Init UltrasonicSensor", 1, 6);
         LCD.refresh();
         // 超音波センサーの初期化
         ultrasonicSensor = new UltrasonicSensor();
-        ultrasonicSensor.initialize();
         // ディスプレイ案内の更新
         LCD.clear();
         LCD.drawString("Init GyroSensor", 1, 6);
         LCD.refresh();
         // ジャイロセンサーの初期化
         gyroSensor = new GyroSensor();
-        gyroSensor.initialize();
         // ディスプレイ案内の更新
         LCD.clear();
         LCD.drawString("Init Motor", 1, 6);
@@ -237,9 +234,9 @@ class leJOS {
         LCD.clear(1);
         LCD.drawString("C:" + accumulationMotorCenter + " L:" + accumulationMotorLeft + " R:" + accumulationMotorRight, 1, 1);
         LCD.clear(2);
-        LCD.drawString("ColorN:" + colorSensor.colorFloat[0], 1, 2);
+        LCD.drawString("ColorId:" + colorSensor.colorFloat[0], 1, 2);
         LCD.clear(3);
-        LCD.drawString("Sonic:" + ultrasonicSensor.ultrasonicFloat[0], 1, 3);
+        LCD.drawString("USonic:" + ultrasonicSensor.ultrasonicFloat[0], 1, 3);
         LCD.clear(4);
         LCD.drawString("Gyro:" + gyroSensor.gyroFloat[0] + " ℃", 1, 4);
         LCD.refresh();
