@@ -31,8 +31,8 @@ public class Backward extends MotorAdapter {
         double distanceVariable = speed * 0.24F;
 
         // 移動開始
-        motorLeft.forward();
-        motorRight.forward();
+        motorLeft.backward();
+        motorRight.backward();
 
         // 移動判定
         try {

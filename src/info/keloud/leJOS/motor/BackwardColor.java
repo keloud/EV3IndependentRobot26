@@ -34,8 +34,8 @@ public class BackwardColor extends MotorAdapter {
         int distanceDeceleration = degreeLeft + (int) distanceVariable;
 
         // 移動開始
-        motorLeft.forward();
-        motorRight.forward();
+        motorLeft.backward();
+        motorRight.backward();
 
         // 移動判定
         try {

@@ -91,16 +91,8 @@ class leJOS {
         LCD.clear(6);
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
-
-        arm.run("Open");
-        arm.run("Close");
-        arm.run("Open");
-        arm.run("Close");
-        arm.run();
-        arm.run();
-        arm.run();
-        arm.run();
-
+        //修正
+        //arm.run("Close");
         //アームを開ける
         arm.run("Open");
         //ボトルを取得する
