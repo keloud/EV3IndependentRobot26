@@ -2,6 +2,7 @@ package info.keloud.leJOS.motor.Advanced;
 
 import info.keloud.leJOS.motor.MotorAdapter;
 import info.keloud.leJOS.motor.TurnGyro;
+import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
@@ -10,10 +11,11 @@ import lejos.robotics.RegulatedMotor;
 public class Search extends MotorAdapter {
     private TurnGyro turnGyro;
 
-    public Search(RegulatedMotor motorLeft, RegulatedMotor motorRight, UltrasonicSensor ultrasonicSensor, TurnGyro turnGyro) {
+    public Search(RegulatedMotor motorLeft, RegulatedMotor motorRight, UltrasonicSensor ultrasonicSensor, GyroSensor gyroSensor, TurnGyro turnGyro) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.ultrasonicSensor = ultrasonicSensor;
+        this.gyroSensor = gyroSensor;
         this.turnGyro = turnGyro;
         behavior = "Searching";
     }
@@ -24,8 +26,10 @@ public class Search extends MotorAdapter {
         LCD.drawString(behavior, 1, 6);
         LCD.refresh();
 
+        //サーチ初期位置に動く
         turnGyro.setSpeed(100);
         turnGyro.setAngle(angle / 2);
+        turnGyro.run();
 
         // 初期化
         float gyroInit = gyroSensor.gyroFloat[0];
@@ -61,6 +65,7 @@ public class Search extends MotorAdapter {
         motorRight.stop(true);
 
         turnGyro.setAngle(angle * 0.86 + gyroValue);
+        turnGyro.run();
 
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);

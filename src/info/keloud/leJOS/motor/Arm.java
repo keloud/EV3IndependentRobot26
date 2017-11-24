@@ -8,9 +8,15 @@ import java.util.Objects;
 public class Arm extends MotorAdapter {
 
     private boolean state = false;
+    // 初期化
+    private int tacho_C = motorCenter.getTachoCount();
+    private int speedNow = 800;
+    private int degreeCenter = 0;
+    private int angle = 360;
 
     public Arm(RegulatedMotor motorCenter) {
         this.motorCenter = motorCenter;
+        motorCenter.setSpeed(speedNow);
     }
 
     public void run() {
@@ -47,13 +53,6 @@ public class Arm extends MotorAdapter {
         LCD.drawString("ArmOpen", 1, 6);
         LCD.refresh();
 
-        // 初期化
-        int tacho_C = motorCenter.getTachoCount();
-        int speedNow = 800;
-        int degreeCenter = 0;
-        int angle = 360;
-        motorCenter.setSpeed(speedNow);
-
         // 移動距離計算
         double distance = (angle * width * Math.PI) / 360;
 
@@ -82,13 +81,6 @@ public class Arm extends MotorAdapter {
         LCD.clear(6);
         LCD.drawString("ArmClose", 1, 6);
         LCD.refresh();
-
-        // 初期化
-        int tacho_C = motorCenter.getTachoCount();
-        int speedNow = 800;
-        int degreeCenter = 0;
-        int angle = 360;
-        motorCenter.setSpeed(speedNow);
 
         // 移動距離計算
         double distance = (angle * width * Math.PI) / 360;

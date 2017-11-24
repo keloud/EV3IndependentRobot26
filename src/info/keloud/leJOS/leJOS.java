@@ -76,7 +76,7 @@ class leJOS {
         BackwardColor backwardColor = new BackwardColor(motorLeft, motorRight, colorSensor);
         TurnGyro turnGyro = new TurnGyro(motorLeft, motorRight, gyroSensor);
         Arm arm = new Arm(motorCenter);
-        Search search = new Search(motorLeft, motorRight, ultrasonicSensor, turnGyro);
+        Search search = new Search(motorLeft, motorRight, ultrasonicSensor, gyroSensor, turnGyro);
         GetBottle getBottle = new GetBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, arm, forward, forwardSonar);
         // ディスプレイ案内の更新
         LCD.clear();
@@ -92,7 +92,7 @@ class leJOS {
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
         //修正
-        //arm.run("Close");
+        arm.run("Close");
         //アームを開ける
         arm.run("Open");
         //ボトルを取得する
@@ -105,11 +105,13 @@ class leJOS {
         backwardColor.setSpeed(600);
         backwardColor.setColorId(0);
         backwardColor.run();
-        //アームを開ける
-        arm.run();
         //速度(300)走行距離(10cm)で後進
         backward.setSpeed(300);
         backward.setDistance(10);
+        backward.run();
+        //アームを開ける
+        arm.run();
+        ////速度(300)走行距離(10cm)で後進
         backward.run();
         /* 2個目 */
         //速度(100)角度(90°)で回転
@@ -131,8 +133,8 @@ class leJOS {
         //速度(300)走行距離(10cm)で後進
         backward.run();
         /* 3個目 */
-        //速度(100)角度(-90°)で回転
-        turnGyro.setAngle(-90);
+        //速度(100)角度(90°)で回転
+        turnGyro.setAngle(90);
         turnGyro.run();
         //速度(400)カラー(白)で前進
         forwardColor.run();
@@ -147,7 +149,7 @@ class leJOS {
         //速度(300)走行距離(10cm)で後進
         backward.run();
         /* 4個目 */
-        //速度(100)角度(-90°)で回転
+        //速度(100)角度(90°)で回転
         turnGyro.run();
         //速度(400)カラー(白)で前進
         forwardColor.run();
