@@ -4,7 +4,7 @@ import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
 public class Turn extends MotorAdapter {
-    Turn(RegulatedMotor motorLeft, RegulatedMotor motorRight) {
+    public Turn(RegulatedMotor motorLeft, RegulatedMotor motorRight) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         behavior = "Turn";

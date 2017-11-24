@@ -8,10 +8,10 @@ import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
 // Process to search by spinning on the spot
-public class Search extends MotorAdapter {
+public class SearchGyro extends MotorAdapter {
     private TurnGyro turnGyro;
 
-    public Search(RegulatedMotor motorLeft, RegulatedMotor motorRight, UltrasonicSensor ultrasonicSensor, GyroSensor gyroSensor, TurnGyro turnGyro) {
+    public SearchGyro(RegulatedMotor motorLeft, RegulatedMotor motorRight, UltrasonicSensor ultrasonicSensor, GyroSensor gyroSensor, TurnGyro turnGyro) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.ultrasonicSensor = ultrasonicSensor;

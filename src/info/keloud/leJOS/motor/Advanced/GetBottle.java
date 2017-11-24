@@ -10,16 +10,16 @@ import lejos.robotics.RegulatedMotor;
 public class GetBottle extends MotorAdapter {
     private Arm arm;
     private Forward forward;
-    private Search search;
+    private SearchGyro searchGyro;
 
-    public GetBottle(RegulatedMotor motorLeft, RegulatedMotor motorRight, RegulatedMotor motorCenter, UltrasonicSensor ultrasonicSensor, Arm arm, Forward forward, Search search) {
+    public GetBottle(RegulatedMotor motorLeft, RegulatedMotor motorRight, RegulatedMotor motorCenter, UltrasonicSensor ultrasonicSensor, Arm arm, Forward forward, SearchGyro searchGyro) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.motorCenter = motorCenter;
         this.ultrasonicSensor = ultrasonicSensor;
         this.arm = arm;
         this.forward = forward;
-        this.search = search;
+        this.searchGyro = searchGyro;
         behavior = "GetBottle";
     }
 
@@ -30,8 +30,8 @@ public class GetBottle extends MotorAdapter {
         LCD.refresh();
 
         //停止状態で探索処理
-        search.setAngle(50);
-        search.run();
+        searchGyro.setAngle(50);
+        searchGyro.run();
 
         // 初期化
         int tacho_L = motorLeft.getTachoCount();
@@ -80,8 +80,8 @@ public class GetBottle extends MotorAdapter {
                 // 巡行部
                 else {
                     if (degreeLeft % 64 == 1) {
-                        search.setAngle(20);
-                        search.run();
+                        searchGyro.setAngle(20);
+                        searchGyro.run();
                         // 移動開始
                         motorLeft.forward();
                         motorRight.forward();
