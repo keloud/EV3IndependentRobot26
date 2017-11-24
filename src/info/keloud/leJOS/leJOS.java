@@ -92,7 +92,7 @@ class leJOS {
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
         //修正
-        arm.run("Close");
+        //arm.run("Close");
         //アームを開ける
         arm.run("Open");
         //ボトルを取得する

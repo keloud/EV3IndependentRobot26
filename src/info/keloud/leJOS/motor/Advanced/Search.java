@@ -46,11 +46,11 @@ public class Search extends MotorAdapter {
 
         // 移動判定
         try {
-            while (angle < degreeGyro) {
+            while (-angle < degreeGyro) {
                 Thread.sleep(wait);
                 degreeGyro = gyroSensor.gyroFloat[0];
                 degreeUltrasonic = ultrasonicSensor.ultrasonicFloat[0];
-                if (degreeUltrasonic < ultrasonicValue) {
+                if (degreeUltrasonic <= ultrasonicValue) {
                     ultrasonicValue = degreeUltrasonic;
                     gyroValue = degreeGyro;
                 }

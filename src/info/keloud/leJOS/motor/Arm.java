@@ -9,13 +9,14 @@ public class Arm extends MotorAdapter {
 
     private boolean state = false;
     // 初期化
-    private int tacho_C = motorCenter.getTachoCount();
+    private int tacho_C;
     private int speedNow = 800;
     private int degreeCenter = 0;
-    private int angle = 360;
+    private int angle = 340;
 
     public Arm(RegulatedMotor motorCenter) {
         this.motorCenter = motorCenter;
+        tacho_C = motorCenter.getTachoCount();
         motorCenter.setSpeed(speedNow);
     }
 
