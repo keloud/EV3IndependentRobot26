@@ -38,8 +38,9 @@ public class GetBottle extends MotorAdapter {
         int speedNow;
         int speedMin = 100;
         int degreeLeft = 0;
+        //速度(800)で手前距離(7cm)で止まる
         setSpeed(800);
-        setDistance(6);
+        setDistance(7);
         motorLeft.setSpeed(speedMin);
         motorRight.setSpeed(speedMin);
 
@@ -79,10 +80,13 @@ public class GetBottle extends MotorAdapter {
                 }
                 // 巡行部
                 else {
-                    if (degreeLeft % 64 == 1) {
+                    if (degreeLeft % 250 == 0) {
                         searchGyro.setAngle(20);
                         searchGyro.run();
                         // 移動開始
+                        LCD.clear(6);
+                        LCD.drawString(behavior, 1, 6);
+                        LCD.refresh();
                         motorLeft.forward();
                         motorRight.forward();
                     }

@@ -98,9 +98,9 @@ class leJOS {
         //ボトルを取得する
         getBottle.run();
         //速度(100)角度(-90度°)で回転
-        turn.setSpeed(500);
-        turn.setAngle(-90);
-        turn.run();
+        turnGyro.setSpeed(500);
+        turnGyro.setAngle(-90);
+        turnGyro.run();
         //速度(600)カラー(赤)で後進
         backwardColor.setSpeed(600);
         backwardColor.setColorId(0);
@@ -115,8 +115,8 @@ class leJOS {
         backward.run();
         /* 2個目 */
         //速度(100)角度(90°)で回転
-        turn.setAngle(90);
-        turn.run();
+        turnGyro.setAngle(90);
+        turnGyro.run();
         //速度(400)カラー(白)で前進
         forwardColor.setSpeed(400);
         forwardColor.setColorId(6);
@@ -131,8 +131,8 @@ class leJOS {
         backward.run();
         /* 3個目 */
         //速度(100)角度(90°)で回転
-        turn.setAngle(90);
-        turn.run();
+        turnGyro.setAngle(90);
+        turnGyro.run();
         //速度(400)カラー(白)で前進
         forwardColor.run();
         //ボトルを取得する
@@ -145,7 +145,7 @@ class leJOS {
         backward.run();
         /* 4個目 */
         //速度(100)角度(90°)で回転
-        turn.run();
+        turnGyro.run();
         //速度(400)カラー(白)で前進
         forwardColor.run();
         //ボトルを取得する
@@ -158,8 +158,8 @@ class leJOS {
         backward.run();
         /* 帰り */
         //速度(100)角度(20°)で回転
-        turn.setAngle(20);
-        turn.run();
+        turnGyro.setAngle(20);
+        turnGyro.run();
         //スピード(800)走行距離(100cm)で前進
         forward.setSpeed(800);
         forward.setDistance(100);
@@ -169,8 +169,8 @@ class leJOS {
         forwardColor.setColorId(7);
         forwardColor.run();
         //速度(100)角度(60°)で回転
-        turn.setAngle(60);
-        turn.run();
+        turnGyro.setAngle(60);
+        turnGyro.run();
         //速度(200)カラー(黄)で前進
         forwardColor.setSpeed(200);
         forwardColor.setColorId(2);
