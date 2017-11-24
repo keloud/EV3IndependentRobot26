@@ -37,6 +37,7 @@ public class Search extends MotorAdapter {
         float gyroValue = degreeGyro;
         float degreeUltrasonic = ultrasonicSensor.ultrasonicFloat[0];
         float ultrasonicValue = degreeUltrasonic;
+        setSpeed(80);
         motorLeft.setSpeed(speed);
         motorRight.setSpeed(speed);
 
@@ -48,13 +49,12 @@ public class Search extends MotorAdapter {
         try {
             while (-angle < degreeGyro) {
                 Thread.sleep(wait);
-                degreeGyro = gyroSensor.gyroFloat[0];
+                degreeGyro = gyroSensor.gyroFloat[0] - gyroInit;
                 degreeUltrasonic = ultrasonicSensor.ultrasonicFloat[0];
-                if (degreeUltrasonic <= ultrasonicValue) {
+                if (degreeUltrasonic < ultrasonicValue) {
                     ultrasonicValue = degreeUltrasonic;
                     gyroValue = degreeGyro;
                 }
-                degreeGyro = gyroSensor.gyroFloat[0] - gyroInit;
             }
         } catch (InterruptedException ignored) {
 

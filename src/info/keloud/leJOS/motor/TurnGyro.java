@@ -23,16 +23,16 @@ public class TurnGyro extends MotorAdapter {
         Right turn is -.
         */
         if (angle < 0) {
-            rightGyro(speed, angle);
+            rightTurn();
         } else if (0 < angle) {
-            leftGyro(speed, angle);
+            leftTurn();
         }
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);
         LCD.refresh();
     }
 
-    private void rightGyro(int spped, double angle) {
+    private void rightTurn() {
         // 初期化
         float gyroInit = gyroSensor.gyroFloat[0];
         float degreeGyro = 0;
@@ -60,7 +60,7 @@ public class TurnGyro extends MotorAdapter {
         motorRight.stop(true);
     }
 
-    private void leftGyro(int spped, double angle) {
+    private void leftTurn() {
         // 初期化
         float gyroInit = gyroSensor.gyroFloat[0];
         float degreeGyro = 0;

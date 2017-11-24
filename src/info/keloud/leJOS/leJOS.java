@@ -70,14 +70,13 @@ class leJOS {
         scheduler.start();
          /* オブジェクト化*/
         Forward forward = new Forward(motorLeft, motorRight);
-        ForwardSonar forwardSonar = new ForwardSonar(motorLeft, motorRight, ultrasonicSensor);
         ForwardColor forwardColor = new ForwardColor(motorLeft, motorRight, colorSensor);
         Backward backward = new Backward(motorLeft, motorRight);
         BackwardColor backwardColor = new BackwardColor(motorLeft, motorRight, colorSensor);
         TurnGyro turnGyro = new TurnGyro(motorLeft, motorRight, gyroSensor);
         Arm arm = new Arm(motorCenter);
         Search search = new Search(motorLeft, motorRight, ultrasonicSensor, gyroSensor, turnGyro);
-        GetBottle getBottle = new GetBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, arm, forward, forwardSonar);
+        GetBottle getBottle = new GetBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, arm, forward, search);
         // ディスプレイ案内の更新
         LCD.clear();
         LCD.drawString("End of initialization processing", 1, 6);
@@ -92,7 +91,7 @@ class leJOS {
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
         //修正
-        //arm.run("Close");
+        arm.run("Close");
         //アームを開ける
         arm.run("Open");
         //ボトルを取得する
@@ -121,9 +120,6 @@ class leJOS {
         forwardColor.setSpeed(400);
         forwardColor.setColorId(6);
         forwardColor.run();
-        //停止状態で探索処理
-        search.setAngle(50);
-        search.run();
         //ボトルを取得する
         getBottle.run();
         //速度(600)カラー(赤)で後進
@@ -138,8 +134,6 @@ class leJOS {
         turnGyro.run();
         //速度(400)カラー(白)で前進
         forwardColor.run();
-        //停止状態で探索処理
-        search.run();
         //ボトルを取得する
         getBottle.run();
         //速度(600)カラー(赤)で後進
@@ -153,8 +147,6 @@ class leJOS {
         turnGyro.run();
         //速度(400)カラー(白)で前進
         forwardColor.run();
-        //停止状態で探索処理
-        search.run();
         //ボトルを取得する
         getBottle.run();
         //速度(600)カラー(赤)で後進
