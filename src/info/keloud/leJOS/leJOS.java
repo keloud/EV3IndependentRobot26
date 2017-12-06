@@ -92,7 +92,26 @@ class leJOS {
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
         //修正
+        arm.setState(true);
         arm.run("Close");
+        //テスト
+        turn.setAngle(90);
+        turn.run();
+        turn.setAngle(-90);
+        turn.run();
+        turn.setAngle(180);
+        turn.run();
+        turn.setAngle(-180);
+        turn.run();
+        turn.setSpeed(800);
+        turn.setAngle(90);
+        turn.run();
+        turn.setAngle(-90);
+        turn.run();
+        turn.setAngle(180);
+        turn.run();
+        turn.setAngle(-180);
+        turn.run();
         //アームを開ける
         arm.run("Open");
         //ボトルを取得する

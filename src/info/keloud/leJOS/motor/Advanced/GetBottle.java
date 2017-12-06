@@ -34,7 +34,7 @@ public class GetBottle extends MotorAdapter {
         searchGyro.run();
 
         // 初期化
-        int tacho_L = motorLeft.getTachoCount();
+        int initTachoCount = motorLeft.getTachoCount();
         int speedNow;
         int speedMin = 100;
         int degreeLeft = 0;
@@ -81,12 +81,16 @@ public class GetBottle extends MotorAdapter {
                 // 巡行部
                 else {
                     if (degreeLeft % 250 == 0) {
-                        searchGyro.setAngle(20);
-                        searchGyro.run();
-                        // 移動開始
-                        LCD.clear(6);
-                        LCD.drawString(behavior, 1, 6);
-                        LCD.refresh();
+                        //searchGyro.setAngle(20);
+                        //searchGyro.run();
+
+                        // 一時停止
+                        motorLeft.stop(true);
+                        motorRight.stop(true);
+
+                        //サーチ処理
+
+                        //再始動
                         motorLeft.forward();
                         motorRight.forward();
                     }
@@ -95,7 +99,7 @@ public class GetBottle extends MotorAdapter {
                 motorLeft.setSpeed(speedNow);
                 motorRight.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeLeft = motorLeft.getTachoCount() - tacho_L;
+                degreeLeft = motorLeft.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             LCD.clear(6);

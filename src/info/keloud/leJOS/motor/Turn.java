@@ -23,6 +23,7 @@ public class Turn extends MotorAdapter {
         if (angle < 0) {
             rightTurn();
         } else if (0 < angle) {
+            angle = -angle;
             leftTurn();
         }
         LCD.clear(6);

@@ -11,7 +11,7 @@ public class Arm extends MotorAdapter {
 
     public Arm(RegulatedMotor motorCenter) {
         this.motorCenter = motorCenter;
-        setAngle(320);
+        setAngle(360);
         setSpeed(800);
         motorCenter.setSpeed(speed);
     }
@@ -32,12 +32,16 @@ public class Arm extends MotorAdapter {
 
     public void run(String setState) {
         if (Objects.equals(setState, "Close")) {
-            state = false;
-            armClose();
+            if (state) {
+                state = false;
+                armClose();
+            }
         }
         if (Objects.equals(setState, "Open")) {
-            state = true;
-            armOpen();
+            if (!state) {
+                state = true;
+                armOpen();
+            }
         }
 
         LCD.clear(6);
@@ -110,5 +114,9 @@ public class Arm extends MotorAdapter {
 
         // 停止
         motorCenter.stop(true);
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
     }
 }
