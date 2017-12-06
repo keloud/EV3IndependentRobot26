@@ -20,11 +20,11 @@ public class Turn extends MotorAdapter {
         Left turn is +.
         Right turn is -.
         */
-        if (angle < 0) {
-            rightTurn();
-        } else if (0 < angle) {
-            angle = -angle;
+        if (0 < angle) {
             leftTurn();
+        } else if (angle < 0) {
+            angle = -angle;
+            rightTurn();
         }
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);
@@ -44,7 +44,7 @@ public class Turn extends MotorAdapter {
         int cum = (int) ((((angle * width * Math.PI) / 360) / diameter / Math.PI) * 360);
 
         //速度から必要な距離を求める(可変距離)
-        double distanceVariable = speed * 0.24F;
+        double distanceVariable = speed * 0.28F;
 
         // 移動開始
         motorLeft.forward();
@@ -52,7 +52,7 @@ public class Turn extends MotorAdapter {
 
         // 移動判定
         try {
-            while (degreeCount < cum) {
+            while (degreeCount <= cum) {
                 if (degreeCount > cum - distanceVariable) {
                     //減速部
                     speedNow = (int) ((float) (speed - speedMin) * (cum - degreeCount) / distanceVariable + speedMin);
@@ -92,7 +92,7 @@ public class Turn extends MotorAdapter {
         int cum = (int) ((((angle * width * Math.PI) / 360) / diameter / Math.PI) * 360);
 
         //速度から必要な距離を求める(可変距離)
-        double distanceVariable = speed * 0.24F;
+        double distanceVariable = speed * 0.28F;
 
         // 移動開始
         motorLeft.backward();
@@ -100,7 +100,7 @@ public class Turn extends MotorAdapter {
 
         // 移動判定
         try {
-            while (degreeCount < cum) {
+            while (degreeCount <= cum) {
                 if (degreeCount > cum - distanceVariable) {
                     //減速部
                     speedNow = (int) ((float) (speed - speedMin) * (cum - degreeCount) / distanceVariable + speedMin);
