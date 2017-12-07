@@ -35,7 +35,7 @@ public class CatchBottle extends MotorAdapter {
             angle = -angle;
         }
         setSpeed(300);
-        ultrasonicValue = ultrasonicSensor.ultrasonicFloat[0];
+        ultrasonicValue = ultrasonicSensor.getValue();
         search();
 
         // 初期化
@@ -67,13 +67,13 @@ public class CatchBottle extends MotorAdapter {
         try {
             while (true) {
                 // 設定した超音波センサーの距離+停止までに必要な距離まで更新し続ける。
-                if (distanceUltrasonic + distanceStop < (int) ((ultrasonicSensor.ultrasonicFloat[0] * 100 / diameter / Math.PI) * 360)) {
+                if (distanceUltrasonic + distanceStop < (int) ((ultrasonicSensor.getValue() * 100 / diameter / Math.PI) * 360)) {
                     // 減速に必要な角度累計を代入する
                     distanceDeceleration = degreeTachoCount + (int) distanceStop;
                 }
 
                 // 停止する
-                if ((int) ((ultrasonicSensor.ultrasonicFloat[0] * 100 / diameter / Math.PI) * 360) < distanceUltrasonic) {
+                if ((int) ((ultrasonicSensor.getValue() * 100 / diameter / Math.PI) * 360) < distanceUltrasonic) {
                     break;
                 }
                 // 減速部
@@ -134,7 +134,7 @@ public class CatchBottle extends MotorAdapter {
 
     private void search() {
         //対象の距離が短くなっているか判定する
-        float actualUltrasonicValue = ultrasonicSensor.ultrasonicFloat[0];
+        float actualUltrasonicValue = ultrasonicSensor.getValue();
         if (actualUltrasonicValue > ultrasonicValue) {
             //もし、遠くなっていたら以下の処理を行う
             // 一時停止
@@ -192,7 +192,7 @@ public class CatchBottle extends MotorAdapter {
             // 初期化
             initTachoCount = motorRight.getTachoCount();
             degreeCount = 0;
-            float exploreUltrasonicValue = ultrasonicSensor.ultrasonicFloat[0];
+            float exploreUltrasonicValue = ultrasonicSensor.getValue();
             float nowUltrasonicValue;
             int exploreTachoCount = 0;
             motorLeft.setSpeed(40);
@@ -209,7 +209,7 @@ public class CatchBottle extends MotorAdapter {
             try {
                 while (degreeCount <= cum) {
                     //探索部
-                    nowUltrasonicValue = ultrasonicSensor.ultrasonicFloat[0];
+                    nowUltrasonicValue = ultrasonicSensor.getValue();
                     Thread.sleep(wait);
                     degreeCount = motorRight.getTachoCount() - initTachoCount;
                     if (nowUltrasonicValue > exploreUltrasonicValue) {
