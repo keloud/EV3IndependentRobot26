@@ -41,7 +41,7 @@ public class CatchBottle extends MotorAdapter {
         int initTachoCount = motorLeft.getTachoCount();
         int speedNow;
         int speedMin = 100;
-        int degreeLeft = 0;
+        int degreeTachoCount = 0;
         //速度(800)で手前距離(7cm)で止まる
         setSpeed(800);
         setDistance(7);
@@ -56,7 +56,7 @@ public class CatchBottle extends MotorAdapter {
         int distanceUltrasonic = (int) ((distance / diameter / Math.PI) * 360);
 
         // 減速に使用する角度累計
-        int distanceDeceleration = degreeLeft + (int) distanceVariable;
+        int distanceDeceleration = degreeTachoCount + (int) distanceVariable;
 
         // 移動開始
         motorLeft.forward();
@@ -68,19 +68,19 @@ public class CatchBottle extends MotorAdapter {
                 // 設定した超音波センサーの距離+停止までに必要な距離まで更新し続ける。
                 if (distanceUltrasonic + distanceStop < (int) ((ultrasonicSensor.ultrasonicFloat[0] * 100 / diameter / Math.PI) * 360)) {
                     // 減速に必要な角度累計を代入する
-                    distanceDeceleration = degreeLeft + (int) distanceStop;
+                    distanceDeceleration = degreeTachoCount + (int) distanceStop;
                 }
                 // 停止する
                 if ((int) ((ultrasonicSensor.ultrasonicFloat[0] * 100 / diameter / Math.PI) * 360) < distanceUltrasonic) {
                     break;
                 }
                 // 減速部
-                if (distanceDeceleration - distanceStop < degreeLeft) {
-                    speedNow = (int) ((float) (speed - speedMin) * (distanceDeceleration - degreeLeft) / distanceStop + speedMin);
+                if (distanceDeceleration - distanceStop < degreeTachoCount) {
+                    speedNow = (int) ((float) (speed - speedMin) * (distanceDeceleration - degreeTachoCount) / distanceStop + speedMin);
                 }
                 // 加速部
-                else if (degreeLeft < distanceVariable) {
-                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeLeft / distanceVariable) + speedMin);
+                else if (degreeTachoCount < distanceVariable) {
+                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeTachoCount / distanceVariable) + speedMin);
                 }
                 // 巡行部
                 else {
@@ -88,16 +88,15 @@ public class CatchBottle extends MotorAdapter {
                 }
 
                 //探査
-                if (degreeLeft % 20 == 0) {
-                    //searchGyro.setAngle(20);
-                    //searchGyro.run();
-
+                if (degreeTachoCount % 20 == 0) {
+                    int temp = degreeTachoCount;
                     //定期的な探索処理
                     search();
+                    degreeTachoCount = temp;
                 }
 
                 //外対策
-                if (colorSensor.colorFloat[0] != 6) {
+                if (colorSensor.colorFloat[0] != 6 && colorSensor.colorFloat[0] != 3) {
                     outOfMap();
                     break;
                 }
@@ -105,7 +104,7 @@ public class CatchBottle extends MotorAdapter {
                 motorLeft.setSpeed(speedNow);
                 motorRight.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeLeft = motorLeft.getTachoCount() - initTachoCount;
+                degreeTachoCount = motorLeft.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             LCD.clear(6);
@@ -131,7 +130,8 @@ public class CatchBottle extends MotorAdapter {
 
     private void search() {
         //対象の距離が短くなっているか判定する
-        if (ultrasonicSensor.ultrasonicFloat[0] < ultrasonicValue + 0.02 || ultrasonicValue == 0) {
+        float actualUltrasonicValue = ultrasonicSensor.ultrasonicFloat[0];
+        if (actualUltrasonicValue < ultrasonicValue) {
             //もし、遠くなっていたら以下の処理を行う
             // 一時停止
             motorLeft.stop(true);
@@ -225,13 +225,14 @@ public class CatchBottle extends MotorAdapter {
 
             //探索処理(探索した位置に戻る)
             // 初期化
+            setSpeed(100);
             initTachoCount = motorLeft.getTachoCount();
             degreeCount = 0;
             motorLeft.setSpeed(speedMin);
             motorRight.setSpeed(speedMin);
 
             // 角度累計計算
-            cum = (int) ((((angle / 2 * width * Math.PI) / 360) / diameter / Math.PI) * 360) - exploreTachoCount;
+            cum = (int) ((((angle * width * Math.PI) / 360) / diameter / Math.PI) * 360) - exploreTachoCount;
 
             // 移動開始
             motorLeft.forward();
@@ -269,7 +270,7 @@ public class CatchBottle extends MotorAdapter {
             motorLeft.forward();
             motorRight.forward();
         }
-        ultrasonicValue = ultrasonicSensor.ultrasonicFloat[0];
+        ultrasonicValue = actualUltrasonicValue;
     }
 
     private void outOfMap() {
@@ -277,61 +278,7 @@ public class CatchBottle extends MotorAdapter {
         motorLeft.stop(true);
         motorRight.stop(true);
 
-        // 初期化
-        setColorId(0);
-        setSpeed(800);
-        int initTachoCount = motorLeft.getTachoCount();
-        int speedNow;
-        int speedMin = 100;
-        int degreeLeft = 0;
-        motorLeft.setSpeed(speedMin);
-        motorRight.setSpeed(speedMin);
-
-        //速度から必要な距離を求める(可変距離)
-        double distanceVariable = speed * 0.24F;
-        double distanceStop = 50;
-
-        // 減速に使用する角度累計
-        int distanceDeceleration = degreeLeft + (int) distanceVariable;
-
-        // 移動開始
-        motorLeft.backward();
-        motorRight.backward();
-
-        // 移動判定
-        try {
-            while (true) {
-                //ColorIdまで必要な減速距離を更新し続ける
-                if (colorSensor.colorFloat[0] != colorId) {
-                    distanceDeceleration = degreeLeft + (int) distanceStop;
-                }
-                //後退して停止する
-                if (distanceDeceleration < degreeLeft) {
-                    break;
-                }
-                if (distanceDeceleration - distanceStop < degreeLeft) {
-                    //減速部
-                    speedNow = (int) ((float) (speed - speedMin) * (distanceDeceleration - degreeLeft) / distanceStop + speedMin);
-                } else if (degreeLeft < distanceVariable) {
-                    //加速部
-                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeLeft / distanceVariable) + speedMin);
-                } else {
-                    //巡航部
-                    speedNow = speed;
-                }
-                motorLeft.setSpeed(speedNow);
-                motorRight.setSpeed(speedNow);
-                Thread.sleep(wait);
-                degreeLeft = -(motorLeft.getTachoCount() - initTachoCount);
-            }
-        } catch (InterruptedException ignored) {
-            LCD.clear(6);
-            LCD.drawString("Error", 1, 6);
-            LCD.refresh();
-        }
-
-        // 停止
-        motorLeft.stop(true);
-        motorRight.stop(true);
+        //アームを閉じる
+        arm.run("Close");
     }
 }

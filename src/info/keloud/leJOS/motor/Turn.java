@@ -36,7 +36,7 @@ public class Turn extends MotorAdapter {
         int initTachoCount = motorLeft.getTachoCount();
         int speedNow;
         int speedMin = 100;
-        int degreeCount = 0;
+        int degreeTachoCount = 0;
         motorLeft.setSpeed(speedMin);
         motorRight.setSpeed(speedMin);
 
@@ -52,13 +52,13 @@ public class Turn extends MotorAdapter {
 
         // 移動判定
         try {
-            while (degreeCount <= cum) {
-                if (degreeCount > cum - distanceVariable) {
+            while (degreeTachoCount <= cum) {
+                if (degreeTachoCount > cum - distanceVariable) {
                     //減速部
-                    speedNow = (int) ((float) (speed - speedMin) * (cum - degreeCount) / distanceVariable + speedMin);
-                } else if (degreeCount < distanceVariable) {
+                    speedNow = (int) ((float) (speed - speedMin) * (cum - degreeTachoCount) / distanceVariable + speedMin);
+                } else if (degreeTachoCount < distanceVariable) {
                     //加速部
-                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeCount / distanceVariable) + speedMin);
+                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeTachoCount / distanceVariable) + speedMin);
                 } else {
                     //巡航部
                     speedNow = speed;
@@ -66,7 +66,7 @@ public class Turn extends MotorAdapter {
                 motorLeft.setSpeed(speedNow);
                 motorRight.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeCount = motorLeft.getTachoCount() - initTachoCount;
+                degreeTachoCount = motorLeft.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             LCD.clear(6);
@@ -84,7 +84,7 @@ public class Turn extends MotorAdapter {
         int initTachoCount = motorRight.getTachoCount();
         int speedNow;
         int speedMin = 100;
-        int degreeCount = 0;
+        int degreeTachoCount = 0;
         motorLeft.setSpeed(speedMin);
         motorRight.setSpeed(speedMin);
 
@@ -100,13 +100,13 @@ public class Turn extends MotorAdapter {
 
         // 移動判定
         try {
-            while (degreeCount <= cum) {
-                if (degreeCount > cum - distanceVariable) {
+            while (degreeTachoCount <= cum) {
+                if (degreeTachoCount > cum - distanceVariable) {
                     //減速部
-                    speedNow = (int) ((float) (speed - speedMin) * (cum - degreeCount) / distanceVariable + speedMin);
-                } else if (degreeCount < distanceVariable) {
+                    speedNow = (int) ((float) (speed - speedMin) * (cum - degreeTachoCount) / distanceVariable + speedMin);
+                } else if (degreeTachoCount < distanceVariable) {
                     //加速部
-                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeCount / distanceVariable) + speedMin);
+                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeTachoCount / distanceVariable) + speedMin);
                 } else {
                     //巡航部
                     speedNow = speed;
@@ -114,7 +114,7 @@ public class Turn extends MotorAdapter {
                 motorLeft.setSpeed(speedNow);
                 motorRight.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeCount = motorRight.getTachoCount() - initTachoCount;
+                degreeTachoCount = motorRight.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             LCD.clear(6);

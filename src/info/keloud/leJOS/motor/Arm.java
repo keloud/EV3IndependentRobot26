@@ -56,7 +56,7 @@ public class Arm extends MotorAdapter {
 
         // 初期化
         int initTachoCount = motorCenter.getTachoCount();
-        int degreeCenter = 0;
+        int degreeTachoCount = 0;
 
         // 移動距離計算
         double distance = (angle * width * Math.PI) / 360;
@@ -68,9 +68,9 @@ public class Arm extends MotorAdapter {
         motorCenter.forward();
 
         try {
-            while (degreeCenter < cum) {
+            while (degreeTachoCount < cum) {
                 Thread.sleep(wait);
-                degreeCenter = motorCenter.getTachoCount() - initTachoCount;
+                degreeTachoCount = motorCenter.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             LCD.clear(6);
@@ -89,7 +89,7 @@ public class Arm extends MotorAdapter {
 
         // 初期化
         int initTachoCount = motorCenter.getTachoCount();
-        int degreeCenter = 0;
+        int degreeTachoCount = 0;
 
         // 移動距離計算
         double distance = (angle * width * Math.PI) / 360;
@@ -102,9 +102,9 @@ public class Arm extends MotorAdapter {
         motorCenter.backward();
 
         try {
-            while (cum < degreeCenter) {
+            while (cum < degreeTachoCount) {
                 Thread.sleep(wait);
-                degreeCenter = motorCenter.getTachoCount() - initTachoCount;
+                degreeTachoCount = motorCenter.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             LCD.clear(6);

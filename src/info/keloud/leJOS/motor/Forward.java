@@ -20,7 +20,7 @@ public class Forward extends MotorAdapter {
         int initTachoCount = motorLeft.getTachoCount();
         int speedNow;
         int speedMin = 100;
-        int degreeLeft = 0;
+        int degreeTachoCount = 0;
         motorLeft.setSpeed(speedMin);
         motorRight.setSpeed(speedMin);
 
@@ -36,13 +36,13 @@ public class Forward extends MotorAdapter {
 
         // 移動判定
         try {
-            while (degreeLeft < cum) {
-                if (degreeLeft > cum - distanceVariable) {
+            while (degreeTachoCount < cum) {
+                if (degreeTachoCount > cum - distanceVariable) {
                     //減速部
-                    speedNow = (int) ((float) (speed - speedMin) * (cum - degreeLeft) / distanceVariable + speedMin);
-                } else if (degreeLeft < distanceVariable) {
+                    speedNow = (int) ((float) (speed - speedMin) * (cum - degreeTachoCount) / distanceVariable + speedMin);
+                } else if (degreeTachoCount < distanceVariable) {
                     //加速部
-                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeLeft / distanceVariable) + speedMin);
+                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeTachoCount / distanceVariable) + speedMin);
                 } else {
                     //巡航部
                     speedNow = speed;
@@ -50,7 +50,7 @@ public class Forward extends MotorAdapter {
                 motorLeft.setSpeed(speedNow);
                 motorRight.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeLeft = motorLeft.getTachoCount() - initTachoCount;
+                degreeTachoCount = motorLeft.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             LCD.clear(6);

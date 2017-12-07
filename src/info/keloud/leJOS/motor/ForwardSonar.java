@@ -22,7 +22,7 @@ public class ForwardSonar extends MotorAdapter {
         int initTachoCount = motorLeft.getTachoCount();
         int speedNow;
         int speedMin = 100;
-        int degreeLeft = 0;
+        int degreeTachoCount = 0;
         motorLeft.setSpeed(speedMin);
         motorRight.setSpeed(speedMin);
 
@@ -34,7 +34,7 @@ public class ForwardSonar extends MotorAdapter {
         int distanceUltrasonic = (int) ((distance / diameter / Math.PI) * 360);
 
         // 減速に使用する角度累計
-        int distanceDeceleration = degreeLeft + (int) distanceVariable;
+        int distanceDeceleration = degreeTachoCount + (int) distanceVariable;
 
         // 移動開始
         motorLeft.forward();
@@ -46,19 +46,19 @@ public class ForwardSonar extends MotorAdapter {
                 // 設定した超音波センサーの距離+停止までに必要な距離まで更新し続ける。
                 if (distanceUltrasonic + distanceStop < (int) ((ultrasonicSensor.ultrasonicFloat[0] * 100 / diameter / Math.PI) * 360)) {
                     // 減速に必要な角度累計を代入する
-                    distanceDeceleration = degreeLeft + (int) distanceStop;
+                    distanceDeceleration = degreeTachoCount + (int) distanceStop;
                 }
                 // 停止する
                 if ((int) ((ultrasonicSensor.ultrasonicFloat[0] * 100 / diameter / Math.PI) * 360) < distanceUltrasonic) {
                     break;
                 }
                 // 減速部
-                if (distanceDeceleration - distanceStop < degreeLeft) {
-                    speedNow = (int) ((float) (speed - speedMin) * (distanceDeceleration - degreeLeft) / distanceStop + speedMin);
+                if (distanceDeceleration - distanceStop < degreeTachoCount) {
+                    speedNow = (int) ((float) (speed - speedMin) * (distanceDeceleration - degreeTachoCount) / distanceStop + speedMin);
                 }
                 // 加速部
-                else if (degreeLeft < distanceVariable) {
-                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeLeft / distanceVariable) + speedMin);
+                else if (degreeTachoCount < distanceVariable) {
+                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeTachoCount / distanceVariable) + speedMin);
                 }
                 // 巡行部
                 else {
@@ -67,7 +67,7 @@ public class ForwardSonar extends MotorAdapter {
                 motorLeft.setSpeed(speedNow);
                 motorRight.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeLeft = motorLeft.getTachoCount() - initTachoCount;
+                degreeTachoCount = motorLeft.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             LCD.clear(6);

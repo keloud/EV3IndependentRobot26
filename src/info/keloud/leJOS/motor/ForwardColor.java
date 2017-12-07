@@ -22,7 +22,7 @@ public class ForwardColor extends MotorAdapter {
         int initTachoCount = motorLeft.getTachoCount();
         int speedNow;
         int speedMin = 100;
-        int degreeLeft = 0;
+        int degreeTachoCount = 0;
         motorLeft.setSpeed(speedMin);
         motorRight.setSpeed(speedMin);
 
@@ -31,7 +31,7 @@ public class ForwardColor extends MotorAdapter {
         double distanceStop = 50;
 
         // 減速に使用する角度累計
-        int distanceDeceleration = degreeLeft + (int) distanceVariable;
+        int distanceDeceleration = degreeTachoCount + (int) distanceVariable;
 
         // 移動開始
         motorLeft.forward();
@@ -42,18 +42,18 @@ public class ForwardColor extends MotorAdapter {
             while (true) {
                 //ColorIdまで必要な減速距離を更新し続ける
                 if (colorSensor.colorFloat[0] != colorId) {
-                    distanceDeceleration = degreeLeft + (int) distanceStop;
+                    distanceDeceleration = degreeTachoCount + (int) distanceStop;
                 }
                 //後退して停止する
-                if (distanceDeceleration < degreeLeft) {
+                if (distanceDeceleration < degreeTachoCount) {
                     break;
                 }
-                if (distanceDeceleration - distanceStop < degreeLeft) {
+                if (distanceDeceleration - distanceStop < degreeTachoCount) {
                     //減速部
-                    speedNow = (int) ((float) (speed - speedMin) * (distanceDeceleration - degreeLeft) / distanceStop + speedMin);
-                } else if (degreeLeft < distanceVariable) {
+                    speedNow = (int) ((float) (speed - speedMin) * (distanceDeceleration - degreeTachoCount) / distanceStop + speedMin);
+                } else if (degreeTachoCount < distanceVariable) {
                     //加速部
-                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeLeft / distanceVariable) + speedMin);
+                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeTachoCount / distanceVariable) + speedMin);
                 } else {
                     //巡航部
                     speedNow = speed;
@@ -61,7 +61,7 @@ public class ForwardColor extends MotorAdapter {
                 motorLeft.setSpeed(speedNow);
                 motorRight.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeLeft = motorLeft.getTachoCount() - initTachoCount;
+                degreeTachoCount = motorLeft.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             LCD.clear(6);
