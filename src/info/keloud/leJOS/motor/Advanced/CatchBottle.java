@@ -7,19 +7,19 @@ import info.keloud.leJOS.sensor.UltrasonicSensor;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
-public class GetBottle extends MotorAdapter {
+public class CatchBottle extends MotorAdapter {
     private Arm arm;
     private Forward forward;
     private float ultrasonicValue = 0;
 
-    public GetBottle(RegulatedMotor motorLeft, RegulatedMotor motorRight, RegulatedMotor motorCenter, UltrasonicSensor ultrasonicSensor, Arm arm, Forward forward) {
+    public CatchBottle(RegulatedMotor motorLeft, RegulatedMotor motorRight, RegulatedMotor motorCenter, UltrasonicSensor ultrasonicSensor, Arm arm, Forward forward) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.motorCenter = motorCenter;
         this.ultrasonicSensor = ultrasonicSensor;
         this.arm = arm;
         this.forward = forward;
-        behavior = "GetBottle";
+        behavior = "CatchBottle";
     }
 
     @Override
@@ -82,7 +82,7 @@ public class GetBottle extends MotorAdapter {
                 }
                 // 巡行部
                 else {
-                    if (degreeLeft % 80 == 0) {
+                    if (degreeLeft % 20 == 0) {
                         //searchGyro.setAngle(20);
                         //searchGyro.run();
 
@@ -120,7 +120,7 @@ public class GetBottle extends MotorAdapter {
 
     private void search() {
         //対象の距離が短くなっているか判定する
-        if (ultrasonicSensor.ultrasonicFloat[0] < ultrasonicValue) {
+        if (ultrasonicSensor.ultrasonicFloat[0] < ultrasonicValue + 0.02 || ultrasonicValue == 0) {
             //もし、遠くなっていたら以下の処理を行う
             // 一時停止
             motorLeft.stop(true);
@@ -180,8 +180,8 @@ public class GetBottle extends MotorAdapter {
             float exploreUltrasonicValue = 0;
             float nowUltrasonicValue;
             int exploreTachoCount = 0;
-            motorLeft.setSpeed(speedMin);
-            motorRight.setSpeed(speedMin);
+            motorLeft.setSpeed(40);
+            motorRight.setSpeed(40);
 
             // 角度累計計算
             cum = (int) ((((angle * width * Math.PI) / 360) / diameter / Math.PI) * 360);

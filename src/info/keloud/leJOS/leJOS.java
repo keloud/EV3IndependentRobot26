@@ -1,7 +1,6 @@
 package info.keloud.leJOS;
 
-import info.keloud.leJOS.motor.Advanced.GetBottle;
-import info.keloud.leJOS.motor.Advanced.SearchGyro;
+import info.keloud.leJOS.motor.Advanced.CatchBottle;
 import info.keloud.leJOS.motor.*;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;
@@ -74,10 +73,8 @@ class leJOS {
         Backward backward = new Backward(motorLeft, motorRight);
         BackwardColor backwardColor = new BackwardColor(motorLeft, motorRight, colorSensor);
         Turn turn = new Turn(motorLeft, motorRight);
-        TurnGyro turnGyro = new TurnGyro(motorLeft, motorRight, gyroSensor);
         Arm arm = new Arm(motorCenter);
-        SearchGyro searchGyro = new SearchGyro(motorLeft, motorRight, ultrasonicSensor, gyroSensor, turnGyro);
-        GetBottle getBottle = new GetBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, arm, forward);
+        CatchBottle catchBottle = new CatchBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, arm, forward);
         // ディスプレイ案内の更新
         LCD.clear();
         LCD.drawString("End of initialization processing", 1, 6);
@@ -92,13 +89,13 @@ class leJOS {
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
         //修正
-        //arm.setState(true);
-        //arm.run("Close");
+        arm.setState(true);
+        arm.run("Close");
         //アームを開ける
         arm.run("Open");
         //ボトルを取得する
-        getBottle.setAngle(60);
-        getBottle.run();
+        catchBottle.setAngle(40);
+        catchBottle.run();
         //速度(100)角度(-90度°)で回転
         turn.setSpeed(300);
         turn.setAngle(-90);
@@ -113,7 +110,7 @@ class leJOS {
         backward.run();
         //アームを開ける
         arm.run();
-        ////速度(300)走行距離(10cm)で後進
+        //速度(300)走行距離(10cm)で後進
         backward.run();
         // 2個目
         //速度(100)角度(90°)で回転
@@ -124,9 +121,11 @@ class leJOS {
         forwardColor.setColorId(6);
         forwardColor.run();
         //ボトルを取得する
-        getBottle.run();
+        catchBottle.run();
         //速度(600)カラー(赤)で後進
         backwardColor.run();
+        //速度(300)走行距離(10cm)で後進
+        backward.run();
         //アームを開ける
         arm.run();
         //速度(300)走行距離(10cm)で後進
@@ -138,9 +137,11 @@ class leJOS {
         //速度(400)カラー(白)で前進
         forwardColor.run();
         //ボトルを取得する
-        getBottle.run();
+        catchBottle.run();
         //速度(600)カラー(赤)で後進
         backwardColor.run();
+        //速度(300)走行距離(10cm)で後進
+        backward.run();
         //アームを開ける
         arm.run();
         //速度(300)走行距離(10cm)で後進
@@ -151,9 +152,11 @@ class leJOS {
         //速度(400)カラー(白)で前進
         forwardColor.run();
         //ボトルを取得する
-        getBottle.run();
+        catchBottle.run();
         //速度(600)カラー(赤)で後進
         backwardColor.run();
+        //速度(300)走行距離(10cm)で後進
+        backward.run();
         //アームを開ける
         arm.run();
         //速度(300)走行距離(10cm)で後進
