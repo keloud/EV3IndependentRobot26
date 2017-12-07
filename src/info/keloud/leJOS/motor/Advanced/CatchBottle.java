@@ -278,9 +278,9 @@ public class CatchBottle extends MotorAdapter {
         motorRight.stop(true);
 
         // 初期化
-        colorId = 0;
-        speed = 800;
-        int tacho_L = motorLeft.getTachoCount();
+        setColorId(0);
+        setSpeed(800);
+        int initTachoCount = motorLeft.getTachoCount();
         int speedNow;
         int speedMin = 100;
         int degreeLeft = 0;
@@ -322,7 +322,7 @@ public class CatchBottle extends MotorAdapter {
                 motorLeft.setSpeed(speedNow);
                 motorRight.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeLeft = -(motorLeft.getTachoCount() - tacho_L);
+                degreeLeft = -(motorLeft.getTachoCount() - initTachoCount);
             }
         } catch (InterruptedException ignored) {
             LCD.clear(6);
