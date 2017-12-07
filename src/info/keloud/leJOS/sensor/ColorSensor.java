@@ -5,7 +5,7 @@ import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.SensorMode;
 
 public class ColorSensor {
-    public float[] colorFloat;
+    private float[] colorFloat;
     private SensorMode colorProvider;
 
     public ColorSensor() {
@@ -14,7 +14,12 @@ public class ColorSensor {
         colorFloat = new float[colorProvider.sampleSize()];
     }
 
-    public void update() {
+    private void update() {
         colorProvider.fetchSample(colorFloat, 0);
+    }
+
+    public float getValue() {
+        update();
+        return colorFloat[0];
     }
 }

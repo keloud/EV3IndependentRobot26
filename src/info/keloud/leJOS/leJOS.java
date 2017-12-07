@@ -12,17 +12,17 @@ import lejos.hardware.motor.Motor;
 import lejos.robotics.RegulatedMotor;
 
 class leJOS {
-    // Cumulative rotation of the motor
+    // モーターの累積角度
     int accumulationMotorCenter, accumulationMotorLeft, accumulationMotorRight;
-    // RegulatedMotor
+    // Regulated モーター
     RegulatedMotor motorCenter;
     RegulatedMotor motorLeft;
     RegulatedMotor motorRight;
-    // ColorSensor
+    // カラーセンサー
     private ColorSensor colorSensor;
-    // UltrasonicSensor
+    // 超音波センサー
     private UltrasonicSensor ultrasonicSensor;
-    // GyroSensor
+    // ジャイロセンサー
     private GyroSensor gyroSensor;
 
     leJOS() {
@@ -67,19 +67,20 @@ class leJOS {
         // スレッド起動
         Scheduler scheduler = new Scheduler(this);
         scheduler.start();
-         /* オブジェクト化*/
+        // オブジェクト化(基本)
         Forward forward = new Forward(motorLeft, motorRight);
         ForwardColor forwardColor = new ForwardColor(motorLeft, motorRight, colorSensor);
         Backward backward = new Backward(motorLeft, motorRight);
         BackwardColor backwardColor = new BackwardColor(motorLeft, motorRight, colorSensor);
         Turn turn = new Turn(motorLeft, motorRight);
         Arm arm = new Arm(motorCenter);
+        // オブジェクト化(応用)
         CatchBottle catchBottle = new CatchBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, arm, forward);
         // ディスプレイ案内の更新
         LCD.clear();
         LCD.drawString("End of initialization processing", 1, 6);
         LCD.refresh();
-        /* 開始確認*/
+        // 開始確認
         LCD.clear(6);
         LCD.drawString("Press Enter", 1, 6);
         LCD.refresh();
@@ -88,7 +89,7 @@ class leJOS {
         LCD.clear(6);
         LCD.drawString("Running", 1, 6);
         LCD.refresh();
-        //修正
+        //アームが開いている場合の内部データの修正
         arm.setState(true);
         arm.run("Close");
         //アームを開ける
@@ -192,19 +193,16 @@ class leJOS {
     }
 
     void sensorUpdate() {
-        colorSensor.update();
-        ultrasonicSensor.update();
-        gyroSensor.update();
         LCD.clear(0);
         LCD.drawString(String.valueOf((float) ((int) (Battery.getVoltage() * 10 + 0.5) / 10.0)), 15, 0);
         LCD.clear(1);
         LCD.drawString("C:" + accumulationMotorCenter + " L:" + accumulationMotorLeft + " R:" + accumulationMotorRight, 1, 1);
         LCD.clear(2);
-        LCD.drawString("ColorId:" + colorSensor.colorFloat[0], 1, 2);
+        LCD.drawString("ColorId:" + colorSensor.getValue(), 1, 2);
         LCD.clear(3);
-        LCD.drawString("USonic:" + ultrasonicSensor.ultrasonicFloat[0], 1, 3);
+        LCD.drawString("USonic:" + ultrasonicSensor.getValue(), 1, 3);
         LCD.clear(4);
-        LCD.drawString("Gyro:" + gyroSensor.gyroFloat[0] + " ℃", 1, 4);
+        LCD.drawString("Gyro:" + gyroSensor.getValue() + " ℃", 1, 4);
         LCD.refresh();
     }
 }

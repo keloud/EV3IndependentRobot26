@@ -100,7 +100,7 @@ public class CatchBottle extends MotorAdapter {
                 }
 
                 //コース外へ行くのを防ぐ(白と黄と赤以外の色を検知したらペットボトルを取りに行くのをやめる)
-                if (colorSensor.colorFloat[0] != 6 && colorSensor.colorFloat[0] != 3 && colorSensor.colorFloat[0] != 0) {
+                if (colorSensor.getValue() != 6 && colorSensor.getValue() != 3 && colorSensor.getValue() != 0) {
                     outOfMap();
                     break;
                 }

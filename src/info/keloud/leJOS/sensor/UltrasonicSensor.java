@@ -5,7 +5,7 @@ import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.SampleProvider;
 
 public class UltrasonicSensor {
-    public float[] ultrasonicFloat;
+    private float[] ultrasonicFloat;
     private SampleProvider ultrasonicProvider;
 
     public UltrasonicSensor() {
@@ -14,7 +14,12 @@ public class UltrasonicSensor {
         ultrasonicFloat = new float[ultrasonicProvider.sampleSize()];
     }
 
-    public void update() {
+    private void update() {
         ultrasonicProvider.fetchSample(ultrasonicFloat, 0);
+    }
+
+    public float getValue() {
+        update();
+        return ultrasonicFloat[0];
     }
 }
