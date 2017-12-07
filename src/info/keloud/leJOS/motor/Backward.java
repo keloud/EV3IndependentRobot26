@@ -17,7 +17,7 @@ public class Backward extends MotorAdapter {
         LCD.refresh();
 
         // 初期化
-        int tacho_L = motorLeft.getTachoCount();
+        int initTachoCount = motorLeft.getTachoCount();
         int speedNow;
         int speedMin = 100;
         int degreeLeft = 0;
@@ -50,7 +50,7 @@ public class Backward extends MotorAdapter {
                 motorLeft.setSpeed(speedNow);
                 motorRight.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeLeft = -(motorLeft.getTachoCount() - tacho_L);
+                degreeLeft = -(motorLeft.getTachoCount() - initTachoCount);
             }
         } catch (InterruptedException ignored) {
             LCD.clear(6);

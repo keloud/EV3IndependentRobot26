@@ -55,7 +55,7 @@ public class Arm extends MotorAdapter {
         LCD.refresh();
 
         // 初期化
-        int tacho_C = motorCenter.getTachoCount();
+        int initTachoCount = motorCenter.getTachoCount();
         int degreeCenter = 0;
 
         // 移動距離計算
@@ -70,7 +70,7 @@ public class Arm extends MotorAdapter {
         try {
             while (degreeCenter < cum) {
                 Thread.sleep(wait);
-                degreeCenter = motorCenter.getTachoCount() - tacho_C;
+                degreeCenter = motorCenter.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             LCD.clear(6);
@@ -88,7 +88,7 @@ public class Arm extends MotorAdapter {
         LCD.refresh();
 
         // 初期化
-        int tacho_C = motorCenter.getTachoCount();
+        int initTachoCount = motorCenter.getTachoCount();
         int degreeCenter = 0;
 
         // 移動距離計算
@@ -104,7 +104,7 @@ public class Arm extends MotorAdapter {
         try {
             while (cum < degreeCenter) {
                 Thread.sleep(wait);
-                degreeCenter = motorCenter.getTachoCount() - tacho_C;
+                degreeCenter = motorCenter.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             LCD.clear(6);

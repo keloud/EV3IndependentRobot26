@@ -19,7 +19,7 @@ public class ForwardColor extends MotorAdapter {
         LCD.refresh();
 
         // 初期化
-        int tacho_L = motorLeft.getTachoCount();
+        int initTachoCount = motorLeft.getTachoCount();
         int speedNow;
         int speedMin = 100;
         int degreeLeft = 0;
@@ -61,7 +61,7 @@ public class ForwardColor extends MotorAdapter {
                 motorLeft.setSpeed(speedNow);
                 motorRight.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeLeft = motorLeft.getTachoCount() - tacho_L;
+                degreeLeft = motorLeft.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             LCD.clear(6);
@@ -69,7 +69,7 @@ public class ForwardColor extends MotorAdapter {
             LCD.refresh();
         }
 
-        // 停止 flt()はフロート状態になる
+        // 停止
         motorLeft.stop(true);
         motorRight.stop(true);
         LCD.clear(6);

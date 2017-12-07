@@ -3,6 +3,7 @@ package info.keloud.leJOS.motor.Advanced;
 import info.keloud.leJOS.motor.Arm;
 import info.keloud.leJOS.motor.Forward;
 import info.keloud.leJOS.motor.MotorAdapter;
+import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
@@ -12,11 +13,12 @@ public class CatchBottle extends MotorAdapter {
     private Forward forward;
     private float ultrasonicValue = 0;
 
-    public CatchBottle(RegulatedMotor motorLeft, RegulatedMotor motorRight, RegulatedMotor motorCenter, UltrasonicSensor ultrasonicSensor, Arm arm, Forward forward) {
+    public CatchBottle(RegulatedMotor motorLeft, RegulatedMotor motorRight, RegulatedMotor motorCenter, UltrasonicSensor ultrasonicSensor, ColorSensor colorSensor, Arm arm, Forward forward) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.motorCenter = motorCenter;
         this.ultrasonicSensor = ultrasonicSensor;
+        this.colorSensor = colorSensor;
         this.arm = arm;
         this.forward = forward;
         behavior = "CatchBottle";
@@ -82,15 +84,24 @@ public class CatchBottle extends MotorAdapter {
                 }
                 // 巡行部
                 else {
-                    if (degreeLeft % 20 == 0) {
-                        //searchGyro.setAngle(20);
-                        //searchGyro.run();
-
-                        //定期的な探索処理
-                        search();
-                    }
                     speedNow = speed;
                 }
+
+                //探査
+                if (degreeLeft % 20 == 0) {
+                    //searchGyro.setAngle(20);
+                    //searchGyro.run();
+
+                    //定期的な探索処理
+                    search();
+                }
+
+                //外対策
+                if (colorSensor.colorFloat[0] != 6) {
+                    outOfMap();
+                    break;
+                }
+
                 motorLeft.setSpeed(speedNow);
                 motorRight.setSpeed(speedNow);
                 Thread.sleep(wait);
@@ -259,5 +270,68 @@ public class CatchBottle extends MotorAdapter {
             motorRight.forward();
         }
         ultrasonicValue = ultrasonicSensor.ultrasonicFloat[0];
+    }
+
+    private void outOfMap() {
+        // 一時停止
+        motorLeft.stop(true);
+        motorRight.stop(true);
+
+        // 初期化
+        colorId = 0;
+        speed = 800;
+        int tacho_L = motorLeft.getTachoCount();
+        int speedNow;
+        int speedMin = 100;
+        int degreeLeft = 0;
+        motorLeft.setSpeed(speedMin);
+        motorRight.setSpeed(speedMin);
+
+        //速度から必要な距離を求める(可変距離)
+        double distanceVariable = speed * 0.24F;
+        double distanceStop = 50;
+
+        // 減速に使用する角度累計
+        int distanceDeceleration = degreeLeft + (int) distanceVariable;
+
+        // 移動開始
+        motorLeft.backward();
+        motorRight.backward();
+
+        // 移動判定
+        try {
+            while (true) {
+                //ColorIdまで必要な減速距離を更新し続ける
+                if (colorSensor.colorFloat[0] != colorId) {
+                    distanceDeceleration = degreeLeft + (int) distanceStop;
+                }
+                //後退して停止する
+                if (distanceDeceleration < degreeLeft) {
+                    break;
+                }
+                if (distanceDeceleration - distanceStop < degreeLeft) {
+                    //減速部
+                    speedNow = (int) ((float) (speed - speedMin) * (distanceDeceleration - degreeLeft) / distanceStop + speedMin);
+                } else if (degreeLeft < distanceVariable) {
+                    //加速部
+                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeLeft / distanceVariable) + speedMin);
+                } else {
+                    //巡航部
+                    speedNow = speed;
+                }
+                motorLeft.setSpeed(speedNow);
+                motorRight.setSpeed(speedNow);
+                Thread.sleep(wait);
+                degreeLeft = -(motorLeft.getTachoCount() - tacho_L);
+            }
+        } catch (InterruptedException ignored) {
+            LCD.clear(6);
+            LCD.drawString("Error", 1, 6);
+            LCD.refresh();
+        }
+
+        // 停止
+        motorLeft.stop(true);
+        motorRight.stop(true);
     }
 }

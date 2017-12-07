@@ -74,7 +74,7 @@ class leJOS {
         BackwardColor backwardColor = new BackwardColor(motorLeft, motorRight, colorSensor);
         Turn turn = new Turn(motorLeft, motorRight);
         Arm arm = new Arm(motorCenter);
-        CatchBottle catchBottle = new CatchBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, arm, forward);
+        CatchBottle catchBottle = new CatchBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, arm, forward);
         // ディスプレイ案内の更新
         LCD.clear();
         LCD.drawString("End of initialization processing", 1, 6);
@@ -94,7 +94,7 @@ class leJOS {
         //アームを開ける
         arm.run("Open");
         //ボトルを取得する
-        catchBottle.setAngle(40);
+        catchBottle.setAngle(60);
         catchBottle.run();
         //速度(100)角度(-90度°)で回転
         turn.setSpeed(300);
