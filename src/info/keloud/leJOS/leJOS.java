@@ -19,11 +19,11 @@ class leJOS {
     RegulatedMotor motorLeft;
     RegulatedMotor motorRight;
     // カラーセンサー
-    private ColorSensor colorSensor;
+    ColorSensor colorSensor;
     // 超音波センサー
-    private UltrasonicSensor ultrasonicSensor;
+    UltrasonicSensor ultrasonicSensor;
     // ジャイロセンサー
-    private GyroSensor gyroSensor;
+    GyroSensor gyroSensor;
 
     leJOS() {
         /* 初期化処理*/
@@ -67,6 +67,8 @@ class leJOS {
         // スレッド起動
         Scheduler scheduler = new Scheduler(this);
         scheduler.start();
+        Monitoring monitoring = new Monitoring(this);
+        monitoring.start();
         // オブジェクト化(基本)
         Forward forward = new Forward(motorLeft, motorRight);
         ForwardColor forwardColor = new ForwardColor(motorLeft, motorRight, colorSensor);
@@ -192,7 +194,9 @@ class leJOS {
         LCD.clear(6);
         LCD.drawString("All Complete", 1, 6);
         LCD.refresh();
+        // Enterキーを押して次に進む
         Button.ENTER.waitForPress();
+        monitoring.close();
         scheduler.countStop();
     }
 
@@ -206,7 +210,7 @@ class leJOS {
         LCD.clear(3);
         LCD.drawString("USonic:" + ultrasonicSensor.getValue(), 1, 3);
         LCD.clear(4);
-        LCD.drawString("Gyro:" + gyroSensor.getValue() + " ℃", 1, 4);
+        LCD.drawString("Gyro:" + gyroSensor.getValue(), 1, 4);
         LCD.refresh();
     }
 }
