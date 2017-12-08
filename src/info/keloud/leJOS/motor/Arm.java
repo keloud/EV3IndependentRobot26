@@ -11,7 +11,7 @@ public class Arm extends MotorAdapter {
 
     public Arm(RegulatedMotor motorCenter) {
         this.motorCenter = motorCenter;
-        setAngle(360);
+        setAngle(320);
         setSpeed(800);
         motorCenter.setSpeed(speed);
     }

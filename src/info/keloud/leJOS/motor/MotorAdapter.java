@@ -5,6 +5,8 @@ import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
 import lejos.robotics.RegulatedMotor;
 
+import java.util.Objects;
+
 public abstract class MotorAdapter {
     /* Vehicle information*/
     // Diameter of tire(cm)
@@ -56,8 +58,12 @@ public abstract class MotorAdapter {
     }
 
     public void setColorId(String colorId) {
-        if (colorId == "red") {
+        if (Objects.equals(colorId, "red")) {
             this.colorId = 0;
+        } else if (Objects.equals(colorId, "yellow")) {
+            this.colorId = 3;
+        } else if (Objects.equals(colorId, "white")) {
+            this.colorId = 6;
         }
     }
 }

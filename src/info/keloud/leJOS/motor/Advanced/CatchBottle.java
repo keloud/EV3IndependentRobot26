@@ -43,6 +43,7 @@ public class CatchBottle extends MotorAdapter {
         int speedNow;
         int minimumSpeed = 100;
         int degreeTachoCount = 0;
+        int outOfMapInt = 0;
         //速度(800)で手前距離(7cm)で止まる
         setSpeed(800);
         setDistance(7);
@@ -54,6 +55,7 @@ public class CatchBottle extends MotorAdapter {
         double distanceStop = speed * 0.5F;
 
         // 設定した超音波センサーの距離を角度累計に変換する
+        setDistance(6);
         int distanceUltrasonic = (int) ((distance / diameter / Math.PI) * 360);
 
         // 減速に使用する角度累計
@@ -70,6 +72,17 @@ public class CatchBottle extends MotorAdapter {
                 if (distanceUltrasonic + distanceStop < (int) ((ultrasonicSensor.getValue() * 100 / diameter / Math.PI) * 360)) {
                     // 減速に必要な角度累計を代入する
                     distanceDeceleration = degreeTachoCount + (int) distanceStop;
+
+                    //定期的な探査する
+                    if (degreeTachoCount % 20 == 0) {
+                        Thread.sleep(wait);
+                        //調整値を取得する
+                        int temp = motorLeft.getTachoCount();
+                        //探索処理を呼び出す
+                        search();
+                        //調整する
+                        initTachoCount += motorLeft.getTachoCount() - temp;
+                    }
                 }
 
                 // 停止する
@@ -89,20 +102,16 @@ public class CatchBottle extends MotorAdapter {
                     speedNow = speed;
                 }
 
-                //定期的な探査する
-                if (degreeTachoCount % 20 == 0) {
-                    //調整値を取得する
-                    int temp = motorLeft.getTachoCount();
-                    //探索処理を呼び出す
-                    search();
-                    //調整する
-                    initTachoCount += motorLeft.getTachoCount() - temp;
-                }
-
                 //コース外へ行くのを防ぐ(白と黄と赤以外の色を検知したらペットボトルを取りに行くのをやめる)
                 if (colorSensor.getValue() != 6 && colorSensor.getValue() != 3 && colorSensor.getValue() != 0) {
-                    outOfMap();
-                    break;
+                    if (outOfMapInt == 3) {
+                        outOfMap();
+                        break;
+                    } else {
+                        outOfMapInt++;
+                    }
+                } else {
+                    outOfMapInt = 0;
                 }
 
                 motorLeft.setSpeed(speedNow);
@@ -212,7 +221,7 @@ public class CatchBottle extends MotorAdapter {
                     nowUltrasonicValue = ultrasonicSensor.getValue();
                     Thread.sleep(wait);
                     degreeCount = motorRight.getTachoCount() - initTachoCount;
-                    if (nowUltrasonicValue > exploreUltrasonicValue) {
+                    if (nowUltrasonicValue < exploreUltrasonicValue) {
                         exploreUltrasonicValue = nowUltrasonicValue;
                         exploreTachoCount = degreeCount;
                     }

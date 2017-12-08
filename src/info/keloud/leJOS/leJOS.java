@@ -95,7 +95,7 @@ class leJOS {
         //アームを開ける
         arm.run("Open");
         //ボトルを取得する
-        catchBottle.setAngle(60);
+        catchBottle.setAngle(70);
         catchBottle.run();
         //速度(100)角度(-90度°)で回転
         turn.setSpeed(300);
@@ -137,6 +137,10 @@ class leJOS {
         turn.run();
         //速度(400)カラー(白)で前進
         forwardColor.run();
+        //速度(400)走行距離(235m)で前進
+        forward.setSpeed(400);
+        forward.setDistance(25);
+        forward.run();
         //ボトルを取得する
         catchBottle.run();
         //速度(600)カラー(赤)で後進
@@ -175,11 +179,11 @@ class leJOS {
         forwardColor.setColorId(7);
         forwardColor.run();
         //速度(100)角度(60°)で回転
-        turn.setAngle(60);
+        turn.setAngle(80);
         turn.run();
         //速度(200)カラー(黄)で前進
         forwardColor.setSpeed(200);
-        forwardColor.setColorId(2);
+        forwardColor.setColorId(3);
         forwardColor.run();
         //アームを閉じる
         arm.run();
