@@ -44,12 +44,12 @@ public class ForwardSonar extends MotorAdapter {
         try {
             while (true) {
                 // 設定した超音波センサーの距離+停止までに必要な距離まで更新し続ける。
-                if (distanceUltrasonic + distanceStop < (int) ((ultrasonicSensor.ultrasonicFloat[0] * 100 / diameter / Math.PI) * 360)) {
+                if (distanceUltrasonic + distanceStop < (int) ((ultrasonicSensor.getValue() * 100 / diameter / Math.PI) * 360)) {
                     // 減速に必要な角度累計を代入する
                     distanceDeceleration = degreeTachoCount + (int) distanceStop;
                 }
                 // 停止する
-                if ((int) ((ultrasonicSensor.ultrasonicFloat[0] * 100 / diameter / Math.PI) * 360) < distanceUltrasonic) {
+                if ((int) ((ultrasonicSensor.getValue() * 100 / diameter / Math.PI) * 360) < distanceUltrasonic) {
                     break;
                 }
                 // 減速部

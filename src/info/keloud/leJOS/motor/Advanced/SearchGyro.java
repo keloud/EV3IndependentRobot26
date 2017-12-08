@@ -32,10 +32,10 @@ public class SearchGyro extends MotorAdapter {
         turnGyro.run();
 
         // 初期化
-        float gyroInit = gyroSensor.gyroFloat[0];
+        float gyroInit = gyroSensor.getValue();
         float degreeGyro = 0;
         float gyroValue = degreeGyro;
-        float degreeUltrasonic = ultrasonicSensor.ultrasonicFloat[0];
+        float degreeUltrasonic = ultrasonicSensor.getValue();
         float ultrasonicValue = degreeUltrasonic;
         setSpeed(80);
         motorLeft.setSpeed(speed);
@@ -49,8 +49,8 @@ public class SearchGyro extends MotorAdapter {
         try {
             while (-angle < degreeGyro) {
                 Thread.sleep(wait);
-                degreeGyro = gyroSensor.gyroFloat[0] - gyroInit;
-                degreeUltrasonic = ultrasonicSensor.ultrasonicFloat[0];
+                degreeGyro = gyroSensor.getValue() - gyroInit;
+                degreeUltrasonic = ultrasonicSensor.getValue();
                 if (degreeUltrasonic < ultrasonicValue) {
                     ultrasonicValue = degreeUltrasonic;
                     gyroValue = degreeGyro;

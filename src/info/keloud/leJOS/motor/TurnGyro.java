@@ -34,7 +34,7 @@ public class TurnGyro extends MotorAdapter {
 
     private void rightTurn() {
         // 初期化
-        float gyroInit = gyroSensor.gyroFloat[0];
+        float gyroInit = gyroSensor.getValue();
         float degreeGyro = 0;
         motorLeft.setSpeed(speed);
         motorRight.setSpeed(speed);
@@ -47,7 +47,7 @@ public class TurnGyro extends MotorAdapter {
         try {
             while (angle < degreeGyro) {
                 Thread.sleep(wait);
-                degreeGyro = gyroSensor.gyroFloat[0] - gyroInit;
+                degreeGyro = gyroSensor.getValue() - gyroInit;
             }
         } catch (InterruptedException ignored) {
             LCD.clear(6);
@@ -62,7 +62,7 @@ public class TurnGyro extends MotorAdapter {
 
     private void leftTurn() {
         // 初期化
-        float gyroInit = gyroSensor.gyroFloat[0];
+        float gyroInit = gyroSensor.getValue();
         float degreeGyro = 0;
         motorLeft.setSpeed(speed);
         motorRight.setSpeed(speed);
@@ -75,7 +75,7 @@ public class TurnGyro extends MotorAdapter {
         try {
             while (degreeGyro < angle) {
                 Thread.sleep(wait);
-                degreeGyro = gyroSensor.gyroFloat[0] - gyroInit;
+                degreeGyro = gyroSensor.getValue() - gyroInit;
             }
         } catch (InterruptedException ignored) {
             LCD.clear(6);

@@ -41,7 +41,7 @@ public class ForwardColor extends MotorAdapter {
         try {
             while (true) {
                 //ColorIdまで必要な減速距離を更新し続ける
-                if (colorSensor.colorFloat[0] != colorId) {
+                if (colorSensor.getValue() != colorId) {
                     distanceDeceleration = degreeTachoCount + (int) distanceStop;
                 }
                 //後退して停止する
