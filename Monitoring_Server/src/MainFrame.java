@@ -1,7 +1,7 @@
 import javax.swing.*;
 
 class MainFrame extends JFrame {
-    MainPanel mainPanel;
+    private MainPanel mainPanel;
 
     MainFrame() {
         System.out.println("MainFrame.MainFrame");
@@ -12,5 +12,10 @@ class MainFrame extends JFrame {
         setVisible(true);
         mainPanel = new MainPanel();
         add(mainPanel);
+    }
+
+    void updatePanel(String bufferedString) {
+        //System.out.println("MainFrame.updatePanel");
+        mainPanel.refreshTextField(bufferedString);
     }
 }

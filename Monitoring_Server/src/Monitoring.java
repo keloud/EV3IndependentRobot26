@@ -6,13 +6,14 @@ import java.net.Socket;
 import java.util.Objects;
 
 class Monitoring extends Thread {
-    private String bufferedString;
     private ServerSocket serverSocket;
     private Socket socket;
     private BufferedReader bufferedReader;
+    private MainFrame mainFrame;
 
     Monitoring() {
         System.out.println("Monitoring.Monitoring");
+        mainFrame = new MainFrame();
     }
 
     @Override
@@ -24,21 +25,26 @@ class Monitoring extends Thread {
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             while (true) {
-                bufferedString = bufferedReader.readLine();
+                String bufferedString = bufferedReader.readLine();
 
-                System.out.println("EV3 : " + bufferedString);
+                //System.out.println("EV3 : " + bufferedString);
+
+                mainFrame.updatePanel(bufferedString);
 
                 if (Objects.equals(bufferedString, "close")) {
+                    mainFrame.updatePanel("All Complete");
                     break;
                 }
 
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(40);
                 } catch (InterruptedException e1) {
+                    System.out.println("InterruptedException");
                     e1.printStackTrace();
                 }
             }
         } catch (IOException e) {
+            System.out.println("IOException");
             e.printStackTrace();
         } finally {
             try {
@@ -46,6 +52,7 @@ class Monitoring extends Thread {
                 if (socket != null) socket.close();
                 if (serverSocket != null) serverSocket.close();
             } catch (IOException e) {
+                System.out.println("final.IOException");
                 e.printStackTrace();
             }
         }
