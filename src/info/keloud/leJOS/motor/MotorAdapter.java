@@ -44,11 +44,11 @@ public abstract class MotorAdapter {
 
     }
 
-    public void setBehavior(String behavior) {
+    public String setBehavior(String behavior) {
         LCD.clear(6);
         LCD.drawString(behavior, 1, 6);
         LCD.refresh();
-        monitoring.setBehavior(behavior);
+        return behavior;
     }
 
     public void setSpeed(int speed) {

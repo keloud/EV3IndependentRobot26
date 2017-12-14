@@ -13,7 +13,8 @@ public class Turn extends MotorAdapter {
 
     @Override
     public void run() {
-        setBehavior("Turn");
+        monitoring.setBehavior(setBehavior("Turn"));
+
         /*
         Angle
         Left turn is +.

@@ -15,7 +15,7 @@ public class BackwardColor extends MotorAdapter {
 
     @Override
     public void run() {
-        setBehavior("Backward Color");
+        monitoring.setBehavior(setBehavior("Backward Color"));
 
         // 初期化
         int initTachoCount = motorLeft.getTachoCount();

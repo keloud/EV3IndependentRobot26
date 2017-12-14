@@ -15,7 +15,7 @@ public class ForwardSonar extends MotorAdapter {
 
     @Override
     public void run() {
-        setBehavior("Forward Sonar");
+        monitoring.setBehavior(setBehavior("Forward Sonar"));
 
         // 初期化
         int initTachoCount = motorLeft.getTachoCount();

@@ -84,5 +84,5 @@ local.properties
 leJOS_26.iml
 leJOS_26.eml
 leJOS_26.userlibraries
-/Monitoring_Server/Monitoring_Server.iml
+Monitoring_Server.iml
 out/

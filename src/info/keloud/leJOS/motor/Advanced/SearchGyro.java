@@ -23,7 +23,7 @@ public class SearchGyro extends MotorAdapter {
 
     @Override
     public void run() {
-        setBehavior("Searching");
+        monitoring.setBehavior(setBehavior("Searching"));
 
         //サーチ初期位置に動く
         turnGyro.setSpeed(100);

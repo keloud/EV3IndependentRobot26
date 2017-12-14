@@ -27,8 +27,6 @@ public class Motor {
     private CatchBottle catchBottle;
 
     Motor(leJOS parent) {
-        monitoring.setBehavior("Initialize Motor");
-
         // 初期化
         this.leJOS = parent;
         RegulatedMotor motorCenter = leJOS.motorCenter;

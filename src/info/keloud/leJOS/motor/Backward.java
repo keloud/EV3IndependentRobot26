@@ -13,7 +13,7 @@ public class Backward extends MotorAdapter {
 
     @Override
     public void run() {
-        setBehavior("Backward");
+        monitoring.setBehavior(setBehavior("Backward"));
 
         // 初期化
         int initTachoCount = motorLeft.getTachoCount();
