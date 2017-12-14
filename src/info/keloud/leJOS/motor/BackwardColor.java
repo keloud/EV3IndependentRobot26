@@ -1,22 +1,21 @@
 package info.keloud.leJOS.motor;
 
+import info.keloud.leJOS.Monitoring;
 import info.keloud.leJOS.sensor.ColorSensor;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
 public class BackwardColor extends MotorAdapter {
-    public BackwardColor(RegulatedMotor motorLeft, RegulatedMotor motorRight, ColorSensor colorSensor) {
+    public BackwardColor(Monitoring monitoring, RegulatedMotor motorLeft, RegulatedMotor motorRight, ColorSensor colorSensor) {
+        this.monitoring = monitoring;
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.colorSensor = colorSensor;
-        behavior = "Backward Color";
     }
 
     @Override
     public void run() {
-        LCD.clear(6);
-        LCD.drawString(behavior, 1, 6);
-        LCD.refresh();
+        setBehavior("Backward Color");
 
         // 初期化
         int initTachoCount = motorLeft.getTachoCount();

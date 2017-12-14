@@ -1,21 +1,19 @@
 package info.keloud.leJOS.motor;
 
+import info.keloud.leJOS.Monitoring;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
 public class Forward extends MotorAdapter {
-    public Forward(RegulatedMotor motorLeft, RegulatedMotor motorRight) {
+    public Forward(Monitoring monitoring, RegulatedMotor motorLeft, RegulatedMotor motorRight) {
+        this.monitoring = monitoring;
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
-        behavior = "Forward";
     }
 
     @Override
     public void run() {
-        LCD.clear(6);
-        LCD.drawString(behavior, 1, 6);
-        LCD.refresh();
-
+        setBehavior("Forward");
         // 初期化
         int initTachoCount = motorLeft.getTachoCount();
         int speedNow;

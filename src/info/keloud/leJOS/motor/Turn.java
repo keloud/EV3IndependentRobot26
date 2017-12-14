@@ -1,20 +1,19 @@
 package info.keloud.leJOS.motor;
 
+import info.keloud.leJOS.Monitoring;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
 public class Turn extends MotorAdapter {
-    public Turn(RegulatedMotor motorLeft, RegulatedMotor motorRight) {
+    public Turn(Monitoring monitoring, RegulatedMotor motorLeft, RegulatedMotor motorRight) {
+        this.monitoring = monitoring;
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
-        behavior = "Turn";
     }
 
     @Override
     public void run() {
-        LCD.clear(6);
-        LCD.drawString(behavior, 1, 6);
-        LCD.refresh();
+        setBehavior("Turn");
         /*
         Angle
         Left turn is +.

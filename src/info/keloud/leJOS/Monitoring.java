@@ -5,10 +5,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Monitoring extends Thread {
-    private leJOS parent = null;
+    private leJOS parent;
     private Socket socket;
     private PrintWriter printWriter;
-    private boolean mode = false;
+    private String behavior;
+    private boolean mode;
 
     Monitoring(leJOS parent) {
         this.parent = parent;
@@ -20,7 +21,7 @@ public class Monitoring extends Thread {
             socket = new Socket("192.168.44.52", 255);
             printWriter = new PrintWriter(socket.getOutputStream(), true);
             while (mode) {
-                printWriter.println("C:" + parent.accumulationMotorCenter + " L:" + parent.accumulationMotorLeft + " R:" + parent.accumulationMotorRight + " ColorId:" + parent.colorSensor.getValue() + " USonic:" + parent.ultrasonicSensor.getValue() + " Gyro:" + parent.gyroSensor.getValue());
+                printWriter.println("C:" + parent.accumulationMotorCenter + " L:" + parent.accumulationMotorLeft + " R:" + parent.accumulationMotorRight + " C:" + parent.colorSensor.getValue() + " U:" + parent.ultrasonicSensor.getValue() + " G:" + parent.gyroSensor.getValue() + " B:" + behavior);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -41,5 +42,9 @@ public class Monitoring extends Thread {
     void close() {
         mode = false;
         printWriter.println("close");
+    }
+
+    public void setBehavior(String behavior) {
+        this.behavior = behavior;
     }
 }

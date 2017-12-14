@@ -1,5 +1,6 @@
 package info.keloud.leJOS.motor.Advanced;
 
+import info.keloud.leJOS.Monitoring;
 import info.keloud.leJOS.motor.MotorAdapter;
 import info.keloud.leJOS.motor.TurnGyro;
 import info.keloud.leJOS.sensor.GyroSensor;
@@ -11,20 +12,18 @@ import lejos.robotics.RegulatedMotor;
 public class SearchGyro extends MotorAdapter {
     private TurnGyro turnGyro;
 
-    public SearchGyro(RegulatedMotor motorLeft, RegulatedMotor motorRight, UltrasonicSensor ultrasonicSensor, GyroSensor gyroSensor, TurnGyro turnGyro) {
+    public SearchGyro(Monitoring monitoring, RegulatedMotor motorLeft, RegulatedMotor motorRight, UltrasonicSensor ultrasonicSensor, GyroSensor gyroSensor, TurnGyro turnGyro) {
+        this.monitoring = monitoring;
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.ultrasonicSensor = ultrasonicSensor;
         this.gyroSensor = gyroSensor;
         this.turnGyro = turnGyro;
-        behavior = "Searching";
     }
 
     @Override
     public void run() {
-        LCD.clear(6);
-        LCD.drawString(behavior, 1, 6);
-        LCD.refresh();
+        setBehavior("Searching");
 
         //サーチ初期位置に動く
         turnGyro.setSpeed(100);

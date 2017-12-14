@@ -1,22 +1,22 @@
 package info.keloud.leJOS.motor;
 
+import info.keloud.leJOS.Monitoring;
 import info.keloud.leJOS.sensor.GyroSensor;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
 public class TurnGyro extends MotorAdapter {
-    public TurnGyro(RegulatedMotor motorLeft, RegulatedMotor motorRight, GyroSensor gyroSensor) {
+    public TurnGyro(Monitoring monitoring, RegulatedMotor motorLeft, RegulatedMotor motorRight, GyroSensor gyroSensor) {
+        this.monitoring = monitoring;
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.gyroSensor = gyroSensor;
-        behavior = "TurnGyro";
     }
 
     @Override
     public void run() {
-        LCD.clear(6);
-        LCD.drawString(behavior, 1, 6);
-        LCD.refresh();
+        setBehavior("TurnGyro");
+
         /*
         Angle
         Left turn is +.

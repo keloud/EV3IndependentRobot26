@@ -1,8 +1,10 @@
 package info.keloud.leJOS.motor;
 
+import info.keloud.leJOS.Monitoring;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
+import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
 import java.util.Objects;
@@ -36,9 +38,17 @@ public abstract class MotorAdapter {
     // Color
     protected int colorId = 0;
     // Behavior mode information
-    protected String behavior = "Initialize MotorAdapter";
+    protected Monitoring monitoring;
 
     public void run() {
+
+    }
+
+    public void setBehavior(String behavior) {
+        LCD.clear(6);
+        LCD.drawString(behavior, 1, 6);
+        LCD.refresh();
+        monitoring.setBehavior(behavior);
     }
 
     public void setSpeed(int speed) {
