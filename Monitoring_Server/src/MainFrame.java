@@ -13,9 +13,4 @@ class MainFrame extends JFrame {
         mainPanel = new MainPanel();
         add(mainPanel);
     }
-
-    void updatePanel(String bufferedString) {
-        System.out.println("MainFrame.updatePanel");
-        mainPanel.refresh(bufferedString);
-    }
 }

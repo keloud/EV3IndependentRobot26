@@ -6,15 +6,13 @@ import java.net.Socket;
 import java.util.Objects;
 
 class Monitoring extends Thread {
-    String bufferedString;
+    private String bufferedString;
     private ServerSocket serverSocket;
     private Socket socket;
     private BufferedReader bufferedReader;
-    private MainFrame mainFrame;
 
-    Monitoring(MainFrame mainFrame) {
+    Monitoring() {
         System.out.println("Monitoring.Monitoring");
-        this.mainFrame = mainFrame;
     }
 
     @Override
@@ -27,8 +25,6 @@ class Monitoring extends Thread {
 
             while (true) {
                 bufferedString = bufferedReader.readLine();
-
-                mainFrame.updatePanel();
 
                 System.out.println("EV3 : " + bufferedString);
 
