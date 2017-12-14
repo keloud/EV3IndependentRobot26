@@ -53,7 +53,7 @@ public class Arm extends MotorAdapter {
     }
 
     private void armOpen() {
-        monitoring.setBehavior(setBehavior("ArmOpen"));
+        monitoring.getBehavior(setBehavior("ArmOpen"));
 
         // 初期化
         int initTachoCount = motorCenter.getTachoCount();
@@ -84,7 +84,7 @@ public class Arm extends MotorAdapter {
     }
 
     private void armClose() {
-        monitoring.setBehavior(setBehavior("ArmClose"));
+        monitoring.getBehavior(setBehavior("ArmClose"));
 
         // 初期化
         int initTachoCount = motorCenter.getTachoCount();

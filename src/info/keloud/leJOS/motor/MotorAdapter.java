@@ -38,6 +38,7 @@ public abstract class MotorAdapter {
     // Color
     protected int colorId = 0;
     // Behavior mode information
+    protected String behavior;
     protected Monitoring monitoring;
 
     public void run() {

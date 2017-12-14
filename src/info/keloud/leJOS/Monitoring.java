@@ -44,7 +44,7 @@ public class Monitoring extends Thread {
         printWriter.println("close");
     }
 
-    public void setBehavior(String behavior) {
+    public void getBehavior(String behavior) {
         this.behavior = behavior;
     }
 }

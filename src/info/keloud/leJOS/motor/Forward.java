@@ -13,7 +13,7 @@ public class Forward extends MotorAdapter {
 
     @Override
     public void run() {
-        monitoring.setBehavior(setBehavior("Forward"));
+        monitoring.getBehavior(setBehavior("Forward"));
         // 初期化
         int initTachoCount = motorLeft.getTachoCount();
         int speedNow;

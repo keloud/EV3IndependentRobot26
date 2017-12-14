@@ -27,7 +27,7 @@ public class CatchBottle extends MotorAdapter {
 
     @Override
     public void run() {
-        monitoring.setBehavior(setBehavior("CatchBottle"));
+        monitoring.getBehavior(setBehavior("CatchBottle"));
 
         //初期探索処理を呼び出す
         if (angle < 0) {

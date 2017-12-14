@@ -29,6 +29,7 @@ public class Motor {
     Motor(leJOS parent) {
         // 初期化
         this.leJOS = parent;
+        this.monitoring = parent.monitoring;
         RegulatedMotor motorCenter = leJOS.motorCenter;
         RegulatedMotor motorLeft = leJOS.motorLeft;
         RegulatedMotor motorRight = leJOS.motorRight;

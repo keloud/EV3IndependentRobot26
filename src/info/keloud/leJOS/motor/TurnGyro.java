@@ -15,7 +15,7 @@ public class TurnGyro extends MotorAdapter {
 
     @Override
     public void run() {
-        monitoring.setBehavior(setBehavior("TurnGyro"));
+        monitoring.getBehavior(setBehavior("TurnGyro"));
 
         /*
         Angle

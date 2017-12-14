@@ -15,7 +15,7 @@ public class ForwardColor extends MotorAdapter {
 
     @Override
     public void run() {
-        monitoring.setBehavior(setBehavior("Forward Color"));
+        monitoring.getBehavior(setBehavior("Forward Color"));
 
         // 初期化
         int initTachoCount = motorLeft.getTachoCount();
