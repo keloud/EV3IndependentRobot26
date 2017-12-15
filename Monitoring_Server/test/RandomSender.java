@@ -5,10 +5,8 @@ import java.net.Socket;
 class RandomSender {
     private Socket socket;
     private PrintWriter printWriter;
-    private boolean mode;
 
     RandomSender() {
-        mode = true;
         run();
     }
 
@@ -25,7 +23,7 @@ class RandomSender {
             printWriter = new PrintWriter(socket.getOutputStream(), true);
 
             for (int i = 0; i < 500; i++) {
-                printWriter.println("I:" + informationSystem + " C:" + accumulationMotorCenter + " L:" + accumulationMotorLeft + " R:" + accumulationMotorRight + " ColorId:" + colorSensor + " USonic:" + ultrasonicSensor + " Gyro:" + gyroSensor);
+                printWriter.println("Info:" + informationSystem + ", Center:" + accumulationMotorCenter + ", Left:" + accumulationMotorLeft + ", Right:" + accumulationMotorRight + ", ColorId:" + colorSensor + ", Ultrasonic:" + ultrasonicSensor + ", Gyro:" + gyroSensor);
                 accumulationMotorCenter++;
                 accumulationMotorLeft++;
                 accumulationMotorRight++;
