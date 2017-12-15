@@ -1,6 +1,6 @@
 package info.keloud.leJOS.motor.Advanced;
 
-import info.keloud.leJOS.Monitoring;
+import info.keloud.leJOS.InformationHandler.Monitoring;
 import info.keloud.leJOS.motor.Arm;
 import info.keloud.leJOS.motor.Forward;
 import info.keloud.leJOS.motor.MotorAdapter;

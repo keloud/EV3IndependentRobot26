@@ -14,12 +14,12 @@ public class ColorSensor {
         colorFloat = new float[colorProvider.sampleSize()];
     }
 
-    private void update() {
+    private void updateValue() {
         colorProvider.fetchSample(colorFloat, 0);
     }
 
     public float getValue() {
-        update();
+        updateValue();
         return colorFloat[0];
     }
 }

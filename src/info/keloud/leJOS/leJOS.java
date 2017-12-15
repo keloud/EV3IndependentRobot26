@@ -1,5 +1,7 @@
 package info.keloud.leJOS;
 
+import info.keloud.leJOS.InformationHandler.Monitoring;
+import info.keloud.leJOS.InformationHandler.Scheduler;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
@@ -64,10 +66,8 @@ public class leJOS {
             sensorUpdate();
         }
         // スレッド起動
-        Scheduler scheduler = new Scheduler(this);
+        Scheduler scheduler = new Scheduler();
         scheduler.start();
-        monitoring = new Monitoring(this);
-        monitoring.start();
         info.keloud.leJOS.Motor motor = new info.keloud.leJOS.Motor(this);
         // ディスプレイ案内の更新
         LCD.clear();
@@ -86,7 +86,6 @@ public class leJOS {
         LCD.refresh();
         // Enterキーを押して次に進む
         Button.ENTER.waitForPress();
-        monitoring.close();
         scheduler.countStop();
     }
 

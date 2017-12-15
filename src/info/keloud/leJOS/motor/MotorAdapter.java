@@ -1,6 +1,6 @@
 package info.keloud.leJOS.motor;
 
-import info.keloud.leJOS.Monitoring;
+import info.keloud.leJOS.InformationHandler.Monitoring;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;

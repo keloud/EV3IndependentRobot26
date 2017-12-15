@@ -14,12 +14,12 @@ public class UltrasonicSensor {
         ultrasonicFloat = new float[ultrasonicProvider.sampleSize()];
     }
 
-    private void update() {
+    private void updateValue() {
         ultrasonicProvider.fetchSample(ultrasonicFloat, 0);
     }
 
     public float getValue() {
-        update();
+        updateValue();
         return ultrasonicFloat[0];
     }
 }

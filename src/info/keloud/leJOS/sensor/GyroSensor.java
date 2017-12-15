@@ -14,12 +14,12 @@ public class GyroSensor {
         gyroFloat = new float[gyroProvider.sampleSize()];
     }
 
-    private void update() {
+    private void updateValue() {
         gyroProvider.fetchSample(gyroFloat, 0);
     }
 
     public float getValue() {
-        update();
+        updateValue();
         return gyroFloat[0];
     }
 }
