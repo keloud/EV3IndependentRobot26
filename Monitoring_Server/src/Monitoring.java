@@ -12,13 +12,13 @@ class Monitoring extends Thread {
     private MainFrame mainFrame;
 
     Monitoring() {
-        System.out.println("Monitoring.Monitoring");
+        // System.out.println("Monitoring.Monitoring");
         mainFrame = new MainFrame();
     }
 
     @Override
     public void run() {
-        System.out.println("Monitoring.run");
+        // System.out.println("Monitoring.run");
         try {
             serverSocket = new ServerSocket(255);
             socket = serverSocket.accept();
