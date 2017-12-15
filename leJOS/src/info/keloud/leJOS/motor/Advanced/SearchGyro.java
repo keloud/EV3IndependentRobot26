@@ -1,6 +1,6 @@
 package info.keloud.leJOS.motor.Advanced;
 
-import info.keloud.leJOS.InformationHandler.Monitoring;
+import info.keloud.leJOS.informationHandler.Monitoring;
 import info.keloud.leJOS.motor.MotorAdapter;
 import info.keloud.leJOS.motor.TurnGyro;
 import info.keloud.leJOS.sensor.GyroSensor;

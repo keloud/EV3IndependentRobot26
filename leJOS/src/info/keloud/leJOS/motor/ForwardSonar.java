@@ -1,21 +1,21 @@
 package info.keloud.leJOS.motor;
 
-import info.keloud.leJOS.InformationHandler.Monitoring;
-import info.keloud.leJOS.sensor.ColorSensor;
+import info.keloud.leJOS.informationHandler.Monitoring;
+import info.keloud.leJOS.sensor.UltrasonicSensor;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
-public class ForwardColor extends MotorAdapter {
-    public ForwardColor(Monitoring monitoring, RegulatedMotor motorLeft, RegulatedMotor motorRight, ColorSensor colorSensor) {
+public class ForwardSonar extends MotorAdapter {
+    public ForwardSonar(Monitoring monitoring, RegulatedMotor motorLeft, RegulatedMotor motorRight, UltrasonicSensor ultrasonicSensor) {
         this.monitoring = monitoring;
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
-        this.colorSensor = colorSensor;
+        this.ultrasonicSensor = ultrasonicSensor;
     }
 
     @Override
     public void run() {
-        monitoring.getBehavior(setBehavior("Forward Color"));
+        monitoring.getBehavior(setBehavior("Forward Sonar"));
 
         // 初期化
         int initTachoCount = motorLeft.getTachoCount();
@@ -25,9 +25,12 @@ public class ForwardColor extends MotorAdapter {
         motorLeft.setSpeed(speedMin);
         motorRight.setSpeed(speedMin);
 
-        //速度から必要な距離を求める(可変距離)
-        double distanceVariable = speed * 0.24F;
-        double distanceStop = 50;
+        // 速度から必要な距離を求める(可変距離)
+        double distanceVariable = speed * 0.27F;
+        double distanceStop = speed * 0.5F;
+
+        // 設定した超音波センサーの距離を角度累計に変換する
+        int distanceUltrasonic = (int) ((distance / diameter / Math.PI) * 360);
 
         // 減速に使用する角度累計
         int distanceDeceleration = degreeTachoCount + (int) distanceVariable;
@@ -39,22 +42,25 @@ public class ForwardColor extends MotorAdapter {
         // 移動判定
         try {
             while (true) {
-                //ColorIdまで必要な減速距離を更新し続ける
-                if (colorSensor.getValue() != colorId) {
+                // 設定した超音波センサーの距離+停止までに必要な距離まで更新し続ける。
+                if (distanceUltrasonic + distanceStop < (int) ((ultrasonicSensor.getValue() * 100 / diameter / Math.PI) * 360)) {
+                    // 減速に必要な角度累計を代入する
                     distanceDeceleration = degreeTachoCount + (int) distanceStop;
                 }
-                //後退して停止する
-                if (distanceDeceleration < degreeTachoCount) {
+                // 停止する
+                if ((int) ((ultrasonicSensor.getValue() * 100 / diameter / Math.PI) * 360) < distanceUltrasonic) {
                     break;
                 }
+                // 減速部
                 if (distanceDeceleration - distanceStop < degreeTachoCount) {
-                    //減速部
                     speedNow = (int) ((float) (speed - speedMin) * (distanceDeceleration - degreeTachoCount) / distanceStop + speedMin);
-                } else if (degreeTachoCount < distanceVariable) {
-                    //加速部
+                }
+                // 加速部
+                else if (degreeTachoCount < distanceVariable) {
                     speedNow = (int) ((float) ((float) (speed - speedMin) * degreeTachoCount / distanceVariable) + speedMin);
-                } else {
-                    //巡航部
+                }
+                // 巡行部
+                else {
                     speedNow = speed;
                 }
                 motorLeft.setSpeed(speedNow);
@@ -71,6 +77,7 @@ public class ForwardColor extends MotorAdapter {
         // 停止
         motorLeft.stop(true);
         motorRight.stop(true);
+
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);
         LCD.refresh();

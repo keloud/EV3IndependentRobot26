@@ -1,10 +1,12 @@
+package info.keloud.Monitoring_Server;
+
 import javax.swing.*;
 
 class MainFrame extends JFrame {
     private MainPanel mainPanel;
 
     MainFrame() {
-        // System.out.println("MainFrame.MainFrame");
+        // System.out.println("info.keloud.Monitoring_Server.MainFrame.info.keloud.Monitoring_Server.MainFrame");
 
         this.setSize(1024, 768);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -15,7 +17,7 @@ class MainFrame extends JFrame {
     }
 
     void updatePanel(String bufferedString) {
-        // System.out.println("MainFrame.updatePanel");
+        // System.out.println("info.keloud.Monitoring_Server.MainFrame.updatePanel");
         mainPanel.refreshTextField(bufferedString);
     }
 }

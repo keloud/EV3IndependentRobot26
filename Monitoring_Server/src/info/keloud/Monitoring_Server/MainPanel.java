@@ -1,3 +1,5 @@
+package info.keloud.Monitoring_Server;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,7 +10,7 @@ class MainPanel extends JPanel implements ActionListener {
     private JTextField acquiredValueTextField;
 
     MainPanel() {
-        // System.out.println("MainPanel.MainPanel");
+        // System.out.println("info.keloud.Monitoring_Server.MainPanel.info.keloud.Monitoring_Server.MainPanel");
 
         //セットレイアウトパネル
         setLayout(new BorderLayout());
@@ -84,12 +86,12 @@ class MainPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // System.out.println("MainPanel.actionPerformed");
+        // System.out.println("info.keloud.Monitoring_Server.MainPanel.actionPerformed");
         Object object = e.getSource();
     }
 
     void refreshTextField(String bufferedString) {
-        // System.out.println("MainPanel.refresh");
+        // System.out.println("info.keloud.Monitoring_Server.MainPanel.refresh");
         acquiredValueTextField.setText(bufferedString);
         repaint();
     }

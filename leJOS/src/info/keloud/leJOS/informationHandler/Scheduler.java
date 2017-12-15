@@ -1,4 +1,4 @@
-package info.keloud.leJOS.InformationHandler;
+package info.keloud.leJOS.informationHandler;
 
 import lejos.hardware.lcd.LCD;
 
@@ -16,7 +16,7 @@ public class Scheduler extends Thread {
         monitoring.run();
         while (mode) {
             // モニタリング処理に値を渡す
-
+            monitoring.setValue("", 0, 0, 0, 0, 0, 0);
             // カウントタイマーの表示
             LCD.drawInt(i, 14, 7);
             LCD.refresh();

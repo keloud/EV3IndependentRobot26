@@ -1,6 +1,6 @@
 package info.keloud.leJOS;
 
-import info.keloud.leJOS.InformationHandler.Monitoring;
+import info.keloud.leJOS.informationHandler.Monitoring;
 import info.keloud.leJOS.motor.Advanced.CatchBottle;
 import info.keloud.leJOS.motor.*;
 import info.keloud.leJOS.sensor.ColorSensor;
@@ -30,13 +30,13 @@ public class Motor {
     Motor(leJOS parent) {
         // 初期化
         this.leJOS = parent;
-        this.monitoring = parent.monitoring;
-        RegulatedMotor motorCenter = leJOS.motorCenter;
-        RegulatedMotor motorLeft = leJOS.motorLeft;
-        RegulatedMotor motorRight = leJOS.motorRight;
-        ColorSensor colorSensor = leJOS.colorSensor;
-        UltrasonicSensor ultrasonicSensor = leJOS.ultrasonicSensor;
-        GyroSensor gyroSensor = leJOS.gyroSensor;
+        this.monitoring = info.keloud.leJOS.leJOS.monitoring;
+        RegulatedMotor motorCenter = info.keloud.leJOS.leJOS.motorCenter;
+        RegulatedMotor motorLeft = info.keloud.leJOS.leJOS.motorLeft;
+        RegulatedMotor motorRight = info.keloud.leJOS.leJOS.motorRight;
+        ColorSensor colorSensor = info.keloud.leJOS.leJOS.colorSensor;
+        UltrasonicSensor ultrasonicSensor = info.keloud.leJOS.leJOS.ultrasonicSensor;
+        GyroSensor gyroSensor = info.keloud.leJOS.leJOS.gyroSensor;
 
         // 基本部
         forward = new Forward(monitoring, motorLeft, motorRight);

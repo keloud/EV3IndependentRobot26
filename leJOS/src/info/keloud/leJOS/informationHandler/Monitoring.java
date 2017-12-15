@@ -1,4 +1,4 @@
-package info.keloud.leJOS.InformationHandler;
+package info.keloud.leJOS.informationHandler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
