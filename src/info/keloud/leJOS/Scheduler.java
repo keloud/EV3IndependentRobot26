@@ -3,8 +3,8 @@ package info.keloud.leJOS;
 import lejos.hardware.lcd.LCD;
 
 class Scheduler extends Thread {
-    private leJOS parent = null;
-    private boolean mode = false;
+    private leJOS parent;
+    private boolean mode;
 
     Scheduler(leJOS parent) {
         this.parent = parent;

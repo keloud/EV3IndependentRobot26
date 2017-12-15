@@ -21,7 +21,7 @@ public class Monitoring extends Thread {
             socket = new Socket("192.168.44.52", 255);
             printWriter = new PrintWriter(socket.getOutputStream(), true);
             while (mode) {
-                printWriter.println(" Info:" + behavior + " Center:" + parent.accumulationMotorCenter + " Left:" + parent.accumulationMotorLeft + " Right:" + parent.accumulationMotorRight + " ColorId:" + parent.colorSensor.getValue() + " Ultrasonic:" + parent.ultrasonicSensor.getValue() + " Gyro:" + parent.gyroSensor.getValue());
+                printWriter.println(" Info:" + behavior + ", Center:" + parent.accumulationMotorCenter + ", Left:" + parent.accumulationMotorLeft + ", Right:" + parent.accumulationMotorRight + ", ColorId:" + parent.colorSensor.getValue() + ", Ultrasonic:" + parent.ultrasonicSensor.getValue() + ", Gyro:" + parent.gyroSensor.getValue());
             }
         } catch (IOException e) {
             e.printStackTrace();
