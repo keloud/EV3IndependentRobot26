@@ -23,8 +23,6 @@ public class leJOS {
     public static GyroSensor gyroSensor;
     // モニタリング処理
     public static Monitoring monitoring;
-    // モーターの累積角度
-    static int accumulationMotorCenter, accumulationMotorLeft, accumulationMotorRight;
 
     public static void main(String[] args) {
         // ディスプレイ案内開始
@@ -91,7 +89,7 @@ public class leJOS {
         LCD.clear(0);
         LCD.drawString(String.valueOf((float) ((int) (Battery.getVoltage() * 10 + 0.5) / 10.0)), 15, 0);
         LCD.clear(1);
-        LCD.drawString("C:" + accumulationMotorCenter + " L:" + accumulationMotorLeft + " R:" + accumulationMotorRight, 1, 1);
+        LCD.drawString("C:" + motorCenter.getTachoCount() + " L:" + motorLeft.getTachoCount() + " R:" + motorRight.getTachoCount(), 1, 1);
         LCD.clear(2);
         LCD.drawString("ColorId:" + colorSensor.getValue(), 1, 2);
         LCD.clear(3);
