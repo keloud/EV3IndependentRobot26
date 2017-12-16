@@ -1,4 +1,4 @@
-package info.keloud.Monitoring_Server;
+package info.keloud.EV3MonitoringServer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,16 +11,16 @@ class Monitoring extends Thread {
     private ServerSocket serverSocket;
     private Socket socket;
     private BufferedReader bufferedReader;
-    private MainFrame mainFrame;
+    private info.keloud.EV3MonitoringServer.MainFrame mainFrame;
 
     Monitoring() {
-        // System.out.println("info.keloud.Monitoring_Server.Monitoring.info.keloud.Monitoring_Server.Monitoring");
-        mainFrame = new MainFrame();
+        // System.out.println("info.keloud.EV3MonitoringServer.Monitoring.info.keloud.EV3MonitoringServer.Monitoring");
+        mainFrame = new info.keloud.EV3MonitoringServer.MainFrame();
     }
 
     @Override
     public void run() {
-        // System.out.println("info.keloud.Monitoring_Server.Monitoring.run");
+        // System.out.println("info.keloud.EV3MonitoringServer.Monitoring.run");
         try {
             serverSocket = new ServerSocket(255);
             socket = serverSocket.accept();

@@ -1,4 +1,4 @@
-import info.keloud.Monitoring_Server.ServerMain;
+package info.keloud.EV3MonitoringServer;
 
 public class ClientEmulator {
     public static void main(String[] args) {

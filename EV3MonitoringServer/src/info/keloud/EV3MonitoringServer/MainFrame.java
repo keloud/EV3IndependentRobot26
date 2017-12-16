@@ -1,23 +1,23 @@
-package info.keloud.Monitoring_Server;
+package info.keloud.EV3MonitoringServer;
 
 import javax.swing.*;
 
 class MainFrame extends JFrame {
-    private MainPanel mainPanel;
+    private info.keloud.EV3MonitoringServer.MainPanel mainPanel;
 
     MainFrame() {
-        // System.out.println("info.keloud.Monitoring_Server.MainFrame.info.keloud.Monitoring_Server.MainFrame");
+        // System.out.println("info.keloud.EV3MonitoringServer.MainFrame.info.keloud.EV3MonitoringServer.MainFrame");
 
         this.setSize(1024, 768);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setTitle("EV3 information Server");
         setVisible(true);
-        mainPanel = new MainPanel();
+        mainPanel = new info.keloud.EV3MonitoringServer.MainPanel();
         add(mainPanel);
     }
 
     void updatePanel(String bufferedString) {
-        // System.out.println("info.keloud.Monitoring_Server.MainFrame.updatePanel");
+        // System.out.println("info.keloud.EV3MonitoringServer.MainFrame.updatePanel");
         mainPanel.refreshTextField(bufferedString);
     }
 }
