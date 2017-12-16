@@ -12,16 +12,18 @@ public class Scheduler extends Thread {
     }
 
     public void run() {
-        int i = 0;
+        int timer = 0;
         monitoring.run();
         while (mode) {
             // モニタリング処理に値を渡す
             monitoring.setValue("", 0, 0, 0, 0, 0, 0);
             // カウントタイマーの表示
-            LCD.drawInt(i, 14, 7);
+            LCD.drawInt(timer, 14, 7);
             LCD.refresh();
-            i++;
+            timer++;
+            // センサー系をアップデートする
 
+            // 例外処理
             try {
                 Thread.sleep(20);
             } catch (InterruptedException ie) {

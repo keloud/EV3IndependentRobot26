@@ -9,8 +9,6 @@ import info.keloud.leJOS.sensor.UltrasonicSensor;
 import lejos.robotics.RegulatedMotor;
 
 public class Motor {
-    // Parent
-    private leJOS leJOS;
     // Behavior mode information
     private Monitoring monitoring;
 
@@ -27,9 +25,8 @@ public class Motor {
     // 応用部
     private CatchBottle catchBottle;
 
-    Motor(leJOS parent) {
+    Motor() {
         // 初期化
-        this.leJOS = parent;
         this.monitoring = info.keloud.leJOS.leJOS.monitoring;
         RegulatedMotor motorCenter = info.keloud.leJOS.leJOS.motorCenter;
         RegulatedMotor motorLeft = info.keloud.leJOS.leJOS.motorLeft;
