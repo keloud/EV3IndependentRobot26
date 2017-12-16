@@ -5,7 +5,7 @@ import info.keloud.leJOS.sensor.ColorSensor;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
-public class ForwardColor extends MotorAdapter {
+public class ForwardColor extends Motor {
     public ForwardColor(Monitoring monitoring, RegulatedMotor motorLeft, RegulatedMotor motorRight, ColorSensor colorSensor) {
         this.monitoring = monitoring;
         this.motorLeft = motorLeft;

@@ -5,7 +5,7 @@ import info.keloud.leJOS.sensor.GyroSensor;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
-public class TurnGyro extends MotorAdapter {
+public class TurnGyro extends Motor {
     public TurnGyro(Monitoring monitoring, RegulatedMotor motorLeft, RegulatedMotor motorRight, GyroSensor gyroSensor) {
         this.monitoring = monitoring;
         this.motorLeft = motorLeft;

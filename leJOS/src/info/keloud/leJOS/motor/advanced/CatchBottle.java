@@ -3,13 +3,13 @@ package info.keloud.leJOS.motor.Advanced;
 import info.keloud.leJOS.informationHandler.Monitoring;
 import info.keloud.leJOS.motor.Arm;
 import info.keloud.leJOS.motor.Forward;
-import info.keloud.leJOS.motor.MotorAdapter;
+import info.keloud.leJOS.motor.Motor;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
-public class CatchBottle extends MotorAdapter {
+public class CatchBottle extends Motor {
     private Arm arm;
     private Forward forward;
     private float ultrasonicValue;

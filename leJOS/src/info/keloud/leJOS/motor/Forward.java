@@ -4,7 +4,7 @@ import info.keloud.leJOS.informationHandler.Monitoring;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
-public class Forward extends MotorAdapter {
+public class Forward extends Motor {
     public Forward(Monitoring monitoring, RegulatedMotor motorLeft, RegulatedMotor motorRight) {
         this.monitoring = monitoring;
         this.motorLeft = motorLeft;

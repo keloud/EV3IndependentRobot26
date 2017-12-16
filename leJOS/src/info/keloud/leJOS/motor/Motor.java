@@ -9,14 +9,7 @@ import lejos.robotics.RegulatedMotor;
 
 import java.util.Objects;
 
-public abstract class MotorAdapter {
-    /* Vehicle information*/
-    // Diameter of tire(cm)
-    protected final float diameter = 5.6F;
-    // Width of wheel
-    protected final float width = 9.2F;
-    // Thread wait time
-    protected final int wait = 10;
+public class Motor implements Machine {
     // the left running motor
     protected RegulatedMotor motorLeft;
     // the right running motor
