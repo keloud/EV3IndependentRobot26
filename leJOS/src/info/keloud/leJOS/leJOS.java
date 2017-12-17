@@ -2,7 +2,7 @@ package info.keloud.leJOS;
 
 import info.keloud.leJOS.informationManager.Scheduler;
 import info.keloud.leJOS.motor.*;
-import info.keloud.leJOS.motor.advanced.CatchBottle;
+import info.keloud.leJOS.motor.advanced.GrabBottle;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
@@ -20,7 +20,7 @@ public class leJOS {
     private static Backward backward;
     private static BackwardColor backwardColor;
     private static Turn turn;
-    private static CatchBottle catchBottle;
+    private static GrabBottle grabBottle;
 
     public static void main(String[] args) {
         // ディスプレイ案内開始
@@ -66,37 +66,66 @@ public class leJOS {
         backward = new Backward(motorLeft, motorRight);
         backwardColor = new BackwardColor(motorLeft, motorRight, colorSensor);
         turn = new Turn(motorLeft, motorRight);
-        catchBottle = new CatchBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, arm, forward);
+        grabBottle = new GrabBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, arm, forward);
         // ディスプレイ案内の更新
         LCD.clear();
         LCD.drawString("End of initialization processing", 1, 6);
         LCD.refresh();
-        // 開始確認
-        scheduler.setOperationMode("Press Enter to Start");
-        Button.ENTER.waitForPress();
-        // 動作開始
-        run();
+        // メニューを開く
+        menu();
+        // 終了処理
+        scheduler.setOperationMode("All Complete");
         // Enterキーを押して次に進む
         Button.ENTER.waitForPress();
         scheduler.countStop();
     }
 
-    private static void run() {
+    private static void menu() {
+        // Press Enter run()
+        // Press Left runTest()
+        // Press Right correctArm
+        scheduler.setOperationMode("Select Mode Button");
+        LCD.clear(5);
+        LCD.drawString("E:run L:Test R:Correct", 1, 5);
+        LCD.refresh();
+        while (true) {
+            switch (Button.getButtons()) {
+                case Button.ID_LEFT:
+                    runTest();
+                    break;
+                case Button.ID_RIGHT:
+                    correctArm();
+                case Button.ID_ENTER:
+                    run();
+                    break;
+            }
+        }
+    }
+
+    private static void runTest() {
+        // 開始確認
+        scheduler.setOperationMode("Press Enter to Start");
+        Button.ENTER.waitForPress();
+    }
+
+    private static void correctArm() {
         //アームが開いている場合の内部データの修正
         arm.setState(true);
-        scheduler.setOperationMode(arm.getOperationMode());
         arm.run("Close");
+    }
+
+    private static void run() {
+        // 開始確認
+        scheduler.setOperationMode("Press Enter to Start");
+        Button.ENTER.waitForPress();
         //アームを開ける
-        scheduler.setOperationMode(arm.getOperationMode());
         arm.run("Open");
         //ボトルを取得する
-        catchBottle.setAngle(70);
-        scheduler.setOperationMode(catchBottle.getOperationMode());
-        catchBottle.run();
+        grabBottle.setAngle(70);
+        grabBottle.run();
         //速度(100)角度(-90度°)で回転
         turn.setSpeed(300);
         turn.setAngle(-90);
-
         turn.run();
         //速度(600)カラー(赤)で後進
         backwardColor.setSpeed(600);
@@ -119,7 +148,7 @@ public class leJOS {
         forwardColor.setColorId(6);
         forwardColor.run();
         //ボトルを取得する
-        catchBottle.run();
+        grabBottle.run();
         //速度(600)カラー(赤)で後進
         backwardColor.run();
         //速度(300)走行距離(10cm)で後進
@@ -139,7 +168,7 @@ public class leJOS {
         forward.setDistance(25);
         forward.run();
         //ボトルを取得する
-        catchBottle.run();
+        grabBottle.run();
         //速度(600)カラー(赤)で後進
         backwardColor.run();
         //速度(300)走行距離(10cm)で後進
@@ -154,7 +183,7 @@ public class leJOS {
         //速度(400)カラー(白)で前進
         forwardColor.run();
         //ボトルを取得する
-        catchBottle.run();
+        grabBottle.run();
         //速度(600)カラー(赤)で後進
         backwardColor.run();
         //速度(300)走行距離(10cm)で後進
@@ -184,7 +213,5 @@ public class leJOS {
         forwardColor.run();
         //アームを閉じる
         arm.run();
-        // 終了処理
-        scheduler.setOperationMode("All Complete");
     }
 }
