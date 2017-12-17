@@ -13,10 +13,10 @@ class RandomSender {
     }
 
     void run() {
-        String informationSystem = "Forward";
-        int accumulationMotorCenter = 0;
+        String operationMode = "Forward";
         int accumulationMotorLeft = 0;
         int accumulationMotorRight = 0;
+        int accumulationMotorCenter = 0;
         int colorSensor = 0;
         int ultrasonicSensor = 0;
         int gyroSensor = 0;
@@ -25,10 +25,17 @@ class RandomSender {
             printWriter = new PrintWriter(socket.getOutputStream(), true);
 
             for (int i = 0; i < 500; i++) {
-                printWriter.println("Info:" + informationSystem + ", Center:" + accumulationMotorCenter + ", Left:" + accumulationMotorLeft + ", Right:" + accumulationMotorRight + ", ColorId:" + colorSensor + ", Ultrasonic:" + ultrasonicSensor + ", Gyro:" + gyroSensor);
-                accumulationMotorCenter++;
+                printWriter.println("Mode:" + operationMode + ",Left:" + accumulationMotorLeft + ",Right:" + accumulationMotorRight + ",Center:" + accumulationMotorCenter + ",ColorId:" + colorSensor + ",Ultrasonic:" + ultrasonicSensor + ",Gyro:" + gyroSensor);
                 accumulationMotorLeft++;
                 accumulationMotorRight++;
+                accumulationMotorCenter++;
+                if (accumulationMotorCenter % 50 == 0) {
+                    if (colorSensor < 7) {
+                        colorSensor++;
+                    } else {
+                        colorSensor = 0;
+                    }
+                }
                 if (ultrasonicSensor < 255) {
                     ultrasonicSensor++;
                 } else {
