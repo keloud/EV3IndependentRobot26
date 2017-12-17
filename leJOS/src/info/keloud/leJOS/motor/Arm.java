@@ -6,11 +6,12 @@ import lejos.robotics.RegulatedMotor;
 import java.util.Objects;
 
 public class Arm extends AbstractMotor {
-
+    // Arm open is true
     private boolean state = false;
 
     public Arm(RegulatedMotor motorCenter) {
         this.motorCenter = motorCenter;
+        operationMode = "Arm";
         setAngle(320);
         setSpeed(800);
         motorCenter.setSpeed(speed);
@@ -19,10 +20,8 @@ public class Arm extends AbstractMotor {
     @Override
     public void run() {
         if (state) {
-            state = false;
             armClose();
         } else {
-            state = true;
             armOpen();
         }
 
@@ -34,24 +33,19 @@ public class Arm extends AbstractMotor {
     public void run(String setState) {
         if (Objects.equals(setState, "Close")) {
             if (state) {
-                state = false;
                 armClose();
             }
         }
         if (Objects.equals(setState, "Open")) {
             if (!state) {
-                state = true;
                 armOpen();
             }
         }
-
-        LCD.clear(6);
-        LCD.drawString("Stopped", 1, 6);
-        LCD.refresh();
     }
 
     private void armOpen() {
         // 初期化
+        state = true;
         int initTachoCount = motorCenter.getTachoCount();
         int degreeTachoCount = 0;
 
@@ -81,6 +75,7 @@ public class Arm extends AbstractMotor {
 
     private void armClose() {
         // 初期化
+        state = false;
         int initTachoCount = motorCenter.getTachoCount();
         int degreeTachoCount = 0;
 

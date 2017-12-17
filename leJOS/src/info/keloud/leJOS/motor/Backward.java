@@ -7,6 +7,7 @@ public class Backward extends AbstractMotor {
     public Backward(RegulatedMotor motorLeft, RegulatedMotor motorRight) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
+        operationMode = "Backward";
     }
 
     @Override
@@ -56,9 +57,5 @@ public class Backward extends AbstractMotor {
         // 停止
         motorLeft.stop(true);
         motorRight.stop(true);
-
-        LCD.clear(6);
-        LCD.drawString("Stopped", 1, 6);
-        LCD.refresh();
     }
 }

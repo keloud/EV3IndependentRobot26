@@ -27,15 +27,10 @@ public abstract class AbstractMotor implements ImplementMachine, ImplementMotor 
     // Color
     protected int colorId;
     // Operation mode
-    protected String operationMode;
+    protected String operationMode = "Init AbstractMotor";
 
     @Override
     public void run() {
-    }
-
-    @Override
-    public String getOperationMode() {
-        return "Init AbstractMotor";
     }
 
     @Override
@@ -84,5 +79,10 @@ public abstract class AbstractMotor implements ImplementMachine, ImplementMotor 
             default:
                 this.colorId = 0;
         }
+    }
+
+    @Override
+    public String getOperationMode() {
+        return operationMode;
     }
 }

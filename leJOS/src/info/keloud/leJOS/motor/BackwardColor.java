@@ -9,6 +9,7 @@ public class BackwardColor extends AbstractMotor {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.colorSensor = colorSensor;
+        operationMode = "Backward Color";
     }
 
     @Override
@@ -67,8 +68,5 @@ public class BackwardColor extends AbstractMotor {
         // 停止
         motorLeft.stop(true);
         motorRight.stop(true);
-        LCD.clear(6);
-        LCD.drawString("Stopped", 1, 6);
-        LCD.refresh();
     }
 }

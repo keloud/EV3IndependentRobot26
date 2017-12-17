@@ -9,6 +9,7 @@ public class ForwardSonar extends AbstractMotor {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.ultrasonicSensor = ultrasonicSensor;
+        operationMode = "Forward Sonar";
     }
 
     @Override
@@ -73,9 +74,5 @@ public class ForwardSonar extends AbstractMotor {
         // 停止
         motorLeft.stop(true);
         motorRight.stop(true);
-
-        LCD.clear(6);
-        LCD.drawString("Stopped", 1, 6);
-        LCD.refresh();
     }
 }

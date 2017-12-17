@@ -9,6 +9,7 @@ public class TurnGyro extends AbstractMotor {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.gyroSensor = gyroSensor;
+        operationMode = "Turn Gyro";
     }
 
     @Override
@@ -23,9 +24,6 @@ public class TurnGyro extends AbstractMotor {
         } else if (0 < angle) {
             leftTurn();
         }
-        LCD.clear(6);
-        LCD.drawString("Stopped", 1, 6);
-        LCD.refresh();
     }
 
     private void rightTurn() {

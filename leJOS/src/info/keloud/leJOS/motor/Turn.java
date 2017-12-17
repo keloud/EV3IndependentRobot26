@@ -7,6 +7,7 @@ public class Turn extends AbstractMotor {
     public Turn(RegulatedMotor motorLeft, RegulatedMotor motorRight) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
+        operationMode = "Turn";
     }
 
     @Override
@@ -22,9 +23,6 @@ public class Turn extends AbstractMotor {
             angle = -angle;
             rightTurn();
         }
-        LCD.clear(6);
-        LCD.drawString("Stopped", 1, 6);
-        LCD.refresh();
     }
 
     private void rightTurn() {
