@@ -88,17 +88,17 @@ public class leJOS {
         LCD.clear(5);
         LCD.drawString("E:run L:Test R:Correct", 1, 5);
         LCD.refresh();
-        while (true) {
-            switch (Button.getButtons()) {
-                case Button.ID_LEFT:
-                    runTest();
-                    break;
-                case Button.ID_RIGHT:
-                    correctArm();
-                case Button.ID_ENTER:
-                    run();
-                    break;
-            }
+        switch (Button.waitForAnyPress()) {
+            case Button.ID_LEFT:
+                runTest();
+                break;
+            case Button.ID_RIGHT:
+                correctArm();
+            case Button.ID_ENTER:
+                run();
+                break;
+            default:
+                break;
         }
     }
 
