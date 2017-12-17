@@ -20,9 +20,8 @@ class Monitoring extends Thread {
 
     @Override
     public void run() {
-        // System.out.println("info.keloud.EV3MonitoringServer.Monitoring.run");
         try {
-            serverSocket = new ServerSocket(255);
+            serverSocket = new ServerSocket(50000);
             socket = serverSocket.accept();
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
@@ -33,8 +32,8 @@ class Monitoring extends Thread {
 
                 mainFrame.updatePanel(bufferedString);
 
-                if (Objects.equals(bufferedString, "close")) {
-                    mainFrame.updatePanel("All Complete");
+                if (Objects.equals(bufferedString, "All Complete")) {
+                    mainFrame.updatePanel(bufferedString + ",Operation complete,Operation complete,Operation complete,Operation complete,Operation complete,Operation complete");
                     break;
                 }
 
@@ -46,7 +45,6 @@ class Monitoring extends Thread {
                 }
             }
         } catch (IOException e) {
-            System.out.println("IOException");
             e.printStackTrace();
         } finally {
             try {
@@ -54,7 +52,6 @@ class Monitoring extends Thread {
                 if (socket != null) socket.close();
                 if (serverSocket != null) serverSocket.close();
             } catch (IOException e) {
-                System.out.println("final.IOException");
                 e.printStackTrace();
             }
         }

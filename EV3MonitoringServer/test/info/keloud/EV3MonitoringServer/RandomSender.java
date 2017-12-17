@@ -47,7 +47,7 @@ class RandomSender {
                     gyroSensor = -360;
                 }
             }
-            printWriter.println("close");
+            printWriter.println("All Complete");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

@@ -2,10 +2,8 @@ package info.keloud.EV3MonitoringServer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-class MainPanel extends JPanel implements ActionListener {
+class MainPanel extends JPanel {
     private JTextField acquiredValueTextField, operationModeTextField, accumulationMotorLeftTextField, accumulationMotorRightTextField, accumulationMotorCenterTextField, colorIntTextField, colorStringTextField, ultrasonicTextField, gyroTextField;
 
 
@@ -22,26 +20,25 @@ class MainPanel extends JPanel implements ActionListener {
         // 状態表示
         JLabel informationLabel = new JLabel("現在の状態");
         statusPanel.add(informationLabel);
-        operationModeTextField = new JTextField();
+        operationModeTextField = new JTextField("Data is not received.");
         statusPanel.add(operationModeTextField);
-
 
         // 左モーター累積角度
         JLabel accumulationMotorLeftLabel = new JLabel("左モーター累計角度");
         statusPanel.add(accumulationMotorLeftLabel);
-        accumulationMotorLeftTextField = new JTextField();
+        accumulationMotorLeftTextField = new JTextField("Data is not received.");
         statusPanel.add(accumulationMotorLeftTextField);
 
         // 右モーター累積角度
         JLabel accumulationMotorRightLabel = new JLabel("右モーター累計角度");
         statusPanel.add(accumulationMotorRightLabel);
-        accumulationMotorRightTextField = new JTextField();
+        accumulationMotorRightTextField = new JTextField("Data is not received.");
         statusPanel.add(accumulationMotorRightTextField);
 
         // アームモーター累計角度
         JLabel accumulationMotorCenterLabel = new JLabel("アームモーター累計角度");
         statusPanel.add(accumulationMotorCenterLabel);
-        accumulationMotorCenterTextField = new JTextField();
+        accumulationMotorCenterTextField = new JTextField("Data is not received.");
         statusPanel.add(accumulationMotorCenterTextField);
 
         // カラーID
@@ -51,9 +48,9 @@ class MainPanel extends JPanel implements ActionListener {
         JPanel colorPanel = new JPanel();
         colorPanel.setLayout(new GridLayout(1, 2));
 
-        colorIntTextField = new JTextField();
+        colorIntTextField = new JTextField("Data is not received.");
         colorPanel.add(colorIntTextField);
-        colorStringTextField = new JTextField();
+        colorStringTextField = new JTextField("Data is not received.");
         colorPanel.add(colorStringTextField);
 
         statusPanel.add(colorPanel);
@@ -61,13 +58,13 @@ class MainPanel extends JPanel implements ActionListener {
         // 超音波センサー距離
         JLabel ultrasonicLabel = new JLabel("超音波センサー距離");
         statusPanel.add(ultrasonicLabel);
-        ultrasonicTextField = new JTextField();
+        ultrasonicTextField = new JTextField("Data is not received.");
         statusPanel.add(ultrasonicTextField);
 
         // ジャイロセンサー角度
         JLabel gyroLabel = new JLabel("ジャイロセンサー角度");
         statusPanel.add(gyroLabel);
-        gyroTextField = new JTextField();
+        gyroTextField = new JTextField("Data is not received.");
         statusPanel.add(gyroTextField);
 
         add("Center", statusPanel);
@@ -79,16 +76,10 @@ class MainPanel extends JPanel implements ActionListener {
         // 取得した値
         JLabel acquiredValueLabel = new JLabel("Row Data");
         acquiredValuePanel.add(acquiredValueLabel);
-        acquiredValueTextField = new JTextField();
+        acquiredValueTextField = new JTextField("Data is not received.");
         acquiredValuePanel.add(acquiredValueTextField);
 
         add("North", acquiredValuePanel);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // System.out.println("info.keloud.EV3MonitoringServer.MainPanel.actionPerformed");
-        Object object = e.getSource();
     }
 
     void refreshTextField(String bufferedString) {
@@ -119,7 +110,11 @@ class MainPanel extends JPanel implements ActionListener {
             }
             if (bufferedStrings[4] != null) {
                 colorIntTextField.setText(bufferedStrings[4]);
-                colorInt2String(Integer.parseInt(bufferedStrings[4].charAt(8) + ""));
+                try {
+                    colorInt2String(Integer.parseInt(bufferedStrings[4].charAt(8) + ""));
+                } catch (NumberFormatException ne) {
+                    colorStringTextField.setText("Could not convert value.");
+                }
             } else {
                 colorIntTextField.setText("NullPointerException");
             }
@@ -135,19 +130,19 @@ class MainPanel extends JPanel implements ActionListener {
             }
         } catch (ArrayIndexOutOfBoundsException ae) {
             // System.out.println("ArrayIndexOutOfBoundsException");
-            operationModeTextField.setText("ArrayIndexOutOfBoundsException");
-            accumulationMotorLeftTextField.setText("ArrayIndexOutOfBoundsException");
-            accumulationMotorRightTextField.setText("ArrayIndexOutOfBoundsException");
-            accumulationMotorCenterTextField.setText("ArrayIndexOutOfBoundsException");
-            colorIntTextField.setText("ArrayIndexOutOfBoundsException");
-            colorInt2String(0);
-            ultrasonicTextField.setText("ArrayIndexOutOfBoundsException");
-            gyroTextField.setText("ArrayIndexOutOfBoundsException");
+            operationModeTextField.setText("The number of symbols of the received value is different.");
+            accumulationMotorLeftTextField.setText("");
+            accumulationMotorRightTextField.setText("");
+            accumulationMotorCenterTextField.setText("");
+            colorIntTextField.setText("");
+            colorStringTextField.setText("");
+            ultrasonicTextField.setText("");
+            gyroTextField.setText("");
         }
         repaint();
     }
 
-    void colorInt2String(int colorInt) {
+    private void colorInt2String(int colorInt) {
         switch (colorInt) {
             case 1:
                 colorStringTextField.setText("BLACK");

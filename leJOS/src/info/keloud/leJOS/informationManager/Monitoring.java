@@ -13,7 +13,7 @@ public class Monitoring extends Thread {
 
     public void run() {
         try {
-            socket = new Socket("192.168.44.52", 255);
+            socket = new Socket("192.168.44.52", 50000);
             printWriter = new PrintWriter(socket.getOutputStream(), true);
         } catch (IOException e) {
             e.printStackTrace();
