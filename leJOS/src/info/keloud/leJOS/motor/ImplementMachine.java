@@ -2,7 +2,7 @@ package info.keloud.leJOS.motor;
 
 // マシンの基本情報
 // Vehicle information
-interface Machine {
+interface ImplementMachine {
     // タイヤの直径
     // Diameter of tire(cm)
     float diameter = 5.6F;

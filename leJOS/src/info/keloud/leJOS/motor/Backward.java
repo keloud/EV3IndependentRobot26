@@ -1,20 +1,16 @@
 package info.keloud.leJOS.motor;
 
-import info.keloud.leJOS.informationHandler.Monitoring;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
 public class Backward extends Motor {
-    public Backward(Monitoring monitoring, RegulatedMotor motorLeft, RegulatedMotor motorRight) {
-        this.monitoring = monitoring;
+    public Backward(RegulatedMotor motorLeft, RegulatedMotor motorRight) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
     }
 
     @Override
     public void run() {
-        monitoring.getBehavior(setBehavior("Backward"));
-
         // 初期化
         int initTachoCount = motorLeft.getTachoCount();
         int speedNow;

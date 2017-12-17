@@ -1,6 +1,5 @@
 package info.keloud.leJOS.motor;
 
-import info.keloud.leJOS.informationHandler.Monitoring;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
@@ -10,8 +9,7 @@ public class Arm extends Motor {
 
     private boolean state = false;
 
-    public Arm(Monitoring monitoring, RegulatedMotor motorCenter) {
-        this.monitoring = monitoring;
+    public Arm(RegulatedMotor motorCenter) {
         this.motorCenter = motorCenter;
         setAngle(320);
         setSpeed(800);
@@ -53,8 +51,6 @@ public class Arm extends Motor {
     }
 
     private void armOpen() {
-        monitoring.getBehavior(setBehavior("ArmOpen"));
-
         // 初期化
         int initTachoCount = motorCenter.getTachoCount();
         int degreeTachoCount = 0;
@@ -84,8 +80,6 @@ public class Arm extends Motor {
     }
 
     private void armClose() {
-        monitoring.getBehavior(setBehavior("ArmClose"));
-
         // 初期化
         int initTachoCount = motorCenter.getTachoCount();
         int degreeTachoCount = 0;

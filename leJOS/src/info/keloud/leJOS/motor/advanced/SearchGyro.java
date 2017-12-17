@@ -1,4 +1,4 @@
-package info.keloud.leJOS.motor.Advanced;
+package info.keloud.leJOS.motor.advanced;
 
 import info.keloud.leJOS.informationHandler.Monitoring;
 import info.keloud.leJOS.motor.Motor;
@@ -23,8 +23,6 @@ public class SearchGyro extends Motor {
 
     @Override
     public void run() {
-        monitoring.getBehavior(setBehavior("Searching"));
-
         //サーチ初期位置に動く
         turnGyro.setSpeed(100);
         turnGyro.setAngle(angle / 2);

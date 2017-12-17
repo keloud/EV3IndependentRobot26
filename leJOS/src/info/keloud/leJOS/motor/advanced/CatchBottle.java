@@ -1,6 +1,5 @@
-package info.keloud.leJOS.motor.Advanced;
+package info.keloud.leJOS.motor.advanced;
 
-import info.keloud.leJOS.informationHandler.Monitoring;
 import info.keloud.leJOS.motor.Arm;
 import info.keloud.leJOS.motor.Forward;
 import info.keloud.leJOS.motor.Motor;
@@ -14,8 +13,7 @@ public class CatchBottle extends Motor {
     private Forward forward;
     private float ultrasonicValue;
 
-    public CatchBottle(Monitoring monitoring, RegulatedMotor motorLeft, RegulatedMotor motorRight, RegulatedMotor motorCenter, UltrasonicSensor ultrasonicSensor, ColorSensor colorSensor, Arm arm, Forward forward) {
-        this.monitoring = monitoring;
+    public CatchBottle(RegulatedMotor motorLeft, RegulatedMotor motorRight, RegulatedMotor motorCenter, UltrasonicSensor ultrasonicSensor, ColorSensor colorSensor, Arm arm, Forward forward) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.motorCenter = motorCenter;
@@ -27,8 +25,6 @@ public class CatchBottle extends Motor {
 
     @Override
     public void run() {
-        monitoring.getBehavior(setBehavior("CatchBottle"));
-
         //初期探索処理を呼び出す
         if (angle < 0) {
             angle = -angle;

@@ -1,13 +1,11 @@
 package info.keloud.leJOS.motor;
 
-import info.keloud.leJOS.informationHandler.Monitoring;
 import info.keloud.leJOS.sensor.ColorSensor;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
 public class ForwardColor extends Motor {
-    public ForwardColor(Monitoring monitoring, RegulatedMotor motorLeft, RegulatedMotor motorRight, ColorSensor colorSensor) {
-        this.monitoring = monitoring;
+    public ForwardColor(RegulatedMotor motorLeft, RegulatedMotor motorRight, ColorSensor colorSensor) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.colorSensor = colorSensor;
@@ -15,8 +13,6 @@ public class ForwardColor extends Motor {
 
     @Override
     public void run() {
-        monitoring.getBehavior(setBehavior("Forward Color"));
-
         // 初期化
         int initTachoCount = motorLeft.getTachoCount();
         int speedNow;

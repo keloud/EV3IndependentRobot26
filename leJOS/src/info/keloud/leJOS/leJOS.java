@@ -1,7 +1,8 @@
 package info.keloud.leJOS;
 
-import info.keloud.leJOS.informationHandler.Monitoring;
 import info.keloud.leJOS.informationHandler.Scheduler;
+import info.keloud.leJOS.motor.*;
+import info.keloud.leJOS.motor.advanced.CatchBottle;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
@@ -21,8 +22,6 @@ public class leJOS {
     public static UltrasonicSensor ultrasonicSensor;
     // ジャイロセンサー
     public static GyroSensor gyroSensor;
-    // モニタリング処理
-    public static Monitoring monitoring;
 
     public static void main(String[] args) {
         // ディスプレイ案内開始
@@ -65,6 +64,14 @@ public class leJOS {
         // スレッド起動
         Scheduler scheduler = new Scheduler();
         scheduler.start();
+        // 動作用オブジェクト起動
+        Arm arm = new Arm(motorCenter);
+        Forward forward = new Forward(motorLeft, motorRight);
+        ForwardColor forwardColor = new ForwardColor(motorLeft, motorRight, colorSensor);
+        Backward backward = new Backward(motorLeft, motorRight);
+        BackwardColor backwardColor = new BackwardColor(motorLeft, motorRight, colorSensor);
+        Turn turn = new Turn(motorLeft, motorRight);
+        CatchBottle catchBottle = new CatchBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, arm, forward);
         // ディスプレイ案内の更新
         LCD.clear();
         LCD.drawString("End of initialization processing", 1, 6);
@@ -75,7 +82,7 @@ public class leJOS {
         LCD.refresh();
         Button.ENTER.waitForPress();
         // 動作開始
-        /* 未実装
+        // 未実装
         //アームが開いている場合の内部データの修正
         arm.setState(true);
         arm.run("Close");
@@ -174,7 +181,7 @@ public class leJOS {
         forwardColor.run();
         //アームを閉じる
         arm.run();
-        */
+        //
         // 終了処理
         LCD.clear(6);
         LCD.drawString("All Complete", 1, 6);

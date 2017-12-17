@@ -1,13 +1,11 @@
 package info.keloud.leJOS.motor;
 
-import info.keloud.leJOS.informationHandler.Monitoring;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
 public class ForwardSonar extends Motor {
-    public ForwardSonar(Monitoring monitoring, RegulatedMotor motorLeft, RegulatedMotor motorRight, UltrasonicSensor ultrasonicSensor) {
-        this.monitoring = monitoring;
+    public ForwardSonar(RegulatedMotor motorLeft, RegulatedMotor motorRight, UltrasonicSensor ultrasonicSensor) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.ultrasonicSensor = ultrasonicSensor;
@@ -15,8 +13,6 @@ public class ForwardSonar extends Motor {
 
     @Override
     public void run() {
-        monitoring.getBehavior(setBehavior("Forward Sonar"));
-
         // 初期化
         int initTachoCount = motorLeft.getTachoCount();
         int speedNow;
