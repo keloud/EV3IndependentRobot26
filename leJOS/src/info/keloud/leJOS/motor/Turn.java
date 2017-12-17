@@ -3,7 +3,7 @@ package info.keloud.leJOS.motor;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
-public class Turn extends Motor {
+public class Turn extends AbstractMotor {
     public Turn(RegulatedMotor motorLeft, RegulatedMotor motorRight) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;

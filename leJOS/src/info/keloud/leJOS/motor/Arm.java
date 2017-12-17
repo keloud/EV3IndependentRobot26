@@ -5,7 +5,7 @@ import lejos.robotics.RegulatedMotor;
 
 import java.util.Objects;
 
-public class Arm extends Motor {
+public class Arm extends AbstractMotor {
 
     private boolean state = false;
 

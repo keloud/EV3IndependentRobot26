@@ -5,7 +5,7 @@ import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
 import lejos.robotics.RegulatedMotor;
 
-public abstract class AbstractMotor implements ImplementMachine {
+public abstract class AbstractMotor implements ImplementMachine, ImplementMotor {
     // the left running motor
     protected RegulatedMotor motorLeft;
     // the right running motor
@@ -29,15 +29,60 @@ public abstract class AbstractMotor implements ImplementMachine {
     // Operation mode
     protected String operationMode;
 
-    abstract void run();
+    @Override
+    public void run() {
+    }
 
-    abstract String getOperationMode();
+    @Override
+    public String getOperationMode() {
+        return "Init AbstractMotor";
+    }
 
-    abstract void setSpeed(int speed);
+    @Override
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
 
-    abstract void setDistance(double distance);
+    @Override
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
 
-    abstract void setAngle(double angle);
+    @Override
+    public void setAngle(double angle) {
+        this.angle = angle;
+    }
 
-    abstract void setColorId(int colorId);
+    @Override
+    public void setColorId(int colorId) {
+        this.colorId = colorId;
+    }
+
+    public void setColorId(String colorId) {
+        switch (colorId) {
+            case "BLACK":
+                this.colorId = 1;
+                break;
+            case "BLUE":
+                this.colorId = 2;
+                break;
+            case "GREEN":
+                this.colorId = 3;
+                break;
+            case "YELLOW":
+                this.colorId = 4;
+                break;
+            case "RED":
+                this.colorId = 5;
+                break;
+            case "WHITE":
+                this.colorId = 6;
+                break;
+            case "BROWN":
+                this.colorId = 7;
+                break;
+            default:
+                this.colorId = 0;
+        }
+    }
 }

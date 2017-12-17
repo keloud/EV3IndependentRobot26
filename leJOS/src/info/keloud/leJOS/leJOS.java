@@ -13,16 +13,6 @@ import lejos.robotics.RegulatedMotor;
 public class leJOS {
     // スレッド スケジューラー
     private static Scheduler scheduler;
-    // Regulated モーター
-    private static RegulatedMotor motorCenter;
-    private static RegulatedMotor motorLeft;
-    private static RegulatedMotor motorRight;
-    // カラーセンサー
-    private static ColorSensor colorSensor;
-    // 超音波センサー
-    private static UltrasonicSensor ultrasonicSensor;
-    // ジャイロセンサー
-    private static GyroSensor gyroSensor;
     // モーター操作
     private static Arm arm;
     private static Forward forward;
@@ -38,38 +28,38 @@ public class leJOS {
         LCD.drawString("Init ColorSensor", 1, 6);
         LCD.refresh();
         // カラーセンサーの初期化
-        colorSensor = new ColorSensor();
+        ColorSensor colorSensor = new ColorSensor();
         // ディスプレイ案内更新
         LCD.clear();
         LCD.drawString("Init UltrasonicSensor", 1, 6);
         LCD.refresh();
         // 超音波センサーの初期化
-        ultrasonicSensor = new UltrasonicSensor();
+        UltrasonicSensor ultrasonicSensor = new UltrasonicSensor();
         // ディスプレイ案内の更新
         LCD.clear();
         LCD.drawString("Init GyroSensor", 1, 6);
         LCD.refresh();
         // ジャイロセンサーの初期化
-        gyroSensor = new GyroSensor();
+        GyroSensor gyroSensor = new GyroSensor();
         // ディスプレイ案内の更新
         LCD.clear();
-        LCD.drawString("Init Motor", 1, 6);
+        LCD.drawString("Init AbstractMotor", 1, 6);
         LCD.refresh();
         // モーターの初期化
-        motorCenter = lejos.hardware.motor.Motor.A;
+        RegulatedMotor motorCenter = lejos.hardware.motor.Motor.A;
         motorCenter.resetTachoCount();
-        motorLeft = lejos.hardware.motor.Motor.B;
+        RegulatedMotor motorLeft = lejos.hardware.motor.Motor.B;
         motorLeft.resetTachoCount();
-        motorRight = lejos.hardware.motor.Motor.C;
+        RegulatedMotor motorRight = lejos.hardware.motor.Motor.C;
         motorRight.resetTachoCount();
         // ディスプレイ案内の更新
         LCD.clear();
         LCD.drawString("Init Thread", 1, 6);
         LCD.refresh();
         // スレッドオブジェクトの作成
-        scheduler = new Scheduler();
+        scheduler = new Scheduler(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, gyroSensor);
         scheduler.start();
-        // モーター操作起動
+        // モーター操作の設定
         arm = new Arm(motorCenter);
         forward = new Forward(motorLeft, motorRight);
         forwardColor = new ForwardColor(motorLeft, motorRight, colorSensor);
@@ -82,9 +72,7 @@ public class leJOS {
         LCD.drawString("End of initialization processing", 1, 6);
         LCD.refresh();
         // 開始確認
-        LCD.clear(6);
-        LCD.drawString("Press Enter", 1, 6);
-        LCD.refresh();
+        scheduler.setOperationMode("Press Enter to Start");
         Button.ENTER.waitForPress();
         // 動作開始
         run();
@@ -96,15 +84,19 @@ public class leJOS {
     private static void run() {
         //アームが開いている場合の内部データの修正
         arm.setState(true);
+        scheduler.setOperationMode(arm.getOperationMode());
         arm.run("Close");
         //アームを開ける
+        scheduler.setOperationMode(arm.getOperationMode());
         arm.run("Open");
         //ボトルを取得する
         catchBottle.setAngle(70);
+        scheduler.setOperationMode(catchBottle.getOperationMode());
         catchBottle.run();
         //速度(100)角度(-90度°)で回転
         turn.setSpeed(300);
         turn.setAngle(-90);
+
         turn.run();
         //速度(600)カラー(赤)で後進
         backwardColor.setSpeed(600);

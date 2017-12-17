@@ -4,7 +4,7 @@ import info.keloud.leJOS.sensor.UltrasonicSensor;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
-public class ForwardSonar extends Motor {
+public class ForwardSonar extends AbstractMotor {
     public ForwardSonar(RegulatedMotor motorLeft, RegulatedMotor motorRight, UltrasonicSensor ultrasonicSensor) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;

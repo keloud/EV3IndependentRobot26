@@ -45,7 +45,7 @@ public class Monitoring extends Thread {
         }
     }
 
-    public void setValue(String operationMode, int accumulationMotorCenter, int accumulationMotorLeft, int accumulationMotorRight, float colorIdValue, float ultrasonicValue, float gyroValue) {
-        printWriter.println(" Mode:" + operationMode + ", Center:" + accumulationMotorCenter + ", Left:" + accumulationMotorLeft + ", Right:" + accumulationMotorRight + ", ColorId:" + colorIdValue + ", Ultrasonic:" + ultrasonicValue + ", Gyro:" + gyroValue);
+    public void updateValue(String operationMode, int accumulationMotorLeft, int accumulationMotorRight, int accumulationMotorCenter, float colorIdValue, float ultrasonicValue, float gyroValue) {
+        printWriter.println("Mode:" + operationMode + ",Left:" + accumulationMotorLeft + ",Right:" + accumulationMotorRight + ",Center:" + accumulationMotorCenter + ",ColorId:" + colorIdValue + ",Ultrasonic:" + ultrasonicValue + ",Gyro:" + gyroValue);
     }
 }

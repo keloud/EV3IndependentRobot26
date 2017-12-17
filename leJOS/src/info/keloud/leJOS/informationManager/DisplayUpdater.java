@@ -9,11 +9,11 @@ public class DisplayUpdater {
     DisplayUpdater() {
     }
 
-    public void updateValue(String operationMode, int accumulationMotorCenter, int accumulationMotorLeft, int accumulationMotorRight, float colorIdValue, float ultrasonicValue, float gyroValue) {
+    public void updateValue(String operationMode, int accumulationMotorLeft, int accumulationMotorRight, int accumulationMotorCenter, float colorIdValue, float ultrasonicValue, float gyroValue) {
         LCD.clear(0);
         LCD.drawString(String.valueOf((float) ((int) (Battery.getVoltage() * 10 + 0.5) / 10.0)), 15, 0);
         LCD.clear(1);
-        LCD.drawString("C:" + accumulationMotorCenter + " L:" + accumulationMotorLeft + " R:" + accumulationMotorRight, 1, 1);
+        LCD.drawString("L:" + accumulationMotorLeft + " R:" + accumulationMotorRight + " C:" + accumulationMotorCenter, 1, 1);
         LCD.clear(2);
         LCD.drawString("ColorId:" + colorIdValue, 1, 2);
         LCD.clear(3);

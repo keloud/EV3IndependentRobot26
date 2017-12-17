@@ -5,21 +5,22 @@ import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.SensorMode;
 
 public class ColorSensor {
-    private float[] colorFloat;
+    private float[] colorValue;
     private SensorMode colorProvider;
 
     public ColorSensor() {
         EV3ColorSensor color = new EV3ColorSensor(SensorPort.S1);
         colorProvider = color.getColorIDMode();
-        colorFloat = new float[colorProvider.sampleSize()];
+        colorValue = new float[colorProvider.sampleSize()];
     }
 
     private void updateValue() {
-        colorProvider.fetchSample(colorFloat, 0);
+        colorProvider.fetchSample(colorValue, 0);
     }
 
+    // NONE, BLACK, BLUE, GREEN, YELLOW, RED, WHITE, BROWN
     public float getValue() {
         updateValue();
-        return colorFloat[0];
+        return colorValue[0];
     }
 }

@@ -1,16 +1,36 @@
 package info.keloud.leJOS.informationManager;
 
+import info.keloud.leJOS.sensor.ColorSensor;
+import info.keloud.leJOS.sensor.GyroSensor;
+import info.keloud.leJOS.sensor.UltrasonicSensor;
 import lejos.hardware.lcd.LCD;
+import lejos.robotics.RegulatedMotor;
 
 public class Scheduler extends Thread {
     private String operationMode = "non Operation";
-    private int accumulationMotorCenter, accumulationMotorLeft, accumulationMotorRight;
-    private float colorIdValue, ultrasonicValue, gyroValue;
     private Monitoring monitoring;
     private DisplayUpdater displayUpdater;
     private boolean mode;
+    // the left running motor
+    private RegulatedMotor motorLeft;
+    // the right running motor
+    private RegulatedMotor motorRight;
+    // the right running motor
+    private RegulatedMotor motorCenter;
+    // the color sensor
+    private ColorSensor colorSensor;
+    // the ultrasonic sensor
+    private UltrasonicSensor ultrasonicSensor;
+    // the gyro sensor
+    private GyroSensor gyroSensor;
 
-    public Scheduler() {
+    public Scheduler(RegulatedMotor motorLeft, RegulatedMotor motorRight, RegulatedMotor motorCenter, UltrasonicSensor ultrasonicSensor, ColorSensor colorSensor, GyroSensor gyroSensor) {
+        this.motorLeft = motorLeft;
+        this.motorRight = motorRight;
+        this.motorCenter = motorCenter;
+        this.ultrasonicSensor = ultrasonicSensor;
+        this.colorSensor = colorSensor;
+        this.gyroSensor = gyroSensor;
         monitoring = new Monitoring();
         displayUpdater = new DisplayUpdater();
         mode = true;
@@ -20,10 +40,16 @@ public class Scheduler extends Thread {
         int timer = 0;
         monitoring.run();
         while (mode) {
+            int accumulationMotorLeft = motorLeft.getTachoCount();
+            int accumulationMotorRight = motorRight.getTachoCount();
+            int accumulationMotorCenter = motorCenter.getTachoCount();
+            float colorIdValue = colorSensor.getValue();
+            float ultrasonicValue = ultrasonicSensor.getValue();
+            float gyroValue = gyroSensor.getValue();
             // サーバーに値を渡す
-            monitoring.setValue(operationMode, accumulationMotorCenter, accumulationMotorLeft, accumulationMotorRight, colorIdValue, ultrasonicValue, gyroValue);
+            monitoring.updateValue(operationMode, accumulationMotorLeft, accumulationMotorRight, accumulationMotorCenter, colorIdValue, ultrasonicValue, gyroValue);
             // 表示を更新する
-            displayUpdater.updateValue(operationMode, accumulationMotorCenter, accumulationMotorLeft, accumulationMotorRight, colorIdValue, ultrasonicValue, gyroValue);
+            displayUpdater.updateValue(operationMode, accumulationMotorLeft, accumulationMotorRight, accumulationMotorCenter, colorIdValue, ultrasonicValue, gyroValue);
             // カウントタイマーの表示
             LCD.drawInt(timer, 14, 7);
             LCD.refresh();

@@ -1,6 +1,6 @@
 package info.keloud.leJOS.motor.advanced;
 
-import info.keloud.leJOS.motor.Motor;
+import info.keloud.leJOS.motor.AbstractMotor;
 import info.keloud.leJOS.motor.TurnGyro;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
@@ -8,7 +8,7 @@ import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
 // Process to search by spinning on the spot
-public class SearchGyro extends Motor {
+public class SearchGyro extends AbstractMotor {
     private TurnGyro turnGyro;
 
     public SearchGyro(RegulatedMotor motorLeft, RegulatedMotor motorRight, UltrasonicSensor ultrasonicSensor, GyroSensor gyroSensor, TurnGyro turnGyro) {
