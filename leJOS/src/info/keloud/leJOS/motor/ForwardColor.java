@@ -9,12 +9,12 @@ public class ForwardColor extends AbstractMotor {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.colorSensor = colorSensor;
-        operationMode = "Forward Color";
     }
 
     @Override
     public void run() {
         // 初期化
+        setOperationMode("Forward Color");
         int initTachoCount = motorLeft.getTachoCount();
         int speedNow;
         int speedMin = 100;

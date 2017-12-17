@@ -1,5 +1,6 @@
 package info.keloud.leJOS.motor;
 
+import info.keloud.leJOS.leJOS;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
@@ -84,5 +85,9 @@ public abstract class AbstractMotor implements ImplementMachine, ImplementMotor 
     @Override
     public String getOperationMode() {
         return operationMode;
+    }
+
+    public void setOperationMode(String operationMode) {
+        leJOS.setOperationMode(operationMode);
     }
 }

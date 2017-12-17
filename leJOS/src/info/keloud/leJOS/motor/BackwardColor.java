@@ -9,12 +9,13 @@ public class BackwardColor extends AbstractMotor {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.colorSensor = colorSensor;
-        operationMode = "Backward Color";
+
     }
 
     @Override
     public void run() {
         // 初期化
+        setOperationMode("Backward Color");
         int initTachoCount = motorLeft.getTachoCount();
         int speedNow;
         int speedMin = 100;

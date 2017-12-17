@@ -17,11 +17,11 @@ public class SearchGyro extends AbstractMotor {
         this.ultrasonicSensor = ultrasonicSensor;
         this.gyroSensor = gyroSensor;
         this.turnGyro = turnGyro;
-        operationMode = "Search Gyro";
     }
 
     @Override
     public void run() {
+        setOperationMode("Search Gyro");
         //サーチ初期位置に動く
         turnGyro.setSpeed(100);
         turnGyro.setAngle(angle / 2);

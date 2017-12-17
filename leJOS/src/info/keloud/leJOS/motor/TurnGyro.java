@@ -9,7 +9,6 @@ public class TurnGyro extends AbstractMotor {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.gyroSensor = gyroSensor;
-        operationMode = "Turn Gyro";
     }
 
     @Override
@@ -26,8 +25,39 @@ public class TurnGyro extends AbstractMotor {
         }
     }
 
+
+    private void leftTurn() {
+        // 初期化
+        setOperationMode("Turn Left Gyro");
+        float gyroInit = gyroSensor.getValue();
+        float degreeGyro = 0;
+        motorLeft.setSpeed(speed);
+        motorRight.setSpeed(speed);
+
+        // 移動開始
+        motorLeft.backward();
+        motorRight.forward();
+
+        // 移動判定
+        try {
+            while (degreeGyro < angle) {
+                Thread.sleep(wait);
+                degreeGyro = gyroSensor.getValue() - gyroInit;
+            }
+        } catch (InterruptedException ignored) {
+            LCD.clear(6);
+            LCD.drawString("Error", 1, 6);
+            LCD.refresh();
+        }
+
+        // 停止
+        motorLeft.stop(true);
+        motorRight.stop(true);
+    }
+
     private void rightTurn() {
         // 初期化
+        setOperationMode("Turn Right Gyro");
         float gyroInit = gyroSensor.getValue();
         float degreeGyro = 0;
         motorLeft.setSpeed(speed);
@@ -54,31 +84,4 @@ public class TurnGyro extends AbstractMotor {
         motorRight.stop(true);
     }
 
-    private void leftTurn() {
-        // 初期化
-        float gyroInit = gyroSensor.getValue();
-        float degreeGyro = 0;
-        motorLeft.setSpeed(speed);
-        motorRight.setSpeed(speed);
-
-        // 移動開始
-        motorLeft.backward();
-        motorRight.forward();
-
-        // 移動判定
-        try {
-            while (degreeGyro < angle) {
-                Thread.sleep(wait);
-                degreeGyro = gyroSensor.getValue() - gyroInit;
-            }
-        } catch (InterruptedException ignored) {
-            LCD.clear(6);
-            LCD.drawString("Error", 1, 6);
-            LCD.refresh();
-        }
-
-        // 停止
-        motorLeft.stop(true);
-        motorRight.stop(true);
-    }
 }

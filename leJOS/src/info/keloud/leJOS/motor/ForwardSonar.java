@@ -9,12 +9,12 @@ public class ForwardSonar extends AbstractMotor {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.ultrasonicSensor = ultrasonicSensor;
-        operationMode = "Forward Sonar";
     }
 
     @Override
     public void run() {
         // 初期化
+        setOperationMode("Forward Sonar");
         int initTachoCount = motorLeft.getTachoCount();
         int speedNow;
         int speedMin = 100;

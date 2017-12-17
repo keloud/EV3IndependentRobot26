@@ -25,25 +25,25 @@ public class leJOS {
     public static void main(String[] args) {
         // ディスプレイ案内開始
         LCD.clear();
-        LCD.drawString("Init ColorSensor", 1, 6);
+        LCD.drawString("Init ColorSensor", 1, 5);
         LCD.refresh();
         // カラーセンサーの初期化
         ColorSensor colorSensor = new ColorSensor();
         // ディスプレイ案内更新
-        LCD.clear();
-        LCD.drawString("Init UltrasonicSensor", 1, 6);
+        LCD.clear(5);
+        LCD.drawString("Init UltrasonicSensor", 1, 5);
         LCD.refresh();
         // 超音波センサーの初期化
         UltrasonicSensor ultrasonicSensor = new UltrasonicSensor();
         // ディスプレイ案内の更新
-        LCD.clear();
-        LCD.drawString("Init GyroSensor", 1, 6);
+        LCD.clear(5);
+        LCD.drawString("Init GyroSensor", 1, 5);
         LCD.refresh();
         // ジャイロセンサーの初期化
         GyroSensor gyroSensor = new GyroSensor();
         // ディスプレイ案内の更新
-        LCD.clear();
-        LCD.drawString("Init AbstractMotor", 1, 6);
+        LCD.clear(5);
+        LCD.drawString("Init AbstractMotor", 1, 5);
         LCD.refresh();
         // モーターの初期化
         RegulatedMotor motorCenter = lejos.hardware.motor.Motor.A;
@@ -53,8 +53,8 @@ public class leJOS {
         RegulatedMotor motorRight = lejos.hardware.motor.Motor.C;
         motorRight.resetTachoCount();
         // ディスプレイ案内の更新
-        LCD.clear();
-        LCD.drawString("Init Thread", 1, 6);
+        LCD.clear(5);
+        LCD.drawString("Init Thread", 1, 5);
         LCD.refresh();
         // スレッドオブジェクトの作成
         scheduler = new Scheduler(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, gyroSensor);
@@ -68,13 +68,13 @@ public class leJOS {
         turn = new Turn(motorLeft, motorRight);
         grabBottle = new GrabBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, arm, forward);
         // ディスプレイ案内の更新
-        LCD.clear();
-        LCD.drawString("End of initialization processing", 1, 6);
+        LCD.clear(5);
+        LCD.drawString("End of initialization processing", 1, 5);
         LCD.refresh();
         // メニューを開く
         menu();
         // 終了処理
-        scheduler.setOperationMode("All Complete");
+        setOperationMode("All Complete");
         // Enterキーを押して次に進む
         Button.ENTER.waitForPress();
         scheduler.countStop();
@@ -83,8 +83,8 @@ public class leJOS {
     private static void menu() {
         // Press Enter run()
         // Press Left runTest()
-        // Press Right correctArm
-        scheduler.setOperationMode("Select Mode Button");
+        // Press Right correctArm()
+        setOperationMode("Waiting for operation");
         LCD.clear(5);
         LCD.drawString("E:run L:Test R:Correct", 1, 5);
         LCD.refresh();
@@ -102,22 +102,16 @@ public class leJOS {
         }
     }
 
-    private static void runTest() {
-        // 開始確認
-        scheduler.setOperationMode("Press Enter to Start");
-        Button.ENTER.waitForPress();
-    }
-
-    private static void correctArm() {
-        //アームが開いている場合の内部データの修正
-        arm.setState(true);
-        arm.run("Close");
-    }
-
     private static void run() {
         // 開始確認
-        scheduler.setOperationMode("Press Enter to Start");
+        setOperationMode("Waiting for operation");
+        LCD.clear(5);
+        LCD.drawString("Press Enter to Start", 1, 5);
+        LCD.refresh();
         Button.ENTER.waitForPress();
+        LCD.clear(5);
+        LCD.drawString("EV3 running", 1, 5);
+        LCD.refresh();
         //アームを開ける
         arm.run("Open");
         //ボトルを取得する
@@ -213,5 +207,28 @@ public class leJOS {
         forwardColor.run();
         //アームを閉じる
         arm.run();
+    }
+
+    private static void runTest() {
+        // 開始確認
+        setOperationMode("Waiting for operation");
+        LCD.clear(5);
+        LCD.drawString("Press Enter to Start", 1, 5);
+        LCD.refresh();
+        Button.ENTER.waitForPress();
+        LCD.clear(5);
+        LCD.drawString("EV3 running", 1, 5);
+        LCD.refresh();
+    }
+
+    private static void correctArm() {
+        setOperationMode("Adjusting arm");
+        //アームが開いている場合の内部データの修正
+        arm.setState(true);
+        arm.run("Close");
+    }
+
+    public static void setOperationMode(String operationMode) {
+        scheduler.setOperationMode(operationMode);
     }
 }

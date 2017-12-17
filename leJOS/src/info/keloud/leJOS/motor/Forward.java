@@ -7,12 +7,12 @@ public class Forward extends AbstractMotor {
     public Forward(RegulatedMotor motorLeft, RegulatedMotor motorRight) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
-        operationMode = "Forward";
     }
 
     @Override
     public void run() {
         // 初期化
+        setOperationMode("Forward");
         int initTachoCount = motorLeft.getTachoCount();
         int speedNow;
         int speedMin = 100;

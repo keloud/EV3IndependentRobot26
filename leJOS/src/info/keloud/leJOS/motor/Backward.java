@@ -7,12 +7,12 @@ public class Backward extends AbstractMotor {
     public Backward(RegulatedMotor motorLeft, RegulatedMotor motorRight) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
-        operationMode = "Backward";
     }
 
     @Override
     public void run() {
         // 初期化
+        setOperationMode("Backward");
         int initTachoCount = motorLeft.getTachoCount();
         int speedNow;
         int speedMin = 100;

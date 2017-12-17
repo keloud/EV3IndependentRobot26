@@ -21,11 +21,11 @@ public class GrabBottle extends AbstractMotor {
         this.colorSensor = colorSensor;
         this.arm = arm;
         this.forward = forward;
-        operationMode = "Grab Bottle";
     }
 
     @Override
     public void run() {
+        setOperationMode("Grab Bottle");
         //初期探索処理を呼び出す
         if (angle < 0) {
             angle = -angle;
@@ -141,6 +141,7 @@ public class GrabBottle extends AbstractMotor {
         //対象の距離が短くなっているか判定する
         float actualUltrasonicValue = ultrasonicSensor.getValue();
         if (actualUltrasonicValue > ultrasonicValue) {
+            setOperationMode("Grab Bottle Search");
             //もし、遠くなっていたら以下の処理を行う
             // 一時停止
             motorLeft.stop(true);

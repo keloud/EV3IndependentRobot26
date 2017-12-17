@@ -11,7 +11,6 @@ public class Arm extends AbstractMotor {
 
     public Arm(RegulatedMotor motorCenter) {
         this.motorCenter = motorCenter;
-        operationMode = "Arm";
         setAngle(320);
         setSpeed(800);
         motorCenter.setSpeed(speed);
@@ -45,6 +44,7 @@ public class Arm extends AbstractMotor {
 
     private void armOpen() {
         // 初期化
+        setOperationMode("Arm Open");
         state = true;
         int initTachoCount = motorCenter.getTachoCount();
         int degreeTachoCount = 0;
@@ -75,6 +75,7 @@ public class Arm extends AbstractMotor {
 
     private void armClose() {
         // 初期化
+        setOperationMode("Arm Close");
         state = false;
         int initTachoCount = motorCenter.getTachoCount();
         int degreeTachoCount = 0;
