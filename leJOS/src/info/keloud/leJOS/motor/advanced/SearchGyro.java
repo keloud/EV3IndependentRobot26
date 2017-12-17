@@ -17,6 +17,7 @@ public class SearchGyro extends AbstractMotor {
         this.ultrasonicSensor = ultrasonicSensor;
         this.gyroSensor = gyroSensor;
         this.turnGyro = turnGyro;
+        operationMode = "Search Gyro";
     }
 
     @Override

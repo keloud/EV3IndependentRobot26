@@ -8,12 +8,12 @@ import info.keloud.leJOS.sensor.UltrasonicSensor;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
-public class CatchBottle extends AbstractMotor {
+public class GrabBottle extends AbstractMotor {
     private Arm arm;
     private Forward forward;
     private float ultrasonicValue;
 
-    public CatchBottle(RegulatedMotor motorLeft, RegulatedMotor motorRight, RegulatedMotor motorCenter, UltrasonicSensor ultrasonicSensor, ColorSensor colorSensor, Arm arm, Forward forward) {
+    public GrabBottle(RegulatedMotor motorLeft, RegulatedMotor motorRight, RegulatedMotor motorCenter, UltrasonicSensor ultrasonicSensor, ColorSensor colorSensor, Arm arm, Forward forward) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.motorCenter = motorCenter;
@@ -21,6 +21,7 @@ public class CatchBottle extends AbstractMotor {
         this.colorSensor = colorSensor;
         this.arm = arm;
         this.forward = forward;
+        operationMode = "Grab Bottle";
     }
 
     @Override
