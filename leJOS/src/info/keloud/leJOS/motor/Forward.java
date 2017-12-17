@@ -7,6 +7,7 @@ public class Forward extends Motor {
     public Forward(RegulatedMotor motorLeft, RegulatedMotor motorRight) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
+        operationMode = "Forward";
     }
 
     @Override
@@ -56,9 +57,10 @@ public class Forward extends Motor {
         // 停止
         motorLeft.stop(true);
         motorRight.stop(true);
+    }
 
-        LCD.clear(6);
-        LCD.drawString("Stopped", 1, 6);
-        LCD.refresh();
+    @Override
+    public String getOperationMode() {
+        return operationMode;
     }
 }

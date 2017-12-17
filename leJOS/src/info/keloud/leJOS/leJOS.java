@@ -11,6 +11,8 @@ import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
 public class leJOS {
+    // スレッド スケジューラー
+    private static Scheduler scheduler;
     // Regulated モーター
     private static RegulatedMotor motorCenter;
     private static RegulatedMotor motorLeft;
@@ -65,7 +67,7 @@ public class leJOS {
         LCD.drawString("Init Thread", 1, 6);
         LCD.refresh();
         // スレッドオブジェクトの作成
-        Scheduler scheduler = new Scheduler();
+        scheduler = new Scheduler();
         scheduler.start();
         // モーター操作起動
         arm = new Arm(motorCenter);
@@ -191,8 +193,6 @@ public class leJOS {
         //アームを閉じる
         arm.run();
         // 終了処理
-        LCD.clear(6);
-        LCD.drawString("All Complete", 1, 6);
-        LCD.refresh();
+        scheduler.setOperationMode("All Complete");
     }
 }

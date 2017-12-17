@@ -31,7 +31,7 @@ public abstract class AbstractMotor implements ImplementMachine {
 
     abstract void run();
 
-    abstract void setOperationMode(String operationMode);
+    abstract String getOperationMode();
 
     abstract void setSpeed(int speed);
 

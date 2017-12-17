@@ -1,7 +1,5 @@
 package info.keloud.leJOS.motor;
 
-import lejos.hardware.lcd.LCD;
-
 import java.util.Objects;
 
 public class Motor extends AbstractMotor implements ImplementMachine {
@@ -10,10 +8,8 @@ public class Motor extends AbstractMotor implements ImplementMachine {
     }
 
     @Override
-    public void setOperationMode(String operationMode) {
-        LCD.clear(6);
-        LCD.drawString(operationMode, 1, 6);
-        LCD.refresh();
+    public String getOperationMode() {
+        return "Init Motor";
     }
 
     @Override
