@@ -1,27 +1,34 @@
 package info.keloud.leJOS;
 
-import info.keloud.leJOS.informationHandler.Scheduler;
+import info.keloud.leJOS.informationManager.Scheduler;
 import info.keloud.leJOS.motor.*;
 import info.keloud.leJOS.motor.advanced.CatchBottle;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
-import lejos.hardware.Battery;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
 public class leJOS {
     // Regulated モーター
-    public static RegulatedMotor motorCenter;
-    public static RegulatedMotor motorLeft;
-    public static RegulatedMotor motorRight;
+    private static RegulatedMotor motorCenter;
+    private static RegulatedMotor motorLeft;
+    private static RegulatedMotor motorRight;
     // カラーセンサー
-    public static ColorSensor colorSensor;
+    private static ColorSensor colorSensor;
     // 超音波センサー
-    public static UltrasonicSensor ultrasonicSensor;
+    private static UltrasonicSensor ultrasonicSensor;
     // ジャイロセンサー
-    public static GyroSensor gyroSensor;
+    private static GyroSensor gyroSensor;
+    // モーター操作
+    private static Arm arm;
+    private static Forward forward;
+    private static ForwardColor forwardColor;
+    private static Backward backward;
+    private static BackwardColor backwardColor;
+    private static Turn turn;
+    private static CatchBottle catchBottle;
 
     public static void main(String[] args) {
         // ディスプレイ案内開始
@@ -57,21 +64,17 @@ public class leJOS {
         LCD.clear();
         LCD.drawString("Init Thread", 1, 6);
         LCD.refresh();
-        // センサーの初期化を促す
-        for (int i = 0; i < 300; i++) {
-            sensorUpdate();
-        }
-        // スレッド起動
+        // スレッドオブジェクトの作成
         Scheduler scheduler = new Scheduler();
         scheduler.start();
-        // 動作用オブジェクト起動
-        Arm arm = new Arm(motorCenter);
-        Forward forward = new Forward(motorLeft, motorRight);
-        ForwardColor forwardColor = new ForwardColor(motorLeft, motorRight, colorSensor);
-        Backward backward = new Backward(motorLeft, motorRight);
-        BackwardColor backwardColor = new BackwardColor(motorLeft, motorRight, colorSensor);
-        Turn turn = new Turn(motorLeft, motorRight);
-        CatchBottle catchBottle = new CatchBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, arm, forward);
+        // モーター操作起動
+        arm = new Arm(motorCenter);
+        forward = new Forward(motorLeft, motorRight);
+        forwardColor = new ForwardColor(motorLeft, motorRight, colorSensor);
+        backward = new Backward(motorLeft, motorRight);
+        backwardColor = new BackwardColor(motorLeft, motorRight, colorSensor);
+        turn = new Turn(motorLeft, motorRight);
+        catchBottle = new CatchBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, arm, forward);
         // ディスプレイ案内の更新
         LCD.clear();
         LCD.drawString("End of initialization processing", 1, 6);
@@ -82,7 +85,13 @@ public class leJOS {
         LCD.refresh();
         Button.ENTER.waitForPress();
         // 動作開始
-        // 未実装
+        run();
+        // Enterキーを押して次に進む
+        Button.ENTER.waitForPress();
+        scheduler.countStop();
+    }
+
+    private static void run() {
         //アームが開いている場合の内部データの修正
         arm.setState(true);
         arm.run("Close");
@@ -181,27 +190,9 @@ public class leJOS {
         forwardColor.run();
         //アームを閉じる
         arm.run();
-        //
         // 終了処理
         LCD.clear(6);
         LCD.drawString("All Complete", 1, 6);
-        LCD.refresh();
-        // Enterキーを押して次に進む
-        Button.ENTER.waitForPress();
-        scheduler.countStop();
-    }
-
-    private static void sensorUpdate() {
-        LCD.clear(0);
-        LCD.drawString(String.valueOf((float) ((int) (Battery.getVoltage() * 10 + 0.5) / 10.0)), 15, 0);
-        LCD.clear(1);
-        LCD.drawString("C:" + motorCenter.getTachoCount() + " L:" + motorLeft.getTachoCount() + " R:" + motorRight.getTachoCount(), 1, 1);
-        LCD.clear(2);
-        LCD.drawString("ColorId:" + colorSensor.getValue(), 1, 2);
-        LCD.clear(3);
-        LCD.drawString("USonic:" + ultrasonicSensor.getValue(), 1, 3);
-        LCD.clear(4);
-        LCD.drawString("Gyro:" + gyroSensor.getValue(), 1, 4);
         LCD.refresh();
     }
 }

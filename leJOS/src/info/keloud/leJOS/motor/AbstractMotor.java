@@ -28,7 +28,6 @@ public abstract class AbstractMotor implements ImplementMachine {
     protected int colorId;
     // Operation mode
     protected String operationMode;
-    protected info.keloud.leJOS.informationHandler.Monitoring monitoring;
 
     abstract void run();
 

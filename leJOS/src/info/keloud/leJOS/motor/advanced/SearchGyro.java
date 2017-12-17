@@ -1,6 +1,5 @@
 package info.keloud.leJOS.motor.advanced;
 
-import info.keloud.leJOS.informationHandler.Monitoring;
 import info.keloud.leJOS.motor.Motor;
 import info.keloud.leJOS.motor.TurnGyro;
 import info.keloud.leJOS.sensor.GyroSensor;
@@ -12,8 +11,7 @@ import lejos.robotics.RegulatedMotor;
 public class SearchGyro extends Motor {
     private TurnGyro turnGyro;
 
-    public SearchGyro(Monitoring monitoring, RegulatedMotor motorLeft, RegulatedMotor motorRight, UltrasonicSensor ultrasonicSensor, GyroSensor gyroSensor, TurnGyro turnGyro) {
-        this.monitoring = monitoring;
+    public SearchGyro(RegulatedMotor motorLeft, RegulatedMotor motorRight, UltrasonicSensor ultrasonicSensor, GyroSensor gyroSensor, TurnGyro turnGyro) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.ultrasonicSensor = ultrasonicSensor;
