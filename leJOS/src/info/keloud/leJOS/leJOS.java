@@ -216,6 +216,12 @@ public class leJOS {
         LCD.drawString("Press Enter to Start", 1, 5);
         LCD.refresh();
         Button.ENTER.waitForPress();
+        // 速度(100)角度(90)で回転
+        // 速度(800)角度(-90)で回転
+        // 速度(100)角度(180)で回転
+        // 速度(800)角度(-180)で回転
+        // 速度(
+
         LCD.clear(5);
         LCD.drawString("EV3 running", 1, 5);
         LCD.refresh();

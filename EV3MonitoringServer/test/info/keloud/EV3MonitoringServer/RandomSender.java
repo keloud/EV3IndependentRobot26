@@ -21,7 +21,7 @@ class RandomSender {
         int ultrasonicSensor = 0;
         int gyroSensor = 0;
         try {
-            socket = new Socket("localhost", 255);
+            socket = new Socket("localhost", 50000);
             printWriter = new PrintWriter(socket.getOutputStream(), true);
 
             for (int i = 0; i < 500; i++) {
