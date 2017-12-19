@@ -56,7 +56,7 @@ public class Scheduler extends Thread {
             // 例外処理
             try {
                 Thread.sleep(20);
-            } catch (InterruptedException ie) {
+            } catch (Exception ie) {
                 LCD.clear(6);
                 LCD.drawString("Error", 1, 6);
                 LCD.refresh();
