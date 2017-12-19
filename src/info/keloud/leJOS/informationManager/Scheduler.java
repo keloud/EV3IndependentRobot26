@@ -31,7 +31,7 @@ public class Scheduler extends Thread {
         this.ultrasonicSensor = ultrasonicSensor;
         this.colorSensor = colorSensor;
         this.gyroSensor = gyroSensor;
-        // monitoring = new Monitoring();
+        monitoring = new Monitoring();
         displayUpdater = new DisplayUpdater();
         mode = true;
     }
@@ -45,17 +45,14 @@ public class Scheduler extends Thread {
             float colorIdValue = colorSensor.getValue();
             float ultrasonicValue = ultrasonicSensor.getValue();
             float gyroValue = gyroSensor.getValue();
-            // サーバーに値を渡す
-            // monitoring.updateValue(operationMode, accumulationMotorLeft, accumulationMotorRight, accumulationMotorCenter, colorIdValue, ultrasonicValue, gyroValue);
-            // 表示を更新する
-            displayUpdater.updateValue(operationMode, accumulationMotorLeft, accumulationMotorRight, accumulationMotorCenter, colorIdValue, ultrasonicValue, gyroValue);
-            // カウントタイマーの表示
-            LCD.drawInt(timer, 14, 7);
-            LCD.refresh();
             timer++;
+            // サーバーに値を渡す
+            monitoring.updateValue(operationMode, accumulationMotorLeft, accumulationMotorRight, accumulationMotorCenter, colorIdValue, ultrasonicValue, gyroValue, timer);
+            // 表示を更新する
+            displayUpdater.updateValue(operationMode, accumulationMotorLeft, accumulationMotorRight, accumulationMotorCenter, colorIdValue, ultrasonicValue, gyroValue, timer);
             // 例外処理
             try {
-                Thread.sleep(30);
+                Thread.sleep(20);
             } catch (Exception ie) {
                 LCD.clear(6);
                 LCD.drawString("Error", 1, 6);
