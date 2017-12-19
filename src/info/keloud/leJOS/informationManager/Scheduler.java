@@ -55,7 +55,7 @@ public class Scheduler extends Thread {
             timer++;
             // 例外処理
             try {
-                Thread.sleep(20);
+                Thread.sleep(30);
             } catch (Exception ie) {
                 LCD.clear(6);
                 LCD.drawString("Error", 1, 6);
