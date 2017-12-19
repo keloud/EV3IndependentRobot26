@@ -139,7 +139,7 @@ public class leJOS {
         turn.setAngle(90);
         turn.run();
         //速度(400)カラー(白)で前進
-        forwardColor.setSpeed(400);
+        forwardColor.setSpeed(800);
         forwardColor.setColorId(6);
         forwardColor.run();
         //ボトルを取得する
