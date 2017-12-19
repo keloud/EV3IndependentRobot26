@@ -26,10 +26,6 @@ public class GrabBottle extends AbstractMotor {
     @Override
     public void run() {
         setOperationMode("Grab Bottle");
-        //初期探索処理を呼び出す
-        if (angle < 0) {
-            angle = -angle;
-        }
         setSpeed(300);
         ultrasonicValue = ultrasonicSensor.getValue();
         search();
@@ -64,6 +60,23 @@ public class GrabBottle extends AbstractMotor {
         // 移動判定
         try {
             while (true) {
+                // 停止する
+                if ((int) ((ultrasonicSensor.getValue() * 100 / diameter / Math.PI) * 360) < distanceUltrasonic) {
+                    break;
+                }
+
+                //コース外へ行くのを防ぐ(白と黄と赤以外の色を検知したらペットボトルを取りに行くのをやめる)
+                if (colorSensor.getValue() != 6 && colorSensor.getValue() != 3 && colorSensor.getValue() != 0) {
+                    if (outOfMapInt == 3) {
+                        outOfMap();
+                        break;
+                    } else {
+                        outOfMapInt++;
+                    }
+                } else {
+                    outOfMapInt = 0;
+                }
+
                 // 設定した超音波センサーの距離+停止までに必要な距離まで更新し続ける。
                 if (distanceUltrasonic + distanceStop < (int) ((ultrasonicSensor.getValue() * 100 / diameter / Math.PI) * 360)) {
                     // 減速に必要な角度累計を代入する
@@ -81,33 +94,19 @@ public class GrabBottle extends AbstractMotor {
                     }
                 }
 
-                // 停止する
-                if ((int) ((ultrasonicSensor.getValue() * 100 / diameter / Math.PI) * 360) < distanceUltrasonic) {
-                    break;
-                }
                 // 減速部
                 if (distanceDeceleration - distanceStop < degreeTachoCount) {
                     speedNow = (int) ((float) (speed - minimumSpeed) * (distanceDeceleration - degreeTachoCount) / distanceStop + minimumSpeed);
                 }
+
                 // 加速部
                 else if (degreeTachoCount < distanceVariable) {
                     speedNow = (int) ((float) ((float) (speed - minimumSpeed) * degreeTachoCount / distanceVariable) + minimumSpeed);
                 }
+
                 // 巡行部
                 else {
                     speedNow = speed;
-                }
-
-                //コース外へ行くのを防ぐ(白と黄と赤以外の色を検知したらペットボトルを取りに行くのをやめる)
-                if (colorSensor.getValue() != 6 && colorSensor.getValue() != 3 && colorSensor.getValue() != 0) {
-                    if (outOfMapInt == 3) {
-                        outOfMap();
-                        break;
-                    } else {
-                        outOfMapInt++;
-                    }
-                } else {
-                    outOfMapInt = 0;
                 }
 
                 motorLeft.setSpeed(speedNow);
@@ -131,10 +130,6 @@ public class GrabBottle extends AbstractMotor {
         forward.run();
         //アームを閉じる
         arm.run("Close");
-
-        LCD.clear(6);
-        LCD.drawString("Stopped", 1, 6);
-        LCD.refresh();
     }
 
     private void search() {
@@ -151,7 +146,7 @@ public class GrabBottle extends AbstractMotor {
             // 初期化
             int initTachoCount = motorLeft.getTachoCount();
             int speedNow;
-            int minimumSpeed = 100;
+            int minimumSpeed = 300;
             int degreeCount = 0;
             motorLeft.setSpeed(minimumSpeed);
             motorRight.setSpeed(minimumSpeed);

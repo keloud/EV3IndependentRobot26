@@ -2,7 +2,7 @@ package info.keloud.leJOS;
 
 import info.keloud.leJOS.informationManager.Scheduler;
 import info.keloud.leJOS.motor.*;
-import info.keloud.leJOS.motor.advanced.GrabBottle;
+import info.keloud.leJOS.motor.advanced.GrabBottle2;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
@@ -20,7 +20,7 @@ public class leJOS {
     private static Backward backward;
     private static BackwardColor backwardColor;
     private static Turn turn;
-    private static GrabBottle grabBottle;
+    private static GrabBottle2 grabBottle;
 
     public static void main(String[] args) {
         // ディスプレイ案内開始
@@ -67,7 +67,7 @@ public class leJOS {
         backward = new Backward(motorLeft, motorRight);
         backwardColor = new BackwardColor(motorLeft, motorRight, colorSensor);
         turn = new Turn(motorLeft, motorRight);
-        grabBottle = new GrabBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, arm, forward);
+        grabBottle = new GrabBottle2(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, arm, forward);
         // ディスプレイ案内の更新
         LCD.clear(5);
         LCD.drawString("End of initialization processing", 1, 5);
@@ -116,7 +116,7 @@ public class leJOS {
         //アームを開ける
         arm.run("Open");
         //ボトルを取得する
-        grabBottle.setAngle(70);
+        grabBottle.setAngle(60);
         grabBottle.run();
         //速度(100)角度(-90度°)で回転
         turn.setSpeed(300);
