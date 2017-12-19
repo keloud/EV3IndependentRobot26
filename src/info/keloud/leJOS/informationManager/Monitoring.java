@@ -9,9 +9,6 @@ public class Monitoring extends Thread {
     private PrintWriter printWriter;
 
     Monitoring() {
-    }
-
-    public void run() {
         try {
             socket = new Socket("192.168.44.52", 50000);
             printWriter = new PrintWriter(socket.getOutputStream(), true);
@@ -47,5 +44,6 @@ public class Monitoring extends Thread {
 
     public void updateValue(String operationMode, int accumulationMotorLeft, int accumulationMotorRight, int accumulationMotorCenter, float colorIdValue, float ultrasonicValue, float gyroValue) {
         printWriter.println("Mode:" + operationMode + ",Left:" + accumulationMotorLeft + ",Right:" + accumulationMotorRight + ",Center:" + accumulationMotorCenter + ",ColorId:" + colorIdValue + ",Ultrasonic:" + ultrasonicValue + ",Gyro:" + gyroValue);
+
     }
 }

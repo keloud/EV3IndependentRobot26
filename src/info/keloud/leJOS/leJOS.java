@@ -58,6 +58,7 @@ public class leJOS {
         LCD.refresh();
         // スレッドオブジェクトの作成
         scheduler = new Scheduler(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, gyroSensor);
+        setOperationMode("Initializing");
         scheduler.start();
         // モーター操作の設定
         arm = new Arm(motorCenter);

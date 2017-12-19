@@ -38,7 +38,6 @@ public class Scheduler extends Thread {
 
     public void run() {
         int timer = 0;
-        monitoring.run();
         while (mode) {
             int accumulationMotorLeft = motorLeft.getTachoCount();
             int accumulationMotorRight = motorRight.getTachoCount();
@@ -70,7 +69,7 @@ public class Scheduler extends Thread {
         mode = false;
     }
 
-    public void setOperationMode(String operationMode) {
-        this.operationMode = operationMode;
+    public void setOperationMode(String operatingMode) {
+        this.operationMode = operatingMode;
     }
 }
