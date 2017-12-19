@@ -1,6 +1,7 @@
 package info.keloud.leJOS.motor;
 
 import info.keloud.leJOS.sensor.GyroSensor;
+import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
@@ -45,6 +46,7 @@ public class TurnGyro extends AbstractMotor {
                 degreeGyro = gyroSensor.getValue() - gyroInit;
             }
         } catch (InterruptedException ignored) {
+            Sound.beep();
             LCD.clear(6);
             LCD.drawString("Error", 1, 6);
             LCD.refresh();
@@ -74,6 +76,7 @@ public class TurnGyro extends AbstractMotor {
                 degreeGyro = gyroSensor.getValue() - gyroInit;
             }
         } catch (InterruptedException ignored) {
+            Sound.beep();
             LCD.clear(6);
             LCD.drawString("Error", 1, 6);
             LCD.refresh();

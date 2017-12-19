@@ -1,5 +1,6 @@
 package info.keloud.leJOS.motor;
 
+import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
@@ -49,6 +50,7 @@ public class Backward extends AbstractMotor {
                 degreeTachoCount = -(motorLeft.getTachoCount() - initTachoCount);
             }
         } catch (InterruptedException ignored) {
+            Sound.beep();
             LCD.clear(6);
             LCD.drawString("Error", 1, 6);
             LCD.refresh();

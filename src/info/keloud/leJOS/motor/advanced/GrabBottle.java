@@ -5,6 +5,7 @@ import info.keloud.leJOS.motor.Arm;
 import info.keloud.leJOS.motor.Forward;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
+import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
@@ -115,6 +116,7 @@ public class GrabBottle extends AbstractMotor {
                 degreeTachoCount = motorLeft.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
+            Sound.beep();
             LCD.clear(6);
             LCD.drawString("Error", 1, 6);
             LCD.refresh();
@@ -180,6 +182,7 @@ public class GrabBottle extends AbstractMotor {
                     degreeCount = motorLeft.getTachoCount() - initTachoCount;
                 }
             } catch (InterruptedException ignored) {
+                Sound.beep();
                 LCD.clear(6);
                 LCD.drawString("Error", 1, 6);
                 LCD.refresh();
@@ -219,6 +222,7 @@ public class GrabBottle extends AbstractMotor {
                     }
                 }
             } catch (InterruptedException ignored) {
+                Sound.beep();
                 LCD.clear(6);
                 LCD.drawString("Error", 1, 6);
                 LCD.refresh();
@@ -262,6 +266,7 @@ public class GrabBottle extends AbstractMotor {
                     degreeCount = motorLeft.getTachoCount() - initTachoCount;
                 }
             } catch (InterruptedException ignored) {
+                Sound.beep();
                 LCD.clear(6);
                 LCD.drawString("Error", 1, 6);
                 LCD.refresh();

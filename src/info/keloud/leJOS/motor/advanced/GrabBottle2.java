@@ -85,13 +85,7 @@ public class GrabBottle2 extends AbstractMotor {
 
                     //定期的な探査する
                     if (degreeTachoCount % 20 == 0) {
-                        Thread.sleep(wait);
-                        //調整値を取得する
-                        int temp = motorLeft.getTachoCount();
-                        //探索処理を呼び出す
                         search();
-                        //調整する
-                        initTachoCount += motorLeft.getTachoCount() - temp;
                     }
                 }
 
@@ -116,6 +110,7 @@ public class GrabBottle2 extends AbstractMotor {
                 degreeTachoCount = motorLeft.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
+            Sound.beep();
             LCD.clear(6);
             LCD.drawString("Error", 1, 6);
             LCD.refresh();
@@ -135,7 +130,13 @@ public class GrabBottle2 extends AbstractMotor {
 
     private void search() {
         setOperationMode("Grab Bottle Search");
+        try {
+            Thread.sleep(wait);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Sound.beep();
+
     }
 
     private void outOfMap() {
