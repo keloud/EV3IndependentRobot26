@@ -1,4 +1,4 @@
-package info.keloud.leJOS.motor;
+package info.keloud.leJOS.utils;
 
 import info.keloud.leJOS.leJOS;
 import info.keloud.leJOS.sensor.ColorSensor;

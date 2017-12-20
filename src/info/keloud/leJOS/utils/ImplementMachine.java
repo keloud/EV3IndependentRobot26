@@ -1,4 +1,4 @@
-package info.keloud.leJOS.motor;
+package info.keloud.leJOS.utils;
 
 // マシンの基本情報
 // Vehicle information

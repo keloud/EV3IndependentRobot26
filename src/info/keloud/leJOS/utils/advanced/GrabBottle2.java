@@ -1,9 +1,9 @@
-package info.keloud.leJOS.motor.advanced;
+package info.keloud.leJOS.utils.advanced;
 
-import info.keloud.leJOS.motor.AbstractMotor;
-import info.keloud.leJOS.motor.Arm;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
+import info.keloud.leJOS.utils.AbstractMotor;
+import info.keloud.leJOS.utils.Arm;
 import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;

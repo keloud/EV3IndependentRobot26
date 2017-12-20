@@ -1,4 +1,4 @@
-package info.keloud.leJOS.informationManager;
+package info.keloud.leJOS.manager;
 
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;

@@ -1,4 +1,4 @@
-package info.keloud.leJOS.motor;
+package info.keloud.leJOS.utils;
 
 import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;

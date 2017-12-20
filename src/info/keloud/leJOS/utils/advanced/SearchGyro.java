@@ -1,9 +1,9 @@
-package info.keloud.leJOS.motor.advanced;
+package info.keloud.leJOS.utils.advanced;
 
-import info.keloud.leJOS.motor.AbstractMotor;
-import info.keloud.leJOS.motor.TurnGyro;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
+import info.keloud.leJOS.utils.AbstractMotor;
+import info.keloud.leJOS.utils.TurnGyro;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 

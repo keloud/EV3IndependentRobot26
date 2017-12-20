@@ -1,15 +1,16 @@
-package info.keloud.leJOS.motor;
+package info.keloud.leJOS.utils;
 
 import info.keloud.leJOS.sensor.ColorSensor;
 import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
-public class ForwardColor extends AbstractMotor {
-    public ForwardColor(RegulatedMotor motorLeft, RegulatedMotor motorRight, ColorSensor colorSensor) {
+public class BackwardColor extends AbstractMotor {
+    public BackwardColor(RegulatedMotor motorLeft, RegulatedMotor motorRight, ColorSensor colorSensor) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.colorSensor = colorSensor;
+
     }
 
     public void run(int speed, int colorId) {
@@ -21,13 +22,12 @@ public class ForwardColor extends AbstractMotor {
     public void run(int speed, String colorId) {
         setSpeed(speed);
         setColorId(colorId);
-        run();
     }
 
     @Override
     public void run() {
         // 初期化
-        setOperationMode("Forward Color");
+        setOperationMode("Backward Color");
         int initTachoCount = motorLeft.getTachoCount();
         int speedNow;
         int speedMin = 100;
@@ -43,8 +43,8 @@ public class ForwardColor extends AbstractMotor {
         int distanceDeceleration = degreeTachoCount + (int) distanceVariable;
 
         // 移動開始
-        motorLeft.forward();
-        motorRight.forward();
+        motorLeft.backward();
+        motorRight.backward();
 
         // 移動判定
         try {
@@ -70,7 +70,7 @@ public class ForwardColor extends AbstractMotor {
                 motorLeft.setSpeed(speedNow);
                 motorRight.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeTachoCount = motorLeft.getTachoCount() - initTachoCount;
+                degreeTachoCount = -(motorLeft.getTachoCount() - initTachoCount);
             }
         } catch (InterruptedException ignored) {
             Sound.beep();

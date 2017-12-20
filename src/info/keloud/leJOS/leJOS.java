@@ -1,11 +1,11 @@
 package info.keloud.leJOS;
 
-import info.keloud.leJOS.informationManager.Scheduler;
-import info.keloud.leJOS.motor.*;
-import info.keloud.leJOS.motor.advanced.GrabBottle2;
+import info.keloud.leJOS.manager.Scheduler;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
+import info.keloud.leJOS.utils.*;
+import info.keloud.leJOS.utils.advanced.GrabBottle2;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;

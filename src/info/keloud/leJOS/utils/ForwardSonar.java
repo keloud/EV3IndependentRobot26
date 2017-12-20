@@ -1,4 +1,4 @@
-package info.keloud.leJOS.motor;
+package info.keloud.leJOS.utils;
 
 import info.keloud.leJOS.sensor.UltrasonicSensor;
 import lejos.hardware.Sound;

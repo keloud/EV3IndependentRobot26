@@ -2,24 +2,18 @@ package info.keloud.leJOS.sensor;
 
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3GyroSensor;
-import lejos.robotics.SampleProvider;
 
 public class GyroSensor {
+    EV3GyroSensor gyro;
     private float[] gyroValue;
-    private SampleProvider gyroProvider;
 
     public GyroSensor() {
-        EV3GyroSensor gyro = new EV3GyroSensor(SensorPort.S3);
-        gyroProvider = gyro.getAngleMode();
-        gyroValue = new float[gyroProvider.sampleSize()];
-    }
-
-    private void updateValue() {
-        gyroProvider.fetchSample(gyroValue, 0);
+        gyro = new EV3GyroSensor(SensorPort.S3);
+        gyroValue = new float[gyro.getAngleMode().sampleSize()];
     }
 
     public float getValue() {
-        updateValue();
+        gyro.getAngleMode().fetchSample(gyroValue, 0);
         return gyroValue[0];
     }
 }
