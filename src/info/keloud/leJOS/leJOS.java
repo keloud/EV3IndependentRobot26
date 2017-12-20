@@ -2,7 +2,7 @@ package info.keloud.leJOS;
 
 import info.keloud.leJOS.informationManager.Scheduler;
 import info.keloud.leJOS.motor.*;
-import info.keloud.leJOS.motor.advanced.GrabBottle2;
+import info.keloud.leJOS.motor.advanced.GrabBottle;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
@@ -20,7 +20,7 @@ public class leJOS {
     private static Backward backward;
     private static BackwardColor backwardColor;
     private static Turn turn;
-    private static GrabBottle2 grabBottle;
+    private static GrabBottle grabBottle;
 
     public static void main(String[] args) {
         // ディスプレイ案内開始
@@ -67,7 +67,7 @@ public class leJOS {
         backward = new Backward(motorLeft, motorRight);
         backwardColor = new BackwardColor(motorLeft, motorRight, colorSensor);
         turn = new Turn(motorLeft, motorRight);
-        grabBottle = new GrabBottle2(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, arm, forward);
+        grabBottle = new GrabBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, arm, forward);
         // ディスプレイ案内の更新
         LCD.clear(5);
         LCD.drawString("End of initialization processing", 1, 5);
@@ -95,6 +95,8 @@ public class leJOS {
                 break;
             case Button.ID_RIGHT:
                 correctArm();
+                menu();
+                break;
             case Button.ID_ENTER:
                 run();
                 break;
@@ -179,6 +181,7 @@ public class leJOS {
         forwardColor.run();
         //ボトルを取得する
         grabBottle.run();
+        /*
         //速度(600)カラー(赤)で後進
         backwardColor.run();
         //速度(300)走行距離(10cm)で後進
@@ -187,7 +190,15 @@ public class leJOS {
         arm.run();
         //速度(300)走行距離(10cm)で後進
         backward.run();
+        */
+        turn.setAngle(-90);
+        turn.run();
+        backwardColor.setColorId(1);
+        backwardColor.run();
+        turn.setAngle(-180);
+        turn.run();
         // 帰り
+        /*
         //速度(100)角度(20°)で回転
         turn.setAngle(20);
         turn.run();
@@ -208,6 +219,7 @@ public class leJOS {
         forwardColor.run();
         //アームを閉じる
         arm.run();
+        */
     }
 
     private static void runTest() {
@@ -217,15 +229,17 @@ public class leJOS {
         LCD.drawString("Press Enter to Start", 1, 5);
         LCD.refresh();
         Button.ENTER.waitForPress();
-        // 速度(100)角度(90)で回転
-        // 速度(800)角度(-90)で回転
-        // 速度(100)角度(180)で回転
-        // 速度(800)角度(-180)で回転
-        // 速度(
-
         LCD.clear(5);
         LCD.drawString("EV3 running", 1, 5);
         LCD.refresh();
+        //アームを開ける
+        arm.run("Open");
+        //ボトルを取得する
+        grabBottle.setAngle(60);
+        grabBottle.run();
+
+        // メニューに戻る
+        menu();
     }
 
     private static void correctArm() {

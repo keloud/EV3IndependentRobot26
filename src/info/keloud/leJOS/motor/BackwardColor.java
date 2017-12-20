@@ -13,6 +13,17 @@ public class BackwardColor extends AbstractMotor {
 
     }
 
+    public void run(int speed, int colorId) {
+        setSpeed(speed);
+        setColorId(colorId);
+        run();
+    }
+
+    public void run(int speed, String colorId) {
+        setSpeed(speed);
+        setColorId(colorId);
+    }
+
     @Override
     public void run() {
         // 初期化

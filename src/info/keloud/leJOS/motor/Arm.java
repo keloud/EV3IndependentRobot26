@@ -17,6 +17,12 @@ public class Arm extends AbstractMotor {
         motorCenter.setSpeed(speed);
     }
 
+    public void run(int speed, int angle) {
+        setSpeed(speed);
+        setAngle(angle);
+        run();
+    }
+
     @Override
     public void run() {
         if (state) {

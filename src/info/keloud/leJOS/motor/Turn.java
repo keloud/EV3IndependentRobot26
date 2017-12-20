@@ -10,6 +10,11 @@ public class Turn extends AbstractMotor {
         this.motorRight = motorRight;
     }
 
+    public void run(int speed, int angle) {
+        setSpeed(speed);
+        setAngle(angle);
+    }
+
     @Override
     public void run() {
         /*

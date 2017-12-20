@@ -10,6 +10,7 @@ import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
 public class GrabBottle2 extends AbstractMotor {
+    float ultrasonicValue;
     private Arm arm;
     private Forward forward;
     private boolean usePutBottle;
@@ -28,9 +29,8 @@ public class GrabBottle2 extends AbstractMotor {
     public void run() {
         setOperationMode("Grab Bottle");
         setSpeed(300);
-        float ultrasonicValue = ultrasonicSensor.getValue();
-        search();
-
+        ultrasonicValue = ultrasonicSensor.getValue();
+        // search();
         // 初期化
         int initTachoCount = motorLeft.getTachoCount();
         int speedNow;
@@ -87,7 +87,7 @@ public class GrabBottle2 extends AbstractMotor {
                     float actualUltrasonicValue = ultrasonicSensor.getValue();
                     if (ultrasonicValue < actualUltrasonicValue && degreeTachoCount % 20 == 0) {
                         int tmpValue = degreeTachoCount;
-                        search();
+                        // search();
                         degreeTachoCount += motorLeft.getTachoCount() - tmpValue;
                         ultrasonicValue = actualUltrasonicValue;
                     }
@@ -153,7 +153,6 @@ public class GrabBottle2 extends AbstractMotor {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Sound.beep();
 
         int tempSpeed = speed;
         setSpeed(300);
@@ -213,8 +212,8 @@ public class GrabBottle2 extends AbstractMotor {
         float exploreUltrasonicValue = ultrasonicSensor.getValue();
         float nowUltrasonicValue;
         int exploreTachoCount = 0;
-        motorLeft.setSpeed(40);
-        motorRight.setSpeed(40);
+        motorLeft.setSpeed(100);
+        motorRight.setSpeed(100);
 
         // 角度累計計算
         cum = (int) ((((angle * width * Math.PI) / 360) / diameter / Math.PI) * 360);
@@ -228,12 +227,14 @@ public class GrabBottle2 extends AbstractMotor {
             while (degreeCount <= cum) {
                 //探索部
                 nowUltrasonicValue = ultrasonicSensor.getValue();
-                Thread.sleep(wait);
-                degreeCount = motorRight.getTachoCount() - initTachoCount;
                 if (nowUltrasonicValue < exploreUltrasonicValue) {
                     exploreUltrasonicValue = nowUltrasonicValue;
+                    ultrasonicValue = nowUltrasonicValue;
                     exploreTachoCount = degreeCount;
+                    Sound.beep();
                 }
+                Thread.sleep(wait);
+                degreeCount = motorRight.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             Sound.beep();
@@ -250,7 +251,7 @@ public class GrabBottle2 extends AbstractMotor {
         // 初期化
         initTachoCount = motorLeft.getTachoCount();
         degreeCount = 0;
-        int maximumSpeed = 100;
+        int maximumSpeed = 300;
         motorLeft.setSpeed(minimumSpeed);
         motorRight.setSpeed(minimumSpeed);
 

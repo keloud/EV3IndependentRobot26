@@ -31,7 +31,7 @@ public class Scheduler extends Thread {
         this.ultrasonicSensor = ultrasonicSensor;
         this.colorSensor = colorSensor;
         this.gyroSensor = gyroSensor;
-        // monitoring = new Monitoring();
+        //monitoring = new Monitoring();
         displayUpdater = new DisplayUpdater();
         mode = true;
     }
@@ -47,7 +47,7 @@ public class Scheduler extends Thread {
             float gyroValue = gyroSensor.getValue();
             timer++;
             // サーバーに値を渡す
-            // monitoring.updateValue(operationMode, accumulationMotorLeft, accumulationMotorRight, accumulationMotorCenter, colorIdValue, ultrasonicValue, gyroValue, timer);
+            //monitoring.updateValue(operationMode, accumulationMotorLeft, accumulationMotorRight, accumulationMotorCenter, colorIdValue, ultrasonicValue, gyroValue, timer);
             // 表示を更新する
             displayUpdater.updateValue(operationMode, accumulationMotorLeft, accumulationMotorRight, accumulationMotorCenter, colorIdValue, ultrasonicValue, gyroValue, timer);
             // 例外処理
@@ -62,7 +62,7 @@ public class Scheduler extends Thread {
     }
 
     public void countStop() {
-        monitoring.monitoringStop();
+        //monitoring.monitoringStop();
         mode = false;
     }
 

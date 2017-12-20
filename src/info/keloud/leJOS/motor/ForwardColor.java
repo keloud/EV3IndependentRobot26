@@ -12,6 +12,12 @@ public class ForwardColor extends AbstractMotor {
         this.colorSensor = colorSensor;
     }
 
+    public void run(int speed, int colorId) {
+        setSpeed(speed);
+        setColorId(colorId);
+        run();
+    }
+
     @Override
     public void run() {
         // 初期化

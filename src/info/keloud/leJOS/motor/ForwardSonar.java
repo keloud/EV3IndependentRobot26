@@ -12,6 +12,12 @@ public class ForwardSonar extends AbstractMotor {
         this.ultrasonicSensor = ultrasonicSensor;
     }
 
+    public void run(int speed, int distance) {
+        setSpeed(speed);
+        setDistance(distance);
+        run();
+    }
+
     @Override
     public void run() {
         // 初期化

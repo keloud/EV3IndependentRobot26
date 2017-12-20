@@ -12,6 +12,11 @@ public class TurnGyro extends AbstractMotor {
         this.gyroSensor = gyroSensor;
     }
 
+    public void run(int speed, int angle) {
+        setSpeed(speed);
+        setAngle(angle);
+    }
+
     @Override
     public void run() {
         /*

@@ -10,6 +10,12 @@ public class Backward extends AbstractMotor {
         this.motorRight = motorRight;
     }
 
+    public void run(int speed, int distance) {
+        setSpeed(speed);
+        setDistance(distance);
+        run();
+    }
+
     @Override
     public void run() {
         // 初期化

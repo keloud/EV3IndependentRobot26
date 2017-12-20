@@ -219,6 +219,7 @@ public class GrabBottle extends AbstractMotor {
                     if (nowUltrasonicValue < exploreUltrasonicValue) {
                         exploreUltrasonicValue = nowUltrasonicValue;
                         exploreTachoCount = degreeCount;
+                        Sound.beep();
                     }
                 }
             } catch (InterruptedException ignored) {
