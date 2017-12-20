@@ -54,31 +54,32 @@ public abstract class AbstractMotor implements ImplementMachine, ImplementMotor 
         this.colorId = colorId;
     }
 
-    public void setColorId(String colorId) {
+    void setColorId(String colorId) {
         switch (colorId) {
             case "BLACK":
-                this.colorId = 1;
+                setColorId(7);
                 break;
             case "BLUE":
-                this.colorId = 2;
+                setColorId(2);
                 break;
             case "GREEN":
-                this.colorId = 3;
+                //
                 break;
             case "YELLOW":
-                this.colorId = 4;
+                setColorId(2);
                 break;
             case "RED":
-                this.colorId = 5;
+                setColorId(0);
                 break;
             case "WHITE":
-                this.colorId = 6;
+                setColorId(6);
                 break;
             case "BROWN":
-                this.colorId = 7;
+                //
                 break;
             default:
-                this.colorId = 0;
+                //
+                break;
         }
     }
 

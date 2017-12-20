@@ -2,7 +2,7 @@ package info.keloud.leJOS;
 
 import info.keloud.leJOS.informationManager.Scheduler;
 import info.keloud.leJOS.motor.*;
-import info.keloud.leJOS.motor.advanced.GrabBottle;
+import info.keloud.leJOS.motor.advanced.GrabBottle2;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
@@ -20,7 +20,7 @@ public class leJOS {
     private static Backward backward;
     private static BackwardColor backwardColor;
     private static Turn turn;
-    private static GrabBottle grabBottle;
+    private static GrabBottle2 grabBottle;
 
     public static void main(String[] args) {
         // ディスプレイ案内開始
@@ -67,7 +67,7 @@ public class leJOS {
         backward = new Backward(motorLeft, motorRight);
         backwardColor = new BackwardColor(motorLeft, motorRight, colorSensor);
         turn = new Turn(motorLeft, motorRight);
-        grabBottle = new GrabBottle(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, arm, forward);
+        grabBottle = new GrabBottle2(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, arm);
         // ディスプレイ案内の更新
         LCD.clear(5);
         LCD.drawString("End of initialization processing", 1, 5);
@@ -118,69 +118,56 @@ public class leJOS {
         //アームを開ける
         arm.run("Open");
         //ボトルを取得する
-        grabBottle.setAngle(60);
-        grabBottle.run();
+        grabBottle.run(60, false);
         //速度(100)角度(-90度°)で回転
-        turn.setSpeed(300);
-        turn.setAngle(-90);
-        turn.run();
+        turn.run(300, -90);
         //速度(600)カラー(赤)で後進
-        backwardColor.setSpeed(600);
-        backwardColor.setColorId(0);
-        backwardColor.run();
+        backwardColor.run(600, "RED");
         //速度(300)走行距離(10cm)で後進
-        backward.setSpeed(300);
-        backward.setDistance(10);
-        backward.run();
+        backward.run(300, 10);
         //アームを開ける
-        arm.run();
+        arm.run("OPEN");
         //速度(300)走行距離(10cm)で後進
-        backward.run();
+        backward.run(300, 10);
         // 2個目
         //速度(100)角度(90°)で回転
-        turn.setAngle(90);
-        turn.run();
+        turn.run(100, 90);
         //速度(400)カラー(白)で前進
-        forwardColor.setSpeed(800);
-        forwardColor.setColorId(6);
-        forwardColor.run();
+        forwardColor.run(800, "WHITE");
         //ボトルを取得する
-        grabBottle.run();
+        grabBottle.run(60, false);
         //速度(600)カラー(赤)で後進
-        backwardColor.run();
+        backwardColor.run(600, "RED");
         //速度(300)走行距離(10cm)で後進
-        backward.run();
+        backward.run(300, 10);
         //アームを開ける
-        arm.run();
+        arm.run("OPEN");
         //速度(300)走行距離(10cm)で後進
-        backward.run();
+        backward.run(300, 10);
         // 3個目
         //速度(100)角度(90°)で回転
-        turn.setAngle(90);
-        turn.run();
+        turn.run(100, 90);
         //速度(400)カラー(白)で前進
-        forwardColor.run();
+        forwardColor.run(400, "WHITE");
         //速度(400)走行距離(235m)で前進
-        forward.setSpeed(400);
-        forward.setDistance(25);
-        forward.run();
+        forward.run(400, 25);
         //ボトルを取得する
-        grabBottle.run();
+        grabBottle.run(60, false);
         //速度(600)カラー(赤)で後進
-        backwardColor.run();
+        backwardColor.run(600, "RED");
         //速度(300)走行距離(10cm)で後進
-        backward.run();
+        backward.run(300, 10);
         //アームを開ける
-        arm.run();
+        arm.run("OPEN");
         //速度(300)走行距離(10cm)で後進
-        backward.run();
+        backward.run(300, 10);
         // 4個目
         //速度(100)角度(90°)で回転
-        turn.run();
+        turn.run(100, 90);
         //速度(400)カラー(白)で前進
-        forwardColor.run();
+        forwardColor.run(400, "WHITE");
         //ボトルを取得する
-        grabBottle.run();
+        grabBottle.run(60, false);
         /*
         //速度(600)カラー(赤)で後進
         backwardColor.run();
@@ -191,12 +178,12 @@ public class leJOS {
         //速度(300)走行距離(10cm)で後進
         backward.run();
         */
-        turn.setAngle(-90);
-        turn.run();
-        backwardColor.setColorId(1);
-        backwardColor.run();
-        turn.setAngle(-180);
-        turn.run();
+        //速度(100)角度(-90°)で回転
+        turn.run(100, -90);
+        //速度(600)カラー(黒)で後進
+        backwardColor.run(600, "BLACK");
+        //速度(100)角度(180°)で回転
+        turn.run(100, 180);
         // 帰り
         /*
         //速度(100)角度(20°)で回転

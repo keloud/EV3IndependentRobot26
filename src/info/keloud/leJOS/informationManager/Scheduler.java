@@ -8,7 +8,7 @@ import lejos.robotics.RegulatedMotor;
 
 public class Scheduler extends Thread {
     private String operationMode = "non Operation";
-    private Monitoring monitoring;
+    // private Monitoring monitoring;
     private DisplayUpdater displayUpdater;
     private boolean mode;
     // the left running motor

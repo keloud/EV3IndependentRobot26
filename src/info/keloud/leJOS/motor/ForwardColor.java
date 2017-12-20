@@ -18,6 +18,12 @@ public class ForwardColor extends AbstractMotor {
         run();
     }
 
+    public void run(int speed, String colorId) {
+        setSpeed(speed);
+        setColorId(colorId);
+        run();
+    }
+
     @Override
     public void run() {
         // 初期化

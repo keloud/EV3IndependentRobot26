@@ -24,6 +24,11 @@ public class GrabBottle extends AbstractMotor {
         this.forward = forward;
     }
 
+    public void run(int angle) {
+        setAngle(angle);
+        run();
+    }
+
     @Override
     public void run() {
         setOperationMode("Grab Bottle");

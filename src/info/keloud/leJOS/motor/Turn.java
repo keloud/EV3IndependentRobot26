@@ -13,6 +13,7 @@ public class Turn extends AbstractMotor {
     public void run(int speed, int angle) {
         setSpeed(speed);
         setAngle(angle);
+        run();
     }
 
     @Override
