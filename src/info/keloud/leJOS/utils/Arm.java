@@ -70,10 +70,10 @@ public class Arm extends AbstractUtil {
         int degreeTachoCount = 0;
 
         // 移動距離計算
-        double distance = (angle * width * Math.PI) / 360;
+        float distance = (angle * width * (float) Math.PI) / 360;
 
         // 角度累計計算
-        int cum = (int) ((distance / diameter / Math.PI) * 360);
+        float cum = ((distance / diameter / (float) Math.PI) * 360);
 
         // 移動開始
         centerMotor.forward();
@@ -102,10 +102,10 @@ public class Arm extends AbstractUtil {
         int degreeTachoCount = 0;
 
         // 移動距離計算
-        double distance = (angle * width * Math.PI) / 360;
+        float distance = (angle * width * (float) Math.PI) / 360;
 
         // 角度累計計算
-        int cum = (int) ((distance / diameter / Math.PI) * 360);
+        float cum = ((distance / diameter / (float) Math.PI) * 360);
         cum = -cum;
 
         // 移動開始

@@ -29,18 +29,17 @@ public class ForwardWithColor extends AbstractUtil {
         // 初期化
         setOperationMode("Forward Color");
         int initTachoCount = leftMotor.getTachoCount();
-        int speedNow;
         int speedMin = 100;
         int degreeTachoCount = 0;
         leftMotor.setSpeed(speedMin);
         rightMotor.setSpeed(speedMin);
 
         //速度から必要な距離を求める(可変距離)
-        double distanceVariable = speed * 0.24F;
-        double distanceStop = 50;
+        float distanceVariable = speed * 0.24F;
+        float distanceStop = 50;
 
         // 減速に使用する角度累計
-        int distanceDeceleration = degreeTachoCount + (int) distanceVariable;
+        float distanceDeceleration = degreeTachoCount + distanceVariable;
 
         // 移動開始
         leftMotor.forward();
@@ -51,7 +50,7 @@ public class ForwardWithColor extends AbstractUtil {
             while (true) {
                 //ColorIdまで必要な減速距離を更新し続ける
                 if (colorSensor.getValue() != colorId) {
-                    distanceDeceleration = degreeTachoCount + (int) distanceStop;
+                    distanceDeceleration = degreeTachoCount + distanceStop;
                 }
                 //後退して停止する
                 if (distanceDeceleration < degreeTachoCount) {
@@ -59,10 +58,10 @@ public class ForwardWithColor extends AbstractUtil {
                 }
                 if (distanceDeceleration - distanceStop < degreeTachoCount) {
                     //減速部
-                    speedNow = (int) ((float) (speed - speedMin) * (distanceDeceleration - degreeTachoCount) / distanceStop + speedMin);
+                    speedNow = ((speed - speedMin) * (distanceDeceleration - degreeTachoCount) / distanceStop + speedMin);
                 } else if (degreeTachoCount < distanceVariable) {
                     //加速部
-                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeTachoCount / distanceVariable) + speedMin);
+                    speedNow = (((speed - speedMin) * degreeTachoCount / distanceVariable) + speedMin);
                 } else {
                     //巡航部
                     speedNow = speed;

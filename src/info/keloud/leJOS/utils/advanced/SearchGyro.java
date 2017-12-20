@@ -60,7 +60,7 @@ public class SearchGyro extends AbstractUtil {
         leftMotor.stop(true);
         rightMotor.stop(true);
 
-        turnWithGyro.setAngle(angle * 0.86 + gyroValue);
+        //turnWithGyro.setAngle(angle * 0.86 + gyroValue);
         turnWithGyro.run();
 
         LCD.clear(6);

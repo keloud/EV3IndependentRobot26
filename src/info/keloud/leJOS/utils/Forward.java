@@ -21,17 +21,16 @@ public class Forward extends AbstractUtil {
         // 初期化
         setOperationMode("Forward");
         int initTachoCount = leftMotor.getTachoCount();
-        int speedNow;
         int speedMin = 100;
         int degreeTachoCount = 0;
         leftMotor.setSpeed(speedMin);
         rightMotor.setSpeed(speedMin);
 
         // 角度累計計算
-        int cum = (int) ((distance / diameter / Math.PI) * 360);
+        float cum = ((distance / diameter / (float) Math.PI) * 360);
 
         //速度から必要な距離を求める(可変距離)
-        double distanceVariable = speed * 0.24F;
+        float distanceVariable = speed * 0.24F;
 
         // 移動開始
         leftMotor.forward();
@@ -42,10 +41,10 @@ public class Forward extends AbstractUtil {
             while (degreeTachoCount < cum) {
                 if (degreeTachoCount > cum - distanceVariable) {
                     //減速部
-                    speedNow = (int) ((float) (speed - speedMin) * (cum - degreeTachoCount) / distanceVariable + speedMin);
+                    speedNow = ((speed - speedMin) * (cum - degreeTachoCount) / distanceVariable + speedMin);
                 } else if (degreeTachoCount < distanceVariable) {
                     //加速部
-                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeTachoCount / distanceVariable) + speedMin);
+                    speedNow = ((speed - speedMin) * degreeTachoCount / distanceVariable + speedMin);
                 } else {
                     //巡航部
                     speedNow = speed;

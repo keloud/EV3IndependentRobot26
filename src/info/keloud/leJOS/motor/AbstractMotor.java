@@ -30,11 +30,15 @@ public class AbstractMotor {
         return regulatedMotor.getTachoCount();
     }
 
+    public float getMaxSpeed() {
+        return regulatedMotor.getMaxSpeed();
+    }
+
     public void setAcceleration(int acceleration) {
         regulatedMotor.setAcceleration(acceleration);
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(float speed) {
         regulatedMotor.setSpeed(speed);
     }
 

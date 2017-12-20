@@ -12,7 +12,7 @@ public class TurnWithGyro extends AbstractUtil {
         this.gyroSensor = gyroSensor;
     }
 
-    public void run(int speed, int angle) {
+    public void run(float speed, int angle) {
         setSpeed(speed);
         setAngle(angle);
         run();

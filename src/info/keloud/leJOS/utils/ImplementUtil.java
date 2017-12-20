@@ -3,11 +3,11 @@ package info.keloud.leJOS.utils;
 interface ImplementUtil {
     void run();
 
-    void setSpeed(int speed);
+    void setSpeed(float speed);
 
-    void setDistance(double distance);
+    void setDistance(float distance);
 
-    void setAngle(double angle);
+    void setAngle(float angle);
 
     void setColorId(int colorId);
 

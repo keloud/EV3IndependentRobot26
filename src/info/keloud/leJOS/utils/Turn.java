@@ -10,7 +10,7 @@ public class Turn extends AbstractUtil {
         this.rightMotor = rightMotor;
     }
 
-    public void run(int speed, int angle) {
+    public void run(float speed, int angle) {
         setSpeed(speed);
         setAngle(angle);
         run();
@@ -21,17 +21,16 @@ public class Turn extends AbstractUtil {
         // 初期化
         setOperationMode("Turn Initialize");
         int initTachoCount = rightMotor.getTachoCount();
-        int speedNow;
         int speedMin = 100;
         int degreeTachoCount = 0;
         leftMotor.setSpeed(speedMin);
         rightMotor.setSpeed(speedMin);
 
         // 角度累計計算
-        int cum = (int) ((((angle * width * Math.PI) / 360) / diameter / Math.PI) * 360);
+        float cum = ((((angle * width * (float) Math.PI) / 360) / diameter / (float) Math.PI) * 360);
 
         //速度から必要な距離を求める(可変距離)
-        double distanceVariable = speed * 0.28F;
+        float distanceVariable = speed * 0.28F;
         if (cum - distanceVariable <= 0) {
             distanceVariable = 0;
             setSpeed(100);
@@ -52,10 +51,10 @@ public class Turn extends AbstractUtil {
                 while (degreeTachoCount < cum) {
                     if (degreeTachoCount > cum - distanceVariable) {
                         //減速部
-                        speedNow = (int) ((float) (speed - speedMin) * (cum - degreeTachoCount) / distanceVariable + speedMin);
+                        speedNow = ((speed - speedMin) * (cum - degreeTachoCount) / distanceVariable + speedMin);
                     } else if (degreeTachoCount < distanceVariable) {
                         //加速部
-                        speedNow = (int) ((float) ((float) (speed - speedMin) * degreeTachoCount / distanceVariable) + speedMin);
+                        speedNow = (((speed - speedMin) * degreeTachoCount / distanceVariable) + speedMin);
                     } else {
                         //巡航部
                         speedNow = speed;
@@ -81,10 +80,10 @@ public class Turn extends AbstractUtil {
                 while (degreeTachoCount < cum) {
                     if (degreeTachoCount > cum - distanceVariable) {
                         //減速部
-                        speedNow = (int) ((float) (speed - speedMin) * (cum - degreeTachoCount) / distanceVariable + speedMin);
+                        speedNow = ((speed - speedMin) * (cum - degreeTachoCount) / distanceVariable + speedMin);
                     } else if (degreeTachoCount < distanceVariable) {
                         //加速部
-                        speedNow = (int) ((float) ((float) (speed - speedMin) * degreeTachoCount / distanceVariable) + speedMin);
+                        speedNow = ((speed - speedMin) * degreeTachoCount / distanceVariable + speedMin);
                     } else {
                         //巡航部
                         speedNow = speed;

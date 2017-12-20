@@ -20,11 +20,13 @@ public abstract class AbstractUtil implements ImplementMachine, ImplementUtil {
     // the gyro sensor
     protected GyroSensor gyroSensor;
     // Speed
-    protected int speed;
+    protected float speed;
+    // Now Speed
+    protected float speedNow;
     // Distance
-    protected double distance;
+    protected float distance;
     // Angle
-    protected double angle;
+    protected float angle;
     // Color
     protected int colorId;
     // Operation mode
@@ -35,17 +37,17 @@ public abstract class AbstractUtil implements ImplementMachine, ImplementUtil {
     }
 
     @Override
-    public void setSpeed(int speed) {
+    public void setSpeed(float speed) {
         this.speed = speed;
     }
 
     @Override
-    public void setDistance(double distance) {
+    public void setDistance(float distance) {
         this.distance = distance;
     }
 
     @Override
-    public void setAngle(double angle) {
+    public void setAngle(float angle) {
         this.angle = angle;
     }
 

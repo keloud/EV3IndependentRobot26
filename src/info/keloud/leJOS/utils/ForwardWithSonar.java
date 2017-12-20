@@ -23,21 +23,20 @@ public class ForwardWithSonar extends AbstractUtil {
         // 初期化
         setOperationMode("Forward Sonar");
         int initTachoCount = leftMotor.getTachoCount();
-        int speedNow;
         int speedMin = 100;
         int degreeTachoCount = 0;
         leftMotor.setSpeed(speedMin);
         rightMotor.setSpeed(speedMin);
 
         // 速度から必要な距離を求める(可変距離)
-        double distanceVariable = speed * 0.27F;
-        double distanceStop = speed * 0.5F;
+        float distanceVariable = speed * 0.27F;
+        float distanceStop = speed * 0.5F;
 
         // 設定した超音波センサーの距離を角度累計に変換する
-        int distanceUltrasonic = (int) ((distance / diameter / Math.PI) * 360);
+        float distanceUltrasonic = ((distance / diameter / (float) Math.PI) * 360);
 
         // 減速に使用する角度累計
-        int distanceDeceleration = degreeTachoCount + (int) distanceVariable;
+        float distanceDeceleration = degreeTachoCount + distanceVariable;
 
         // 移動開始
         leftMotor.forward();
@@ -47,21 +46,21 @@ public class ForwardWithSonar extends AbstractUtil {
         try {
             while (true) {
                 // 設定した超音波センサーの距離+停止までに必要な距離まで更新し続ける。
-                if (distanceUltrasonic + distanceStop < (int) ((ultrasonicSensor.getValue() * 100 / diameter / Math.PI) * 360)) {
+                if (distanceUltrasonic + distanceStop < ((ultrasonicSensor.getValue() * 100 / diameter / (float) Math.PI) * 360)) {
                     // 減速に必要な角度累計を代入する
-                    distanceDeceleration = degreeTachoCount + (int) distanceStop;
+                    distanceDeceleration = degreeTachoCount + distanceStop;
                 }
                 // 停止する
-                if ((int) ((ultrasonicSensor.getValue() * 100 / diameter / Math.PI) * 360) < distanceUltrasonic) {
+                if (((ultrasonicSensor.getValue() * 100 / diameter / (float) Math.PI) * 360) < distanceUltrasonic) {
                     break;
                 }
                 // 減速部
                 if (distanceDeceleration - distanceStop < degreeTachoCount) {
-                    speedNow = (int) ((float) (speed - speedMin) * (distanceDeceleration - degreeTachoCount) / distanceStop + speedMin);
+                    speedNow = ((speed - speedMin) * (distanceDeceleration - degreeTachoCount) / distanceStop + speedMin);
                 }
                 // 加速部
                 else if (degreeTachoCount < distanceVariable) {
-                    speedNow = (int) ((float) ((float) (speed - speedMin) * degreeTachoCount / distanceVariable) + speedMin);
+                    speedNow = ((speed - speedMin) * degreeTachoCount / distanceVariable + speedMin);
                 }
                 // 巡行部
                 else {

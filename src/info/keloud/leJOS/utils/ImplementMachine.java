@@ -6,9 +6,9 @@ interface ImplementMachine {
     // タイヤの直径
     // Diameter of tire(cm)
     float diameter = 5.6F;
-    // ホイールの根元から反対のホイールの根元までの距離
+    // タイヤの中心からタイヤの中心までの距離
     // Width of wheel
-    float width = 9.2F;
+    float width = 9F;
     // Thread wait time
     int wait = 10;
 }

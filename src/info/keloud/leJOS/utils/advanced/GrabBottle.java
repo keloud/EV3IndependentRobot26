@@ -38,7 +38,6 @@ public class GrabBottle extends AbstractUtil {
 
         // 初期化
         int initTachoCount = leftMotor.getTachoCount();
-        int speedNow;
         int minimumSpeed = 100;
         int degreeTachoCount = 0;
         int outOfMapInt = 0;
@@ -49,15 +48,15 @@ public class GrabBottle extends AbstractUtil {
         rightMotor.setSpeed(minimumSpeed);
 
         // 速度から必要な距離を求める(可変距離)
-        double distanceVariable = speed * 0.27F;
-        double distanceStop = speed * 0.5F;
+        float distanceVariable = speed * 0.27F;
+        float distanceStop = speed * 0.5F;
 
         // 設定した超音波センサーの距離を角度累計に変換する
         setDistance(6);
-        int distanceUltrasonic = (int) ((distance / diameter / Math.PI) * 360);
+        float distanceUltrasonic = ((distance / diameter / (float) Math.PI) * 360);
 
         // 減速に使用する角度累計
-        int distanceDeceleration = degreeTachoCount + (int) distanceVariable;
+        float distanceDeceleration = degreeTachoCount + distanceVariable;
 
         // 移動開始
         leftMotor.forward();
@@ -67,7 +66,7 @@ public class GrabBottle extends AbstractUtil {
         try {
             while (true) {
                 // 停止する
-                if ((int) ((ultrasonicSensor.getValue() * 100 / diameter / Math.PI) * 360) < distanceUltrasonic) {
+                if (((ultrasonicSensor.getValue() * 100 / diameter / (float) Math.PI) * 360) < distanceUltrasonic) {
                     break;
                 }
 
@@ -84,9 +83,9 @@ public class GrabBottle extends AbstractUtil {
                 }
 
                 // 設定した超音波センサーの距離+停止までに必要な距離まで更新し続ける。
-                if (distanceUltrasonic + distanceStop < (int) ((ultrasonicSensor.getValue() * 100 / diameter / Math.PI) * 360)) {
+                if (distanceUltrasonic + distanceStop < ((ultrasonicSensor.getValue() * 100 / diameter / (float) Math.PI) * 360)) {
                     // 減速に必要な角度累計を代入する
-                    distanceDeceleration = degreeTachoCount + (int) distanceStop;
+                    distanceDeceleration = degreeTachoCount + distanceStop;
 
                     //定期的な探査する
                     if (degreeTachoCount % 20 == 0) {
@@ -102,12 +101,12 @@ public class GrabBottle extends AbstractUtil {
 
                 // 減速部
                 if (distanceDeceleration - distanceStop < degreeTachoCount) {
-                    speedNow = (int) ((float) (speed - minimumSpeed) * (distanceDeceleration - degreeTachoCount) / distanceStop + minimumSpeed);
+                    speedNow = ((speed - minimumSpeed) * (distanceDeceleration - degreeTachoCount) / distanceStop + minimumSpeed);
                 }
 
                 // 加速部
                 else if (degreeTachoCount < distanceVariable) {
-                    speedNow = (int) ((float) ((float) (speed - minimumSpeed) * degreeTachoCount / distanceVariable) + minimumSpeed);
+                    speedNow = ((speed - minimumSpeed) * degreeTachoCount / distanceVariable + minimumSpeed);
                 }
 
                 // 巡行部
@@ -152,17 +151,16 @@ public class GrabBottle extends AbstractUtil {
             //サーチ処理(初期位置移動)(右旋回)
             // 初期化
             int initTachoCount = leftMotor.getTachoCount();
-            int speedNow;
             int minimumSpeed = 300;
             int degreeCount = 0;
             leftMotor.setSpeed(minimumSpeed);
             rightMotor.setSpeed(minimumSpeed);
 
             // 角度累計計算
-            int cum = (int) ((((angle / 2 * width * Math.PI) / 360) / diameter / Math.PI) * 360);
+            float cum = ((((angle / 2 * width * (float) Math.PI) / 360) / diameter / (float) Math.PI) * 360);
 
             //速度から必要な距離を求める(可変距離)
-            double distanceVariable = speed * 0.28F;
+            float distanceVariable = speed * 0.28F;
 
             // 移動開始
             leftMotor.forward();
@@ -173,10 +171,10 @@ public class GrabBottle extends AbstractUtil {
                 while (degreeCount <= cum) {
                     if (degreeCount > cum - distanceVariable) {
                         //減速部
-                        speedNow = (int) ((float) (speed - minimumSpeed) * (cum - degreeCount) / distanceVariable + minimumSpeed);
+                        speedNow = ((speed - minimumSpeed) * (cum - degreeCount) / distanceVariable + minimumSpeed);
                     } else if (degreeCount < distanceVariable) {
                         //加速部
-                        speedNow = (int) ((float) ((float) (speed - minimumSpeed) * degreeCount / distanceVariable) + minimumSpeed);
+                        speedNow = ((speed - minimumSpeed) * degreeCount / distanceVariable + minimumSpeed);
                     } else {
                         //巡航部
                         speedNow = speed;
@@ -208,7 +206,7 @@ public class GrabBottle extends AbstractUtil {
             rightMotor.setSpeed(40);
 
             // 角度累計計算
-            cum = (int) ((((angle * width * Math.PI) / 360) / diameter / Math.PI) * 360);
+            cum = ((((angle * width * (float) Math.PI) / 360) / diameter / (float) Math.PI) * 360);
 
             // 移動開始
             leftMotor.backward();
@@ -247,7 +245,7 @@ public class GrabBottle extends AbstractUtil {
             rightMotor.setSpeed(minimumSpeed);
 
             // 角度累計計算
-            cum = (int) ((((angle * width * Math.PI) / 360) / diameter / Math.PI) * 360) - exploreTachoCount;
+            cum = ((((angle * width * (float) Math.PI) / 360) / diameter / (float) Math.PI) * 360) - exploreTachoCount;
 
             // 移動開始
             leftMotor.forward();
@@ -258,10 +256,10 @@ public class GrabBottle extends AbstractUtil {
                 while (degreeCount <= cum) {
                     if (degreeCount > cum - distanceVariable) {
                         //減速部
-                        speedNow = (int) ((float) (maximumSpeed - minimumSpeed) * (cum - degreeCount) / distanceVariable + minimumSpeed);
+                        speedNow = ((float) (maximumSpeed - minimumSpeed) * (cum - degreeCount) / distanceVariable + minimumSpeed);
                     } else if (degreeCount < distanceVariable) {
                         //加速部
-                        speedNow = (int) ((float) ((float) (maximumSpeed - minimumSpeed) * degreeCount / distanceVariable) + minimumSpeed);
+                        speedNow = ((float) (maximumSpeed - minimumSpeed) * degreeCount / distanceVariable + minimumSpeed);
                     } else {
                         //巡航部
                         speedNow = maximumSpeed;

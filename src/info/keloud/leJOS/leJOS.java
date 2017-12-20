@@ -15,7 +15,7 @@ import lejos.hardware.lcd.LCD;
 public class leJOS {
     // スレッド スケジューラー
     private static Scheduler scheduler;
-    // モーター操作
+    // ユーティリティ
     private static Arm arm;
     private static Forward forward;
     private static ForwardWithColor forwardWithColor;
@@ -23,6 +23,8 @@ public class leJOS {
     private static BackwardWithColor backwardWithColor;
     private static Turn turn;
     private static GrabBottle2 grabBottle;
+    // 最大速度
+    private static float MaxSpeed;
 
     public static void main(String[] args) {
         // ディスプレイ案内開始
@@ -51,6 +53,7 @@ public class leJOS {
         CenterMotor centerMotor = new CenterMotor();
         LeftMotor leftMotor = new LeftMotor();
         RightMotor rightMotor = new RightMotor();
+        MaxSpeed = leftMotor.getMaxSpeed();
         // ディスプレイ案内の更新
         LCD.clear(5);
         LCD.drawString("Init Thread", 1, 5);
@@ -59,7 +62,7 @@ public class leJOS {
         scheduler = new Scheduler(centerMotor, leftMotor, rightMotor, ultrasonicSensor, colorSensor, gyroSensor);
         setOperationMode("Initializing");
         scheduler.start();
-        // モーター操作の設定
+        // ユーティリティ
         arm = new Arm(centerMotor);
         forward = new Forward(leftMotor, rightMotor);
         forwardWithColor = new ForwardWithColor(leftMotor, rightMotor, colorSensor);
@@ -219,7 +222,7 @@ public class leJOS {
         LCD.drawString("EV3 running", 1, 5);
         LCD.refresh();
         //アームを開ける
-        turn.run(800, 360);
+        turn.run(MaxSpeed, 720);
         //ボトルを取得する
         //grabBottle.run(60,false);
 
