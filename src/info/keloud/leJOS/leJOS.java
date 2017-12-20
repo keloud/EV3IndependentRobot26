@@ -1,7 +1,6 @@
 package info.keloud.leJOS;
 
 import info.keloud.leJOS.manager.Scheduler;
-import info.keloud.leJOS.motor.AbstractMotor;
 import info.keloud.leJOS.motor.CenterMotor;
 import info.keloud.leJOS.motor.LeftMotor;
 import info.keloud.leJOS.motor.RightMotor;
@@ -50,8 +49,8 @@ public class leJOS {
         LCD.refresh();
         // モーターの初期化
         CenterMotor centerMotor = new CenterMotor();
-        AbstractMotor leftMotor = new LeftMotor();
-        AbstractMotor rightMotor = new RightMotor();
+        LeftMotor leftMotor = new LeftMotor();
+        RightMotor rightMotor = new RightMotor();
         // ディスプレイ案内の更新
         LCD.clear(5);
         LCD.drawString("Init Thread", 1, 5);
