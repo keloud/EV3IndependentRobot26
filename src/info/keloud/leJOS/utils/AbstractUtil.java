@@ -8,11 +8,11 @@ import info.keloud.leJOS.sensor.UltrasonicSensor;
 
 public abstract class AbstractUtil implements ImplementMachine, ImplementUtil {
     // the left running motor
-    protected AbstractMotor motorLeft;
+    protected AbstractMotor leftMotor;
     // the right running motor
-    protected AbstractMotor motorRight;
+    protected AbstractMotor rightMotor;
     // the right running motor
-    protected AbstractMotor motorCenter;
+    protected AbstractMotor centerMotor;
     // the color sensor
     protected ColorSensor colorSensor;
     // the ultrasonic sensor

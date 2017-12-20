@@ -1,6 +1,7 @@
 package info.keloud.leJOS;
 
 import info.keloud.leJOS.manager.Scheduler;
+import info.keloud.leJOS.motor.AbstractMotor;
 import info.keloud.leJOS.motor.CenterMotor;
 import info.keloud.leJOS.motor.LeftMotor;
 import info.keloud.leJOS.motor.RightMotor;
@@ -45,12 +46,12 @@ public class leJOS {
         GyroSensor gyroSensor = new GyroSensor();
         // ディスプレイ案内の更新
         LCD.clear(5);
-        LCD.drawString("Init AbstractUtil", 1, 5);
+        LCD.drawString("Init Motor", 1, 5);
         LCD.refresh();
         // モーターの初期化
         CenterMotor centerMotor = new CenterMotor();
-        LeftMotor leftMotor = new LeftMotor();
-        RightMotor rightMotor = new RightMotor();
+        AbstractMotor leftMotor = new LeftMotor();
+        AbstractMotor rightMotor = new RightMotor();
         // ディスプレイ案内の更新
         LCD.clear(5);
         LCD.drawString("Init Thread", 1, 5);
@@ -219,11 +220,7 @@ public class leJOS {
         LCD.drawString("EV3 running", 1, 5);
         LCD.refresh();
         //アームを開ける
-        arm.run(true);
-        arm.run(false);
-        arm.run(true);
-        turn.run(100, 180);
-        turn.run(500, -180);
+        turn.run(800, 360);
         //ボトルを取得する
         //grabBottle.run(60,false);
 

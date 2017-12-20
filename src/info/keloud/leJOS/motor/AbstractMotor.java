@@ -1,6 +1,7 @@
 package info.keloud.leJOS.motor;
 
 import lejos.hardware.motor.BaseRegulatedMotor;
+import lejos.robotics.RegulatedMotor;
 
 public class AbstractMotor {
     public BaseRegulatedMotor regulatedMotor;
@@ -35,5 +36,13 @@ public class AbstractMotor {
 
     public void setSpeed(int speed) {
         regulatedMotor.setSpeed(speed);
+    }
+
+    public void synchronizeWith(RegulatedMotor[] syncList) {
+        regulatedMotor.synchronizeWith(syncList);
+    }
+
+    public void startSynchronization() {
+        regulatedMotor.startSynchronization();
     }
 }

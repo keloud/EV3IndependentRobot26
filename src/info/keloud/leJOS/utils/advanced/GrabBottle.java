@@ -14,10 +14,10 @@ public class GrabBottle extends AbstractUtil {
     private Forward forward;
     private float ultrasonicValue;
 
-    public GrabBottle(AbstractMotor motorCenter, AbstractMotor motorLeft, AbstractMotor motorRight, UltrasonicSensor ultrasonicSensor, ColorSensor colorSensor, Arm arm, Forward forward) {
-        this.motorLeft = motorLeft;
-        this.motorRight = motorRight;
-        this.motorCenter = motorCenter;
+    public GrabBottle(AbstractMotor centerMotor, AbstractMotor leftMotor, AbstractMotor rightMotor, UltrasonicSensor ultrasonicSensor, ColorSensor colorSensor, Arm arm, Forward forward) {
+        this.leftMotor = leftMotor;
+        this.rightMotor = rightMotor;
+        this.centerMotor = centerMotor;
         this.ultrasonicSensor = ultrasonicSensor;
         this.colorSensor = colorSensor;
         this.arm = arm;
@@ -37,7 +37,7 @@ public class GrabBottle extends AbstractUtil {
         search();
 
         // 初期化
-        int initTachoCount = motorLeft.getTachoCount();
+        int initTachoCount = leftMotor.getTachoCount();
         int speedNow;
         int minimumSpeed = 100;
         int degreeTachoCount = 0;
@@ -45,8 +45,8 @@ public class GrabBottle extends AbstractUtil {
         //速度(800)で手前距離(7cm)で止まる
         setSpeed(800);
         setDistance(7);
-        motorLeft.setSpeed(minimumSpeed);
-        motorRight.setSpeed(minimumSpeed);
+        leftMotor.setSpeed(minimumSpeed);
+        rightMotor.setSpeed(minimumSpeed);
 
         // 速度から必要な距離を求める(可変距離)
         double distanceVariable = speed * 0.27F;
@@ -60,8 +60,8 @@ public class GrabBottle extends AbstractUtil {
         int distanceDeceleration = degreeTachoCount + (int) distanceVariable;
 
         // 移動開始
-        motorLeft.forward();
-        motorRight.forward();
+        leftMotor.forward();
+        rightMotor.forward();
 
         // 移動判定
         try {
@@ -92,11 +92,11 @@ public class GrabBottle extends AbstractUtil {
                     if (degreeTachoCount % 20 == 0) {
                         Thread.sleep(wait);
                         //調整値を取得する
-                        int temp = motorLeft.getTachoCount();
+                        int temp = leftMotor.getTachoCount();
                         //探索処理を呼び出す
                         search();
                         //調整する
-                        initTachoCount += motorLeft.getTachoCount() - temp;
+                        initTachoCount += leftMotor.getTachoCount() - temp;
                     }
                 }
 
@@ -115,10 +115,10 @@ public class GrabBottle extends AbstractUtil {
                     speedNow = speed;
                 }
 
-                motorLeft.setSpeed(speedNow);
-                motorRight.setSpeed(speedNow);
+                leftMotor.setSpeed(speedNow);
+                rightMotor.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeTachoCount = motorLeft.getTachoCount() - initTachoCount;
+                degreeTachoCount = leftMotor.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             Sound.beep();
@@ -128,8 +128,8 @@ public class GrabBottle extends AbstractUtil {
         }
 
         // 停止
-        motorLeft.stop(true);
-        motorRight.stop(true);
+        leftMotor.stop(true);
+        rightMotor.stop(true);
 
         //スピード(100)走行距離(7cm)で前進
         forward.setSpeed(100);
@@ -146,17 +146,17 @@ public class GrabBottle extends AbstractUtil {
             setOperationMode("Grab Bottle Search");
             //もし、遠くなっていたら以下の処理を行う
             // 一時停止
-            motorLeft.stop(true);
-            motorRight.stop(true);
+            leftMotor.stop(true);
+            rightMotor.stop(true);
 
             //サーチ処理(初期位置移動)(右旋回)
             // 初期化
-            int initTachoCount = motorLeft.getTachoCount();
+            int initTachoCount = leftMotor.getTachoCount();
             int speedNow;
             int minimumSpeed = 300;
             int degreeCount = 0;
-            motorLeft.setSpeed(minimumSpeed);
-            motorRight.setSpeed(minimumSpeed);
+            leftMotor.setSpeed(minimumSpeed);
+            rightMotor.setSpeed(minimumSpeed);
 
             // 角度累計計算
             int cum = (int) ((((angle / 2 * width * Math.PI) / 360) / diameter / Math.PI) * 360);
@@ -165,8 +165,8 @@ public class GrabBottle extends AbstractUtil {
             double distanceVariable = speed * 0.28F;
 
             // 移動開始
-            motorLeft.forward();
-            motorRight.backward();
+            leftMotor.forward();
+            rightMotor.backward();
 
             // 移動判定
             try {
@@ -181,10 +181,10 @@ public class GrabBottle extends AbstractUtil {
                         //巡航部
                         speedNow = speed;
                     }
-                    motorLeft.setSpeed(speedNow);
-                    motorRight.setSpeed(speedNow);
+                    leftMotor.setSpeed(speedNow);
+                    rightMotor.setSpeed(speedNow);
                     Thread.sleep(wait);
-                    degreeCount = motorLeft.getTachoCount() - initTachoCount;
+                    degreeCount = leftMotor.getTachoCount() - initTachoCount;
                 }
             } catch (InterruptedException ignored) {
                 Sound.beep();
@@ -194,25 +194,25 @@ public class GrabBottle extends AbstractUtil {
             }
 
             // 停止
-            motorLeft.stop(true);
-            motorRight.stop(true);
+            leftMotor.stop(true);
+            rightMotor.stop(true);
 
             //サーチ処理(探索)
             // 初期化
-            initTachoCount = motorRight.getTachoCount();
+            initTachoCount = rightMotor.getTachoCount();
             degreeCount = 0;
             float exploreUltrasonicValue = ultrasonicSensor.getValue();
             float nowUltrasonicValue;
             int exploreTachoCount = 0;
-            motorLeft.setSpeed(40);
-            motorRight.setSpeed(40);
+            leftMotor.setSpeed(40);
+            rightMotor.setSpeed(40);
 
             // 角度累計計算
             cum = (int) ((((angle * width * Math.PI) / 360) / diameter / Math.PI) * 360);
 
             // 移動開始
-            motorLeft.backward();
-            motorRight.forward();
+            leftMotor.backward();
+            rightMotor.forward();
 
             // 移動判定
             try {
@@ -220,7 +220,7 @@ public class GrabBottle extends AbstractUtil {
                     //探索部
                     nowUltrasonicValue = ultrasonicSensor.getValue();
                     Thread.sleep(wait);
-                    degreeCount = motorRight.getTachoCount() - initTachoCount;
+                    degreeCount = rightMotor.getTachoCount() - initTachoCount;
                     if (nowUltrasonicValue < exploreUltrasonicValue) {
                         exploreUltrasonicValue = nowUltrasonicValue;
                         exploreTachoCount = degreeCount;
@@ -235,23 +235,23 @@ public class GrabBottle extends AbstractUtil {
             }
 
             // 停止
-            motorLeft.stop(true);
-            motorRight.stop(true);
+            leftMotor.stop(true);
+            rightMotor.stop(true);
 
             //探索処理(探索した位置に戻る)
             // 初期化
-            initTachoCount = motorLeft.getTachoCount();
+            initTachoCount = leftMotor.getTachoCount();
             degreeCount = 0;
             int maximumSpeed = 100;
-            motorLeft.setSpeed(minimumSpeed);
-            motorRight.setSpeed(minimumSpeed);
+            leftMotor.setSpeed(minimumSpeed);
+            rightMotor.setSpeed(minimumSpeed);
 
             // 角度累計計算
             cum = (int) ((((angle * width * Math.PI) / 360) / diameter / Math.PI) * 360) - exploreTachoCount;
 
             // 移動開始
-            motorLeft.forward();
-            motorRight.backward();
+            leftMotor.forward();
+            rightMotor.backward();
 
             // 移動判定
             try {
@@ -266,10 +266,10 @@ public class GrabBottle extends AbstractUtil {
                         //巡航部
                         speedNow = maximumSpeed;
                     }
-                    motorLeft.setSpeed(speedNow);
-                    motorRight.setSpeed(speedNow);
+                    leftMotor.setSpeed(speedNow);
+                    rightMotor.setSpeed(speedNow);
                     Thread.sleep(wait);
-                    degreeCount = motorLeft.getTachoCount() - initTachoCount;
+                    degreeCount = leftMotor.getTachoCount() - initTachoCount;
                 }
             } catch (InterruptedException ignored) {
                 Sound.beep();
@@ -279,20 +279,20 @@ public class GrabBottle extends AbstractUtil {
             }
 
             // 停止
-            motorLeft.stop(true);
-            motorRight.stop(true);
+            leftMotor.stop(true);
+            rightMotor.stop(true);
 
             //再始動
-            motorLeft.forward();
-            motorRight.forward();
+            leftMotor.forward();
+            rightMotor.forward();
         }
         ultrasonicValue = actualUltrasonicValue;
     }
 
     private void outOfMap() {
         // 一時停止
-        motorLeft.stop(true);
-        motorRight.stop(true);
+        leftMotor.stop(true);
+        rightMotor.stop(true);
 
         //アームを閉じる
         arm.run("Close");

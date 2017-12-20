@@ -6,9 +6,9 @@ import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
 
 public class BackwardWithColor extends AbstractUtil {
-    public BackwardWithColor(AbstractMotor motorLeft, AbstractMotor motorRight, ColorSensor colorSensor) {
-        this.motorLeft = motorLeft;
-        this.motorRight = motorRight;
+    public BackwardWithColor(AbstractMotor leftMotor, AbstractMotor rightMotor, ColorSensor colorSensor) {
+        this.leftMotor = leftMotor;
+        this.rightMotor = rightMotor;
         this.colorSensor = colorSensor;
 
     }
@@ -28,12 +28,12 @@ public class BackwardWithColor extends AbstractUtil {
     public void run() {
         // 初期化
         setOperationMode("Backward Color");
-        int initTachoCount = motorLeft.getTachoCount();
+        int initTachoCount = leftMotor.getTachoCount();
         int speedNow;
         int speedMin = 100;
         int degreeTachoCount = 0;
-        motorLeft.setSpeed(speedMin);
-        motorRight.setSpeed(speedMin);
+        leftMotor.setSpeed(speedMin);
+        rightMotor.setSpeed(speedMin);
 
         //速度から必要な距離を求める(可変距離)
         double distanceVariable = speed * 0.24F;
@@ -43,8 +43,8 @@ public class BackwardWithColor extends AbstractUtil {
         int distanceDeceleration = degreeTachoCount + (int) distanceVariable;
 
         // 移動開始
-        motorLeft.backward();
-        motorRight.backward();
+        leftMotor.backward();
+        rightMotor.backward();
 
         // 移動判定
         try {
@@ -67,10 +67,10 @@ public class BackwardWithColor extends AbstractUtil {
                     //巡航部
                     speedNow = speed;
                 }
-                motorLeft.setSpeed(speedNow);
-                motorRight.setSpeed(speedNow);
+                leftMotor.setSpeed(speedNow);
+                rightMotor.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeTachoCount = -(motorLeft.getTachoCount() - initTachoCount);
+                degreeTachoCount = -(leftMotor.getTachoCount() - initTachoCount);
             }
         } catch (InterruptedException ignored) {
             Sound.beep();
@@ -80,7 +80,7 @@ public class BackwardWithColor extends AbstractUtil {
         }
 
         // 停止
-        motorLeft.stop(true);
-        motorRight.stop(true);
+        leftMotor.stop(true);
+        rightMotor.stop(true);
     }
 }

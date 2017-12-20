@@ -5,9 +5,9 @@ import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
 
 public class Turn extends AbstractUtil {
-    public Turn(AbstractMotor motorLeft, AbstractMotor motorRight) {
-        this.motorLeft = motorLeft;
-        this.motorRight = motorRight;
+    public Turn(AbstractMotor leftMotor, AbstractMotor rightMotor) {
+        this.leftMotor = leftMotor;
+        this.rightMotor = rightMotor;
     }
 
     public void run(int speed, int angle) {
@@ -35,26 +35,30 @@ public class Turn extends AbstractUtil {
     private void leftTurn() {
         // 初期化
         setOperationMode("Turn Left");
-        int initTachoCount = motorRight.getTachoCount();
+        int initTachoCount = rightMotor.getTachoCount();
         int speedNow;
-        int speedMin = 60;
+        int speedMin = 100;
         int degreeTachoCount = 0;
-        motorLeft.setSpeed(speedMin);
-        motorRight.setSpeed(speedMin);
+        leftMotor.setSpeed(speedMin);
+        rightMotor.setSpeed(speedMin);
 
         // 角度累計計算
         int cum = (int) ((((angle * width * Math.PI) / 360) / diameter / Math.PI) * 360);
 
         //速度から必要な距離を求める(可変距離)
         double distanceVariable = speed * 0.28F;
+        if (cum - distanceVariable <= 0) {
+            distanceVariable = 0;
+            setSpeed(100);
+        }
 
         // 移動開始
-        motorLeft.backward();
-        motorRight.forward();
+        leftMotor.backward();
+        rightMotor.forward();
 
         // 移動判定
         try {
-            while (degreeTachoCount <= cum) {
+            while (degreeTachoCount < cum) {
                 if (degreeTachoCount > cum - distanceVariable) {
                     //減速部
                     speedNow = (int) ((float) (speed - speedMin) * (cum - degreeTachoCount) / distanceVariable + speedMin);
@@ -65,10 +69,10 @@ public class Turn extends AbstractUtil {
                     //巡航部
                     speedNow = speed;
                 }
-                motorLeft.setSpeed(speedNow);
-                motorRight.setSpeed(speedNow);
+                leftMotor.setSpeed(speedNow);
+                rightMotor.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeTachoCount = motorRight.getTachoCount() - initTachoCount;
+                degreeTachoCount = rightMotor.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             Sound.beep();
@@ -78,33 +82,37 @@ public class Turn extends AbstractUtil {
         }
 
         // 停止
-        motorLeft.stop(true);
-        motorRight.stop(true);
+        leftMotor.stop(true);
+        rightMotor.stop(true);
     }
 
     private void rightTurn() {
         // 初期化
         setOperationMode("Turn Right");
-        int initTachoCount = motorLeft.getTachoCount();
+        int initTachoCount = leftMotor.getTachoCount();
         int speedNow;
         int speedMin = 100;
         int degreeTachoCount = 0;
-        motorLeft.setSpeed(speedMin);
-        motorRight.setSpeed(speedMin);
+        leftMotor.setSpeed(speedMin);
+        rightMotor.setSpeed(speedMin);
 
         // 角度累計計算
         int cum = (int) ((((angle * width * Math.PI) / 360) / diameter / Math.PI) * 360);
 
         //速度から必要な距離を求める(可変距離)
         double distanceVariable = speed * 0.28F;
+        if (cum - distanceVariable <= 0) {
+            distanceVariable = 0;
+            setSpeed(100);
+        }
 
         // 移動開始
-        motorLeft.forward();
-        motorRight.backward();
+        leftMotor.forward();
+        rightMotor.backward();
 
         // 移動判定
         try {
-            while (degreeTachoCount <= cum) {
+            while (degreeTachoCount < cum) {
                 if (degreeTachoCount > cum - distanceVariable) {
                     //減速部
                     speedNow = (int) ((float) (speed - speedMin) * (cum - degreeTachoCount) / distanceVariable + speedMin);
@@ -115,10 +123,10 @@ public class Turn extends AbstractUtil {
                     //巡航部
                     speedNow = speed;
                 }
-                motorLeft.setSpeed(speedNow);
-                motorRight.setSpeed(speedNow);
+                leftMotor.setSpeed(speedNow);
+                rightMotor.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeTachoCount = motorLeft.getTachoCount() - initTachoCount;
+                degreeTachoCount = leftMotor.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             Sound.beep();
@@ -128,7 +136,7 @@ public class Turn extends AbstractUtil {
         }
 
         // 停止
-        motorLeft.stop(true);
-        motorRight.stop(true);
+        leftMotor.stop(true);
+        rightMotor.stop(true);
     }
 }

@@ -11,9 +11,9 @@ import lejos.hardware.lcd.LCD;
 public class SearchGyro extends AbstractUtil {
     private TurnWithGyro turnWithGyro;
 
-    public SearchGyro(AbstractMotor motorLeft, AbstractMotor motorRight, UltrasonicSensor ultrasonicSensor, GyroSensor gyroSensor, TurnWithGyro turnWithGyro) {
-        this.motorLeft = motorLeft;
-        this.motorRight = motorRight;
+    public SearchGyro(AbstractMotor leftMotor, AbstractMotor rightMotor, UltrasonicSensor ultrasonicSensor, GyroSensor gyroSensor, TurnWithGyro turnWithGyro) {
+        this.leftMotor = leftMotor;
+        this.rightMotor = rightMotor;
         this.ultrasonicSensor = ultrasonicSensor;
         this.gyroSensor = gyroSensor;
         this.turnWithGyro = turnWithGyro;
@@ -34,12 +34,12 @@ public class SearchGyro extends AbstractUtil {
         float degreeUltrasonic = ultrasonicSensor.getValue();
         float ultrasonicValue = degreeUltrasonic;
         setSpeed(80);
-        motorLeft.setSpeed(speed);
-        motorRight.setSpeed(speed);
+        leftMotor.setSpeed(speed);
+        rightMotor.setSpeed(speed);
 
         // 移動開始
-        motorLeft.forward();
-        motorRight.backward();
+        leftMotor.forward();
+        rightMotor.backward();
 
         // 移動判定
         try {
@@ -57,8 +57,8 @@ public class SearchGyro extends AbstractUtil {
         }
 
         // 停止
-        motorLeft.stop(true);
-        motorRight.stop(true);
+        leftMotor.stop(true);
+        rightMotor.stop(true);
 
         turnWithGyro.setAngle(angle * 0.86 + gyroValue);
         turnWithGyro.run();

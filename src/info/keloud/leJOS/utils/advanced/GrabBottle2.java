@@ -12,10 +12,10 @@ public class GrabBottle2 extends AbstractUtil {
     private Arm arm;
     private boolean usePutBottle;
 
-    public GrabBottle2(AbstractMotor motorCenter, AbstractMotor motorLeft, AbstractMotor motorRight, UltrasonicSensor ultrasonicSensor, ColorSensor colorSensor, Arm arm) {
-        this.motorLeft = motorLeft;
-        this.motorRight = motorRight;
-        this.motorCenter = motorCenter;
+    public GrabBottle2(AbstractMotor centerMotor, AbstractMotor leftMotor, AbstractMotor rightMotor, UltrasonicSensor ultrasonicSensor, ColorSensor colorSensor, Arm arm) {
+        this.leftMotor = leftMotor;
+        this.rightMotor = rightMotor;
+        this.centerMotor = centerMotor;
         this.ultrasonicSensor = ultrasonicSensor;
         this.colorSensor = colorSensor;
         this.arm = arm;
@@ -34,12 +34,12 @@ public class GrabBottle2 extends AbstractUtil {
         //速度(800)で手前距離(7cm)で止まる
         setSpeed(800);
         setDistance(7);
-        int initTachoCount = motorLeft.getTachoCount();
+        int initTachoCount = leftMotor.getTachoCount();
         int speedNow;
         int speedMin = 100;
         int degreeTachoCount = 0;
-        motorLeft.setSpeed(speedMin);
-        motorRight.setSpeed(speedMin);
+        leftMotor.setSpeed(speedMin);
+        rightMotor.setSpeed(speedMin);
 
         // 速度から必要な距離を求める(可変距離)
         double distanceVariable = speed * 0.27F;
@@ -52,8 +52,8 @@ public class GrabBottle2 extends AbstractUtil {
         int distanceDeceleration = degreeTachoCount + (int) distanceVariable;
 
         // 移動開始
-        motorLeft.forward();
-        motorRight.forward();
+        leftMotor.forward();
+        rightMotor.forward();
 
         // 移動判定
         try {
@@ -79,10 +79,10 @@ public class GrabBottle2 extends AbstractUtil {
                 else {
                     speedNow = speed;
                 }
-                motorLeft.setSpeed(speedNow);
-                motorRight.setSpeed(speedNow);
+                leftMotor.setSpeed(speedNow);
+                rightMotor.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeTachoCount = motorLeft.getTachoCount() - initTachoCount;
+                degreeTachoCount = leftMotor.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             Sound.beep();
@@ -92,8 +92,8 @@ public class GrabBottle2 extends AbstractUtil {
         }
 
         // 停止
-        motorLeft.stop(true);
-        motorRight.stop(true);
+        leftMotor.stop(true);
+        rightMotor.stop(true);
         //アームを開ける
         arm.run("OPEN");
 
@@ -102,11 +102,11 @@ public class GrabBottle2 extends AbstractUtil {
         setDistance(10);
         // 初期化
         setOperationMode("Forward");
-        initTachoCount = motorLeft.getTachoCount();
+        initTachoCount = leftMotor.getTachoCount();
         speedMin = 60;
         degreeTachoCount = 0;
-        motorLeft.setSpeed(speedMin);
-        motorRight.setSpeed(speedMin);
+        leftMotor.setSpeed(speedMin);
+        rightMotor.setSpeed(speedMin);
 
         // 角度累計計算
         int cum = (int) ((distance / diameter / Math.PI) * 360);
@@ -115,8 +115,8 @@ public class GrabBottle2 extends AbstractUtil {
         distanceVariable = speed * 0.34F;
 
         // 移動開始
-        motorLeft.forward();
-        motorRight.forward();
+        leftMotor.forward();
+        rightMotor.forward();
 
         // 移動判定
         try {
@@ -131,10 +131,10 @@ public class GrabBottle2 extends AbstractUtil {
                     //巡航部
                     speedNow = speed;
                 }
-                motorLeft.setSpeed(speedNow);
-                motorRight.setSpeed(speedNow);
+                leftMotor.setSpeed(speedNow);
+                rightMotor.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeTachoCount = motorLeft.getTachoCount() - initTachoCount;
+                degreeTachoCount = leftMotor.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             Sound.beep();
@@ -144,8 +144,8 @@ public class GrabBottle2 extends AbstractUtil {
         }
 
         // 停止
-        motorLeft.stop(true);
-        motorRight.stop(true);
+        leftMotor.stop(true);
+        rightMotor.stop(true);
 
         //アームを閉じる
         arm.run("CLOSE");
@@ -158,8 +158,8 @@ public class GrabBottle2 extends AbstractUtil {
     private void outOfMap() {
         setOperationMode("Grab Bottle Out of Map");
         // 一時停止
-        motorLeft.stop(true);
-        motorRight.stop(true);
+        leftMotor.stop(true);
+        rightMotor.stop(true);
 
         //アームを閉じる
         arm.run("Close");

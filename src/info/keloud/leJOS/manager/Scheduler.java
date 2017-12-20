@@ -39,17 +39,17 @@ public class Scheduler extends Thread {
     public void run() {
         int timer = 0;
         while (mode) {
-            int accumulationMotorLeft = leftMotor.getTachoCount();
-            int accumulationMotorRight = rightMotor.getTachoCount();
-            int accumulationMotorCenter = centerMotor.getTachoCount();
+            int accumulationleftMotor = leftMotor.getTachoCount();
+            int accumulationrightMotor = rightMotor.getTachoCount();
+            int accumulationcenterMotor = centerMotor.getTachoCount();
             float colorIdValue = colorSensor.getValue();
             float ultrasonicValue = ultrasonicSensor.getValue();
             float gyroValue = gyroSensor.getValue();
             timer++;
             // サーバーに値を渡す
-            //monitoring.updateValue(operationMode, accumulationMotorLeft, accumulationMotorRight, accumulationMotorCenter, colorIdValue, ultrasonicValue, gyroValue, timer);
+            //monitoring.updateValue(operationMode, accumulationleftMotor, accumulationrightMotor, accumulationcenterMotor, colorIdValue, ultrasonicValue, gyroValue, timer);
             // 表示を更新する
-            displayUpdater.updateValue(operationMode, accumulationMotorLeft, accumulationMotorRight, accumulationMotorCenter, colorIdValue, ultrasonicValue, gyroValue, timer);
+            displayUpdater.updateValue(operationMode, accumulationleftMotor, accumulationrightMotor, accumulationcenterMotor, colorIdValue, ultrasonicValue, gyroValue, timer);
             // 例外処理
             try {
                 Thread.sleep(20);

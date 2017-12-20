@@ -10,11 +10,11 @@ public class Arm extends AbstractUtil {
     // Arm open is true
     private boolean state = false;
 
-    public Arm(AbstractMotor motorCenter) {
-        this.motorCenter = motorCenter;
+    public Arm(AbstractMotor centerMotor) {
+        this.centerMotor = centerMotor;
         setAngle(290);
         setSpeed(800);
-        motorCenter.setSpeed(speed);
+        centerMotor.setSpeed(speed);
     }
 
     public void run(int speed, int angle) {
@@ -66,7 +66,7 @@ public class Arm extends AbstractUtil {
         // 初期化
         setOperationMode("Arm Open");
         state = true;
-        int initTachoCount = motorCenter.getTachoCount();
+        int initTachoCount = centerMotor.getTachoCount();
         int degreeTachoCount = 0;
 
         // 移動距離計算
@@ -76,12 +76,12 @@ public class Arm extends AbstractUtil {
         int cum = (int) ((distance / diameter / Math.PI) * 360);
 
         // 移動開始
-        motorCenter.forward();
+        centerMotor.forward();
 
         try {
             while (degreeTachoCount < cum) {
                 Thread.sleep(wait);
-                degreeTachoCount = motorCenter.getTachoCount() - initTachoCount;
+                degreeTachoCount = centerMotor.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             Sound.beep();
@@ -91,14 +91,14 @@ public class Arm extends AbstractUtil {
         }
 
         // 停止
-        motorCenter.stop(true);
+        centerMotor.stop(true);
     }
 
     private void armClose() {
         // 初期化
         setOperationMode("Arm Close");
         state = false;
-        int initTachoCount = motorCenter.getTachoCount();
+        int initTachoCount = centerMotor.getTachoCount();
         int degreeTachoCount = 0;
 
         // 移動距離計算
@@ -109,12 +109,12 @@ public class Arm extends AbstractUtil {
         cum = -cum;
 
         // 移動開始
-        motorCenter.backward();
+        centerMotor.backward();
 
         try {
             while (cum < degreeTachoCount) {
                 Thread.sleep(wait);
-                degreeTachoCount = motorCenter.getTachoCount() - initTachoCount;
+                degreeTachoCount = centerMotor.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             Sound.beep();
@@ -124,7 +124,7 @@ public class Arm extends AbstractUtil {
         }
 
         // 停止
-        motorCenter.stop(true);
+        centerMotor.stop(true);
     }
 
     public void setState(boolean state) {

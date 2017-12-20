@@ -6,9 +6,9 @@ import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
 
 public class TurnWithGyro extends AbstractUtil {
-    public TurnWithGyro(AbstractMotor motorLeft, AbstractMotor motorRight, GyroSensor gyroSensor) {
-        this.motorLeft = motorLeft;
-        this.motorRight = motorRight;
+    public TurnWithGyro(AbstractMotor leftMotor, AbstractMotor rightMotor, GyroSensor gyroSensor) {
+        this.leftMotor = leftMotor;
+        this.rightMotor = rightMotor;
         this.gyroSensor = gyroSensor;
     }
 
@@ -38,12 +38,12 @@ public class TurnWithGyro extends AbstractUtil {
         setOperationMode("Turn Left Gyro");
         float gyroInit = gyroSensor.getValue();
         float degreeGyro = 0;
-        motorLeft.setSpeed(speed);
-        motorRight.setSpeed(speed);
+        leftMotor.setSpeed(speed);
+        rightMotor.setSpeed(speed);
 
         // 移動開始
-        motorLeft.backward();
-        motorRight.forward();
+        leftMotor.backward();
+        rightMotor.forward();
 
         // 移動判定
         try {
@@ -59,8 +59,8 @@ public class TurnWithGyro extends AbstractUtil {
         }
 
         // 停止
-        motorLeft.stop(true);
-        motorRight.stop(true);
+        leftMotor.stop(true);
+        rightMotor.stop(true);
     }
 
     private void rightTurn() {
@@ -68,12 +68,12 @@ public class TurnWithGyro extends AbstractUtil {
         setOperationMode("Turn Right Gyro");
         float gyroInit = gyroSensor.getValue();
         float degreeGyro = 0;
-        motorLeft.setSpeed(speed);
-        motorRight.setSpeed(speed);
+        leftMotor.setSpeed(speed);
+        rightMotor.setSpeed(speed);
 
         // 移動開始
-        motorLeft.forward();
-        motorRight.backward();
+        leftMotor.forward();
+        rightMotor.backward();
 
         // 移動判定
         try {
@@ -89,8 +89,8 @@ public class TurnWithGyro extends AbstractUtil {
         }
 
         // 停止
-        motorLeft.stop(true);
-        motorRight.stop(true);
+        leftMotor.stop(true);
+        rightMotor.stop(true);
     }
 
 }

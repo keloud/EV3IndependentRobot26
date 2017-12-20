@@ -5,9 +5,9 @@ import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
 
 public class Forward extends AbstractUtil {
-    public Forward(AbstractMotor motorLeft, AbstractMotor motorRight) {
-        this.motorLeft = motorLeft;
-        this.motorRight = motorRight;
+    public Forward(AbstractMotor leftMotor, AbstractMotor rightMotor) {
+        this.leftMotor = leftMotor;
+        this.rightMotor = rightMotor;
     }
 
     public void run(int speed, int distance) {
@@ -20,12 +20,12 @@ public class Forward extends AbstractUtil {
     public void run() {
         // 初期化
         setOperationMode("Forward");
-        int initTachoCount = motorLeft.getTachoCount();
+        int initTachoCount = leftMotor.getTachoCount();
         int speedNow;
         int speedMin = 100;
         int degreeTachoCount = 0;
-        motorLeft.setSpeed(speedMin);
-        motorRight.setSpeed(speedMin);
+        leftMotor.setSpeed(speedMin);
+        rightMotor.setSpeed(speedMin);
 
         // 角度累計計算
         int cum = (int) ((distance / diameter / Math.PI) * 360);
@@ -34,8 +34,8 @@ public class Forward extends AbstractUtil {
         double distanceVariable = speed * 0.24F;
 
         // 移動開始
-        motorLeft.forward();
-        motorRight.forward();
+        leftMotor.forward();
+        rightMotor.forward();
 
         // 移動判定
         try {
@@ -50,10 +50,10 @@ public class Forward extends AbstractUtil {
                     //巡航部
                     speedNow = speed;
                 }
-                motorLeft.setSpeed(speedNow);
-                motorRight.setSpeed(speedNow);
+                leftMotor.setSpeed(speedNow);
+                rightMotor.setSpeed(speedNow);
                 Thread.sleep(wait);
-                degreeTachoCount = motorLeft.getTachoCount() - initTachoCount;
+                degreeTachoCount = leftMotor.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             Sound.beep();
@@ -63,8 +63,8 @@ public class Forward extends AbstractUtil {
         }
 
         // 停止
-        motorLeft.stop(true);
-        motorRight.stop(true);
+        leftMotor.stop(true);
+        rightMotor.stop(true);
     }
 
     @Override
