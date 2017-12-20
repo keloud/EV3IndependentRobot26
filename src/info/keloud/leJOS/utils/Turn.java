@@ -46,7 +46,7 @@ public class Turn extends AbstractMotor {
         int cum = (int) ((((angle * width * Math.PI) / 360) / diameter / Math.PI) * 360);
 
         //速度から必要な距離を求める(可変距離)
-        double distanceVariable = speed * 0.18F;
+        double distanceVariable = speed * 0.28F;
 
         // 移動開始
         motorLeft.backward();

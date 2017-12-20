@@ -16,9 +16,9 @@ public class leJOS {
     // モーター操作
     private static Arm arm;
     private static Forward forward;
-    private static ForwardColor forwardColor;
+    private static ForwardWithColor forwardWithColor;
     private static Backward backward;
-    private static BackwardColor backwardColor;
+    private static BackwardWithColor backwardWithColor;
     private static Turn turn;
     private static GrabBottle2 grabBottle;
 
@@ -63,9 +63,9 @@ public class leJOS {
         // モーター操作の設定
         arm = new Arm(motorCenter);
         forward = new Forward(motorLeft, motorRight);
-        forwardColor = new ForwardColor(motorLeft, motorRight, colorSensor);
+        forwardWithColor = new ForwardWithColor(motorLeft, motorRight, colorSensor);
         backward = new Backward(motorLeft, motorRight);
-        backwardColor = new BackwardColor(motorLeft, motorRight, colorSensor);
+        backwardWithColor = new BackwardWithColor(motorLeft, motorRight, colorSensor);
         turn = new Turn(motorLeft, motorRight);
         grabBottle = new GrabBottle2(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, arm);
         // ディスプレイ案内の更新
@@ -122,7 +122,7 @@ public class leJOS {
         //速度(100)角度(-90度°)で回転
         turn.run(300, -90);
         //速度(600)カラー(赤)で後進
-        backwardColor.run(600, "RED");
+        backwardWithColor.run(600, "RED");
         //速度(300)走行距離(10cm)で後進
         backward.run(300, 10);
         //アームを開ける
@@ -133,11 +133,11 @@ public class leJOS {
         //速度(100)角度(90°)で回転
         turn.run(100, 90);
         //速度(400)カラー(白)で前進
-        forwardColor.run(800, "WHITE");
+        forwardWithColor.run(800, "WHITE");
         //ボトルを取得する
         grabBottle.run(60, false);
         //速度(600)カラー(赤)で後進
-        backwardColor.run(600, "RED");
+        backwardWithColor.run(600, "RED");
         //速度(300)走行距離(10cm)で後進
         backward.run(300, 10);
         //アームを開ける
@@ -148,13 +148,13 @@ public class leJOS {
         //速度(100)角度(90°)で回転
         turn.run(100, 90);
         //速度(400)カラー(白)で前進
-        forwardColor.run(400, "WHITE");
+        forwardWithColor.run(400, "WHITE");
         //速度(400)走行距離(235m)で前進
         forward.run(400, 25);
         //ボトルを取得する
         grabBottle.run(60, false);
         //速度(600)カラー(赤)で後進
-        backwardColor.run(600, "RED");
+        backwardWithColor.run(600, "RED");
         //速度(300)走行距離(10cm)で後進
         backward.run(300, 10);
         //アームを開ける
@@ -165,12 +165,12 @@ public class leJOS {
         //速度(100)角度(90°)で回転
         turn.run(100, 90);
         //速度(400)カラー(白)で前進
-        forwardColor.run(400, "WHITE");
+        forwardWithColor.run(400, "WHITE");
         //ボトルを取得する
         grabBottle.run(60, false);
         /*
         //速度(600)カラー(赤)で後進
-        backwardColor.run();
+        backwardWithColor.run();
         //速度(300)走行距離(10cm)で後進
         backward.run();
         //アームを開ける
@@ -182,7 +182,7 @@ public class leJOS {
         //速度(100)角度(-90°)で回転
         turn.run(100, -90);
         //速度(600)カラー(黒)で後進
-        backwardColor.run(600, "BLACK");
+        backwardWithColor.run(600, "BLACK");
         //速度(100)角度(180°)で回転
         turn.run(100, 180);
         /*
@@ -194,16 +194,16 @@ public class leJOS {
         forward.setDistance(100);
         forward.run();
         //速度(200)カラー(黒)で前進
-        forwardColor.setSpeed(200);
-        forwardColor.setColorId(7);
-        forwardColor.run();
+        forwardWithColor.setSpeed(200);
+        forwardWithColor.setColorId(7);
+        forwardWithColor.run();
         //速度(100)角度(60°)で回転
         turn.setAngle(80);
         turn.run();
         //速度(200)カラー(黄)で前進
-        forwardColor.setSpeed(200);
-        forwardColor.setColorId(3);
-        forwardColor.run();
+        forwardWithColor.setSpeed(200);
+        forwardWithColor.setColorId(3);
+        forwardWithColor.run();
         //アームを閉じる
         arm.run();
         */

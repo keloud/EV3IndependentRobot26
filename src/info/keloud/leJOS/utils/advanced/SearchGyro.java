@@ -3,29 +3,29 @@ package info.keloud.leJOS.utils.advanced;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
 import info.keloud.leJOS.utils.AbstractMotor;
-import info.keloud.leJOS.utils.TurnGyro;
+import info.keloud.leJOS.utils.TurnWithGyro;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.RegulatedMotor;
 
 // Process to search by spinning on the spot
 public class SearchGyro extends AbstractMotor {
-    private TurnGyro turnGyro;
+    private TurnWithGyro turnWithGyro;
 
-    public SearchGyro(RegulatedMotor motorLeft, RegulatedMotor motorRight, UltrasonicSensor ultrasonicSensor, GyroSensor gyroSensor, TurnGyro turnGyro) {
+    public SearchGyro(RegulatedMotor motorLeft, RegulatedMotor motorRight, UltrasonicSensor ultrasonicSensor, GyroSensor gyroSensor, TurnWithGyro turnWithGyro) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.ultrasonicSensor = ultrasonicSensor;
         this.gyroSensor = gyroSensor;
-        this.turnGyro = turnGyro;
+        this.turnWithGyro = turnWithGyro;
     }
 
     @Override
     public void run() {
         setOperationMode("Search Gyro");
         //サーチ初期位置に動く
-        turnGyro.setSpeed(100);
-        turnGyro.setAngle(angle / 2);
-        turnGyro.run();
+        turnWithGyro.setSpeed(100);
+        turnWithGyro.setAngle(angle / 2);
+        turnWithGyro.run();
 
         // 初期化
         float gyroInit = gyroSensor.getValue();
@@ -60,8 +60,8 @@ public class SearchGyro extends AbstractMotor {
         motorLeft.stop(true);
         motorRight.stop(true);
 
-        turnGyro.setAngle(angle * 0.86 + gyroValue);
-        turnGyro.run();
+        turnWithGyro.setAngle(angle * 0.86 + gyroValue);
+        turnWithGyro.run();
 
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);
