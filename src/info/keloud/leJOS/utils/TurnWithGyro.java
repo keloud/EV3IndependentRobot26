@@ -1,12 +1,12 @@
 package info.keloud.leJOS.utils;
 
+import info.keloud.leJOS.motor.AbstractMotor;
 import info.keloud.leJOS.sensor.GyroSensor;
 import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
-import lejos.robotics.RegulatedMotor;
 
-public class TurnWithGyro extends AbstractMotor {
-    public TurnWithGyro(RegulatedMotor motorLeft, RegulatedMotor motorRight, GyroSensor gyroSensor) {
+public class TurnWithGyro extends AbstractUtil {
+    public TurnWithGyro(AbstractMotor motorLeft, AbstractMotor motorRight, GyroSensor gyroSensor) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.gyroSensor = gyroSensor;

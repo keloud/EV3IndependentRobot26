@@ -1,16 +1,16 @@
 package info.keloud.leJOS.utils;
 
+import info.keloud.leJOS.motor.AbstractMotor;
 import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
-import lejos.robotics.RegulatedMotor;
 
 import java.util.Objects;
 
-public class Arm extends AbstractMotor {
+public class Arm extends AbstractUtil {
     // Arm open is true
     private boolean state = false;
 
-    public Arm(RegulatedMotor motorCenter) {
+    public Arm(AbstractMotor motorCenter) {
         this.motorCenter = motorCenter;
         setAngle(290);
         setSpeed(800);

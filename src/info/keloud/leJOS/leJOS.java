@@ -1,6 +1,9 @@
 package info.keloud.leJOS;
 
 import info.keloud.leJOS.manager.Scheduler;
+import info.keloud.leJOS.motor.CenterMotor;
+import info.keloud.leJOS.motor.LeftMotor;
+import info.keloud.leJOS.motor.RightMotor;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
@@ -8,7 +11,6 @@ import info.keloud.leJOS.utils.*;
 import info.keloud.leJOS.utils.advanced.GrabBottle2;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
-import lejos.robotics.RegulatedMotor;
 
 public class leJOS {
     // スレッド スケジューラー
@@ -43,31 +45,28 @@ public class leJOS {
         GyroSensor gyroSensor = new GyroSensor();
         // ディスプレイ案内の更新
         LCD.clear(5);
-        LCD.drawString("Init AbstractMotor", 1, 5);
+        LCD.drawString("Init AbstractUtil", 1, 5);
         LCD.refresh();
         // モーターの初期化
-        RegulatedMotor motorCenter = lejos.hardware.motor.Motor.A;
-        motorCenter.resetTachoCount();
-        RegulatedMotor motorLeft = lejos.hardware.motor.Motor.B;
-        motorLeft.resetTachoCount();
-        RegulatedMotor motorRight = lejos.hardware.motor.Motor.C;
-        motorRight.resetTachoCount();
+        CenterMotor centerMotor = new CenterMotor();
+        LeftMotor leftMotor = new LeftMotor();
+        RightMotor rightMotor = new RightMotor();
         // ディスプレイ案内の更新
         LCD.clear(5);
         LCD.drawString("Init Thread", 1, 5);
         LCD.refresh();
         // スレッドオブジェクトの作成
-        scheduler = new Scheduler(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, gyroSensor);
+        scheduler = new Scheduler(centerMotor, leftMotor, rightMotor, ultrasonicSensor, colorSensor, gyroSensor);
         setOperationMode("Initializing");
         scheduler.start();
         // モーター操作の設定
-        arm = new Arm(motorCenter);
-        forward = new Forward(motorLeft, motorRight);
-        forwardWithColor = new ForwardWithColor(motorLeft, motorRight, colorSensor);
-        backward = new Backward(motorLeft, motorRight);
-        backwardWithColor = new BackwardWithColor(motorLeft, motorRight, colorSensor);
-        turn = new Turn(motorLeft, motorRight);
-        grabBottle = new GrabBottle2(motorLeft, motorRight, motorCenter, ultrasonicSensor, colorSensor, arm);
+        arm = new Arm(centerMotor);
+        forward = new Forward(leftMotor, rightMotor);
+        forwardWithColor = new ForwardWithColor(leftMotor, rightMotor, colorSensor);
+        backward = new Backward(leftMotor, rightMotor);
+        backwardWithColor = new BackwardWithColor(leftMotor, rightMotor, colorSensor);
+        turn = new Turn(leftMotor, rightMotor);
+        grabBottle = new GrabBottle2(centerMotor, leftMotor, rightMotor, ultrasonicSensor, colorSensor, arm);
         // ディスプレイ案内の更新
         LCD.clear(5);
         LCD.drawString("End of initialization processing", 1, 5);

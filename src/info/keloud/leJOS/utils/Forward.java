@@ -1,11 +1,11 @@
 package info.keloud.leJOS.utils;
 
+import info.keloud.leJOS.motor.AbstractMotor;
 import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
-import lejos.robotics.RegulatedMotor;
 
-public class Forward extends AbstractMotor {
-    public Forward(RegulatedMotor motorLeft, RegulatedMotor motorRight) {
+public class Forward extends AbstractUtil {
+    public Forward(AbstractMotor motorLeft, AbstractMotor motorRight) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
     }

@@ -1,6 +1,6 @@
 package info.keloud.leJOS.utils;
 
-interface ImplementMotor {
+interface ImplementUtil {
     void run();
 
     void setSpeed(int speed);

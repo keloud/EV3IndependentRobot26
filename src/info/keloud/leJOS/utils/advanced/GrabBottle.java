@@ -1,20 +1,20 @@
 package info.keloud.leJOS.utils.advanced;
 
+import info.keloud.leJOS.motor.AbstractMotor;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
-import info.keloud.leJOS.utils.AbstractMotor;
+import info.keloud.leJOS.utils.AbstractUtil;
 import info.keloud.leJOS.utils.Arm;
 import info.keloud.leJOS.utils.Forward;
 import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
-import lejos.robotics.RegulatedMotor;
 
-public class GrabBottle extends AbstractMotor {
+public class GrabBottle extends AbstractUtil {
     private Arm arm;
     private Forward forward;
     private float ultrasonicValue;
 
-    public GrabBottle(RegulatedMotor motorLeft, RegulatedMotor motorRight, RegulatedMotor motorCenter, UltrasonicSensor ultrasonicSensor, ColorSensor colorSensor, Arm arm, Forward forward) {
+    public GrabBottle(AbstractMotor motorCenter, AbstractMotor motorLeft, AbstractMotor motorRight, UltrasonicSensor ultrasonicSensor, ColorSensor colorSensor, Arm arm, Forward forward) {
         this.motorLeft = motorLeft;
         this.motorRight = motorRight;
         this.motorCenter = motorCenter;

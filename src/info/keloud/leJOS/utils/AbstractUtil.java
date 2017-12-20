@@ -1,18 +1,18 @@
 package info.keloud.leJOS.utils;
 
 import info.keloud.leJOS.leJOS;
+import info.keloud.leJOS.motor.AbstractMotor;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
-import lejos.robotics.RegulatedMotor;
 
-public abstract class AbstractMotor implements ImplementMachine, ImplementMotor {
+public abstract class AbstractUtil implements ImplementMachine, ImplementUtil {
     // the left running motor
-    protected RegulatedMotor motorLeft;
+    protected AbstractMotor motorLeft;
     // the right running motor
-    protected RegulatedMotor motorRight;
+    protected AbstractMotor motorRight;
     // the right running motor
-    protected RegulatedMotor motorCenter;
+    protected AbstractMotor motorCenter;
     // the color sensor
     protected ColorSensor colorSensor;
     // the ultrasonic sensor
@@ -28,7 +28,7 @@ public abstract class AbstractMotor implements ImplementMachine, ImplementMotor 
     // Color
     protected int colorId;
     // Operation mode
-    protected String operationMode = "Init AbstractMotor";
+    protected String operationMode = "Init AbstractUtil";
 
     @Override
     public void run() {
@@ -66,7 +66,7 @@ public abstract class AbstractMotor implements ImplementMachine, ImplementMotor 
                 //
                 break;
             case "YELLOW":
-                setColorId(2);
+                setColorId(3);
                 break;
             case "RED":
                 setColorId(0);

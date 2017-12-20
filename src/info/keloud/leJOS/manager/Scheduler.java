@@ -1,22 +1,22 @@
 package info.keloud.leJOS.manager;
 
+import info.keloud.leJOS.motor.AbstractMotor;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
 import lejos.hardware.lcd.LCD;
-import lejos.robotics.RegulatedMotor;
 
 public class Scheduler extends Thread {
     private String operationMode = "non Operation";
     // private Monitoring monitoring;
     private DisplayUpdater displayUpdater;
     private boolean mode;
+    // the right running motor
+    private AbstractMotor centerMotor;
     // the left running motor
-    private RegulatedMotor motorLeft;
+    private AbstractMotor leftMotor;
     // the right running motor
-    private RegulatedMotor motorRight;
-    // the right running motor
-    private RegulatedMotor motorCenter;
+    private AbstractMotor rightMotor;
     // the color sensor
     private ColorSensor colorSensor;
     // the ultrasonic sensor
@@ -24,10 +24,10 @@ public class Scheduler extends Thread {
     // the gyro sensor
     private GyroSensor gyroSensor;
 
-    public Scheduler(RegulatedMotor motorLeft, RegulatedMotor motorRight, RegulatedMotor motorCenter, UltrasonicSensor ultrasonicSensor, ColorSensor colorSensor, GyroSensor gyroSensor) {
-        this.motorLeft = motorLeft;
-        this.motorRight = motorRight;
-        this.motorCenter = motorCenter;
+    public Scheduler(AbstractMotor centerMotor, AbstractMotor leftMotor, AbstractMotor rightMotor, UltrasonicSensor ultrasonicSensor, ColorSensor colorSensor, GyroSensor gyroSensor) {
+        this.leftMotor = leftMotor;
+        this.rightMotor = rightMotor;
+        this.centerMotor = centerMotor;
         this.ultrasonicSensor = ultrasonicSensor;
         this.colorSensor = colorSensor;
         this.gyroSensor = gyroSensor;
@@ -39,9 +39,9 @@ public class Scheduler extends Thread {
     public void run() {
         int timer = 0;
         while (mode) {
-            int accumulationMotorLeft = motorLeft.getTachoCount();
-            int accumulationMotorRight = motorRight.getTachoCount();
-            int accumulationMotorCenter = motorCenter.getTachoCount();
+            int accumulationMotorLeft = leftMotor.getTachoCount();
+            int accumulationMotorRight = rightMotor.getTachoCount();
+            int accumulationMotorCenter = centerMotor.getTachoCount();
             float colorIdValue = colorSensor.getValue();
             float ultrasonicValue = ultrasonicSensor.getValue();
             float gyroValue = gyroSensor.getValue();
