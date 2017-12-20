@@ -116,7 +116,7 @@ public class leJOS {
         LCD.drawString("EV3 running", 1, 5);
         LCD.refresh();
         //アームを開ける
-        arm.run("Open");
+        arm.run(true);
         //ボトルを取得する
         grabBottle.run(60, false);
         //速度(100)角度(-90度°)で回転
@@ -126,7 +126,7 @@ public class leJOS {
         //速度(300)走行距離(10cm)で後進
         backward.run(300, 10);
         //アームを開ける
-        arm.run("OPEN");
+        arm.run(true);
         //速度(300)走行距離(10cm)で後進
         backward.run(300, 10);
         // 2個目
@@ -141,7 +141,7 @@ public class leJOS {
         //速度(300)走行距離(10cm)で後進
         backward.run(300, 10);
         //アームを開ける
-        arm.run("OPEN");
+        arm.run(true);
         //速度(300)走行距離(10cm)で後進
         backward.run(300, 10);
         // 3個目
@@ -158,7 +158,7 @@ public class leJOS {
         //速度(300)走行距離(10cm)で後進
         backward.run(300, 10);
         //アームを開ける
-        arm.run("OPEN");
+        arm.run(true);
         //速度(300)走行距離(10cm)で後進
         backward.run(300, 10);
         // 4個目
@@ -178,13 +178,13 @@ public class leJOS {
         //速度(300)走行距離(10cm)で後進
         backward.run();
         */
+        // 帰り
         //速度(100)角度(-90°)で回転
         turn.run(100, -90);
         //速度(600)カラー(黒)で後進
         backwardColor.run(600, "BLACK");
         //速度(100)角度(180°)で回転
         turn.run(100, 180);
-        // 帰り
         /*
         //速度(100)角度(20°)で回転
         turn.setAngle(20);
@@ -220,10 +220,13 @@ public class leJOS {
         LCD.drawString("EV3 running", 1, 5);
         LCD.refresh();
         //アームを開ける
-        arm.run("Open");
+        arm.run(true);
+        arm.run(false);
+        arm.run(true);
+        turn.run(100, 180);
+        turn.run(500, -180);
         //ボトルを取得する
-        grabBottle.setAngle(60);
-        grabBottle.run();
+        //grabBottle.run(60,false);
 
         // メニューに戻る
         menu();
@@ -233,7 +236,7 @@ public class leJOS {
         setOperationMode("Adjusting arm");
         //アームが開いている場合の内部データの修正
         arm.setState(true);
-        arm.run("Close");
+        arm.run(false);
     }
 
     public static void setOperationMode(String operationMode) {

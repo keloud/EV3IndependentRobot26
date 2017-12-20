@@ -37,7 +37,7 @@ public class Turn extends AbstractMotor {
         setOperationMode("Turn Left");
         int initTachoCount = motorRight.getTachoCount();
         int speedNow;
-        int speedMin = 100;
+        int speedMin = 60;
         int degreeTachoCount = 0;
         motorLeft.setSpeed(speedMin);
         motorRight.setSpeed(speedMin);
@@ -46,7 +46,7 @@ public class Turn extends AbstractMotor {
         int cum = (int) ((((angle * width * Math.PI) / 360) / diameter / Math.PI) * 360);
 
         //速度から必要な距離を求める(可変距離)
-        double distanceVariable = speed * 0.28F;
+        double distanceVariable = speed * 0.18F;
 
         // 移動開始
         motorLeft.backward();

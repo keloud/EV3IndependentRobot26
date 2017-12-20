@@ -103,7 +103,7 @@ public class GrabBottle2 extends AbstractMotor {
         // 初期化
         setOperationMode("Forward");
         initTachoCount = motorLeft.getTachoCount();
-        speedMin = 100;
+        speedMin = 60;
         degreeTachoCount = 0;
         motorLeft.setSpeed(speedMin);
         motorRight.setSpeed(speedMin);
@@ -112,7 +112,7 @@ public class GrabBottle2 extends AbstractMotor {
         int cum = (int) ((distance / diameter / Math.PI) * 360);
 
         //速度から必要な距離を求める(可変距離)
-        distanceVariable = speed * 0.24F;
+        distanceVariable = speed * 0.34F;
 
         // 移動開始
         motorLeft.forward();

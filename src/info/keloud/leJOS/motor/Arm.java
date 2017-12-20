@@ -12,7 +12,7 @@ public class Arm extends AbstractMotor {
 
     public Arm(RegulatedMotor motorCenter) {
         this.motorCenter = motorCenter;
-        setAngle(270);
+        setAngle(290);
         setSpeed(800);
         motorCenter.setSpeed(speed);
     }
@@ -37,12 +37,25 @@ public class Arm extends AbstractMotor {
     }
 
     public void run(String setState) {
-        if (Objects.equals(setState, "Close")) {
+        if (Objects.equals(setState, "CLOSE")) {
             if (state) {
                 armClose();
             }
         }
-        if (Objects.equals(setState, "Open")) {
+        if (Objects.equals(setState, "OPEN")) {
+            if (!state) {
+                armOpen();
+            }
+        }
+    }
+
+    public void run(boolean setState) {
+        if (!setState) {
+            if (state) {
+                armClose();
+            }
+        }
+        if (setState) {
             if (!state) {
                 armOpen();
             }
