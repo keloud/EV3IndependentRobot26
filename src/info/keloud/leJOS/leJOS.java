@@ -228,10 +228,7 @@ public class leJOS {
         LCD.refresh();
 
         //回転テスト
-        turn.run(500, 90);
-
-        // メニューに戻る
-        menu();
+        turn.run(500, -90);
     }
 
     private static void correctArm() {
