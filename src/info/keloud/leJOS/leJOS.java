@@ -197,17 +197,6 @@ public class leJOS {
         forward.run(400, 20);
         //ボトルを取得する
         grabBottle.run(60, false);
-        /*
-        //速度(600)カラー(赤)で後進
-        backwardWithColor.run();
-        //速度(300)走行距離(10cm)で後進
-        backward.run();
-        //アームを開ける
-        arm.run();
-        //速度(300)走行距離(10cm)で後進
-        backward.run();
-        */
-        // 帰り
         //速度(100)角度(-90°)で回転
         turn.run(120, -90);
         //速度(600)カラー(黒)で後進
@@ -218,28 +207,6 @@ public class leJOS {
         arm.run("OPEN");
         //速度(100)距離(15cm)で後進
         backward.run(100, 15);
-        /*
-        //速度(100)角度(20°)で回転
-        turn.setAngle(20);
-        turn.run();
-        //スピード(700)走行距離(100cm)で前進
-        forward.setSpeed(700);
-        forward.setDistance(100);
-        forward.run();
-        //速度(200)カラー(黒)で前進
-        forwardWithColor.setSpeed(200);
-        forwardWithColor.setColorId(7);
-        forwardWithColor.run();
-        //速度(100)角度(60°)で回転
-        turn.setAngle(80);
-        turn.run();
-        //速度(200)カラー(黄)で前進
-        forwardWithColor.setSpeed(200);
-        forwardWithColor.setColorId(3);
-        forwardWithColor.run();
-        //アームを閉じる
-        arm.run();
-        */
     }
 
     private static void runTest() {
