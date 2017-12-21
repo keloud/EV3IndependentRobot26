@@ -4,14 +4,14 @@ import info.keloud.leJOS.motor.AbstractMotor;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
 import info.keloud.leJOS.utils.AbstractUtil;
-import info.keloud.leJOS.utils.TurnWithGyro;
+import info.keloud.leJOS.utils.TurnWithGyro2;
 import lejos.hardware.lcd.LCD;
 
 // Process to search by spinning on the spot
 public class SearchGyro extends AbstractUtil {
-    private TurnWithGyro turnWithGyro;
+    private TurnWithGyro2 turnWithGyro;
 
-    public SearchGyro(AbstractMotor leftMotor, AbstractMotor rightMotor, UltrasonicSensor ultrasonicSensor, GyroSensor gyroSensor, TurnWithGyro turnWithGyro) {
+    public SearchGyro(AbstractMotor leftMotor, AbstractMotor rightMotor, UltrasonicSensor ultrasonicSensor, GyroSensor gyroSensor, TurnWithGyro2 turnWithGyro) {
         this.leftMotor = leftMotor;
         this.rightMotor = rightMotor;
         this.ultrasonicSensor = ultrasonicSensor;
@@ -28,7 +28,7 @@ public class SearchGyro extends AbstractUtil {
     public void run() {
         setOperationMode("Search Gyro");
         //サーチ初期位置に動く
-        turnWithGyro.setSpeed(240);
+        turnWithGyro.setSpeed(100);
         turnWithGyro.setAngle(angle / 2);
         turnWithGyro.run();
 

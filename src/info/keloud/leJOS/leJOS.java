@@ -23,7 +23,7 @@ public class leJOS {
     private static ForwardWithSonar forwardWithSonar;
     private static Backward backward;
     private static BackwardWithColor backwardWithColor;
-    private static TurnWithGyro turn;
+    private static TurnWithGyro2 turn;
     private static GrabBottle3 grabBottle;
     private static SearchGyro searchGyro;
     // センサー
@@ -73,7 +73,7 @@ public class leJOS {
         forwardWithSonar = new ForwardWithSonar(leftMotor, rightMotor, ultrasonicSensor);
         backward = new Backward(leftMotor, rightMotor);
         backwardWithColor = new BackwardWithColor(leftMotor, rightMotor, colorSensor);
-        turn = new TurnWithGyro(leftMotor, rightMotor, gyroSensor);
+        turn = new TurnWithGyro2(leftMotor, rightMotor, gyroSensor);
         searchGyro = new SearchGyro(leftMotor, rightMotor, ultrasonicSensor, gyroSensor, turn);
         grabBottle = new GrabBottle3(centerMotor, leftMotor, rightMotor, ultrasonicSensor, colorSensor, arm, searchGyro);
         // ディスプレイ案内の更新
@@ -149,7 +149,7 @@ public class leJOS {
         //速度(600)カラー(赤)で後進
         backwardWithColor.run(700, 0);
         //速度(300)走行距離(10cm)で後進
-        backward.run(300, 10);
+        backward.run(300, 20);
         //アームを開ける
         arm.run(true);
         //速度(300)走行距離(10cm)で後進
@@ -160,7 +160,7 @@ public class leJOS {
         //速度(400)カラー(白)で前進
         forwardWithColor.run(700, 6);
         //速度(400)距離(10cm)で前進
-        forward.run(400, 10);
+        forward.run(400, 20);
         //ボトルを取得する
         grabBottle.run(60, false);
         //速度(600)カラー(赤)で後進
@@ -177,7 +177,7 @@ public class leJOS {
         //速度(400)カラー(白)で前進
         forwardWithColor.run(600, 6);
         //速度(400)走行距離(30cm)で前進
-        forward.run(600, 30);
+        forward.run(600, 40);
         //ボトルを取得する
         grabBottle.run(60, false);
         //速度(600)カラー(赤)で後進
@@ -194,7 +194,7 @@ public class leJOS {
         //速度(400)カラー(白)で前進
         forwardWithColor.run(600, 6);
         //速度(400)距離(10cm)で前進
-        forward.run(400, 10);
+        forward.run(400, 20);
         //ボトルを取得する
         grabBottle.run(60, false);
         /*
