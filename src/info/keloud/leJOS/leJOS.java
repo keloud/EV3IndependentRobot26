@@ -61,7 +61,6 @@ public class leJOS {
         // スレッドオブジェクトの作成
         scheduler = new Scheduler(centerMotor, leftMotor, rightMotor, ultrasonicSensor, colorSensor, gyroSensor);
         setOperationMode("Initializing");
-        scheduler.start();
         // ユーティリティ
         arm = new Arm(centerMotor);
         forward = new Forward(leftMotor, rightMotor);
@@ -107,6 +106,10 @@ public class leJOS {
         }
     }
 
+    public static void stop() {
+        System.exit(0);
+    }
+
     private static void run() {
         // 開始確認
         setOperationMode("Waiting for operation");
@@ -114,6 +117,7 @@ public class leJOS {
         LCD.drawString("Press Enter to Start", 1, 5);
         LCD.refresh();
         Button.ENTER.waitForPress();
+        scheduler.start();
         LCD.clear(5);
         LCD.drawString("EV3 running", 1, 5);
         LCD.refresh();
@@ -218,6 +222,7 @@ public class leJOS {
         LCD.drawString("Press Enter to Start", 1, 5);
         LCD.refresh();
         Button.ENTER.waitForPress();
+        scheduler.start();
         LCD.clear(5);
         LCD.drawString("EV3 running", 1, 5);
         LCD.refresh();

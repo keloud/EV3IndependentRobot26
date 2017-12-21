@@ -31,6 +31,9 @@ public class GrabBottle2 extends AbstractUtil {
     public void run() {
         setOperationMode("Grab Bottle");
 
+        //最初に探索を行う
+        search();
+
         //速度(800)で手前距離(7cm)で止まる
         setSpeed(800);
         setDistance(7);
@@ -66,12 +69,10 @@ public class GrabBottle2 extends AbstractUtil {
                     // 一時停止
                     leftMotor.stop(true);
                     rightMotor.stop(true);
-                    float tempAngle = angle;
-                    float tempSpeed = speed;
+                    float tempTachoCount = leftMotor.getTachoCount();
                     search();
                     //再始動
-                    setAngle(tempAngle);
-                    setSpeed(tempSpeed);
+                    initTachoCount += leftMotor.getTachoCount() - tempTachoCount;
                     leftMotor.forward();
                     rightMotor.forward();
                 }
@@ -181,6 +182,7 @@ public class GrabBottle2 extends AbstractUtil {
         Sound.beep();
 
         float tempAngle = angle;
+        float tempSpeed = speed;
 
         // 速度(500)角度(angle/2)で回転
         setSpeed(500);
@@ -231,7 +233,7 @@ public class GrabBottle2 extends AbstractUtil {
         leftMotor.stop(true);
         rightMotor.stop(true);
 
-        //速度(100)角度(angle)で探索しつつ回転
+        //速度(60)角度(angle)で探索しつつ回転
         setSpeed(100);
         setAngle(tempAngle);
         // 初期化
@@ -240,11 +242,11 @@ public class GrabBottle2 extends AbstractUtil {
         float exploreUltrasonicValue = ultrasonicSensor.getValue();
         float nowUltrasonicValue;
         int exploreTachoCount = 0;
-        leftMotor.setSpeed(40);
-        rightMotor.setSpeed(40);
+        leftMotor.setSpeed(speed);
+        rightMotor.setSpeed(speed);
 
         // 角度累計計算
-        cum = ((((angle * width * (float) Math.PI) / 360) / diameter / (float) Math.PI) * 360) - exploreTachoCount;
+        cum = ((((angle * width * (float) Math.PI) / 360) / diameter / (float) Math.PI) * 360);
 
         // 移動開始
         leftMotor.backward();
@@ -256,12 +258,12 @@ public class GrabBottle2 extends AbstractUtil {
                 //探索部
                 nowUltrasonicValue = ultrasonicSensor.getValue();
                 Thread.sleep(wait);
-                degreeCount = rightMotor.getTachoCount() - initTachoCount;
                 if (nowUltrasonicValue < exploreUltrasonicValue) {
                     exploreUltrasonicValue = nowUltrasonicValue;
                     exploreTachoCount = degreeCount;
                     Sound.beep();
                 }
+                degreeCount = rightMotor.getTachoCount() - initTachoCount;
             }
         } catch (InterruptedException ignored) {
             Sound.beep();
@@ -319,6 +321,9 @@ public class GrabBottle2 extends AbstractUtil {
         // 停止
         leftMotor.stop(true);
         rightMotor.stop(true);
+
+        setSpeed(tempSpeed);
+        setAngle(tempAngle);
     }
 
     private void outOfMap() {

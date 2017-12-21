@@ -1,5 +1,6 @@
 package info.keloud.leJOS.manager;
 
+import info.keloud.leJOS.leJOS;
 import info.keloud.leJOS.motor.AbstractMotor;
 import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;
@@ -50,6 +51,10 @@ public class Scheduler extends Thread {
             //monitoring.updateValue(operationMode, accumulationleftMotor, accumulationrightMotor, accumulationcenterMotor, colorIdValue, ultrasonicValue, gyroValue, timer);
             // 表示を更新する
             displayUpdater.updateValue(operationMode, accumulationleftMotor, accumulationrightMotor, accumulationcenterMotor, colorIdValue, ultrasonicValue, gyroValue, timer);
+            // 終了操作(1分で止まる)
+            if (timer >= 1450) {
+                leJOS.stop();
+            }
             // 例外処理
             try {
                 Thread.sleep(20);
