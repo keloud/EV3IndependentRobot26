@@ -60,8 +60,7 @@ public class SearchGyro extends AbstractUtil {
         leftMotor.stop(true);
         rightMotor.stop(true);
 
-        //turnWithGyro.setAngle(angle * 0.86 + gyroValue);
-        turnWithGyro.run();
+        //turnWithGyro.run(100, angle * 0.86 + gyroValue);
 
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);

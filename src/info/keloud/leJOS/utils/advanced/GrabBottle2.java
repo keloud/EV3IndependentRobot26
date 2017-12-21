@@ -37,6 +37,7 @@ public class GrabBottle2 extends AbstractUtil {
         int initTachoCount = leftMotor.getTachoCount();
         int speedMin = 100;
         int degreeTachoCount = 0;
+        int outOfMapInt = 0;
         leftMotor.setSpeed(speedMin);
         rightMotor.setSpeed(speedMin);
 
@@ -61,11 +62,36 @@ public class GrabBottle2 extends AbstractUtil {
                 if (distanceUltrasonic + distanceStop < ((ultrasonicSensor.getValue() * 100 / diameter / (float) Math.PI) * 360)) {
                     // 減速に必要な角度累計を代入する
                     distanceDeceleration = degreeTachoCount + distanceStop;
+                } else {
+                    // 一時停止
+                    leftMotor.stop(true);
+                    rightMotor.stop(true);
+                    float tempAngle = angle;
+                    float tempSpeed = speed;
+                    search();
+                    //再始動
+                    setAngle(tempAngle);
+                    setSpeed(tempSpeed);
+                    leftMotor.forward();
+                    rightMotor.forward();
                 }
                 // 停止する
                 if (((ultrasonicSensor.getValue() * 100 / diameter / (float) Math.PI) * 360) < distanceUltrasonic) {
                     break;
                 }
+
+                //コース外へ行くのを防ぐ(白と黄と赤以外の色を検知したらペットボトルを取りに行くのをやめる)
+                if (colorSensor.getValue() != 6 && colorSensor.getValue() != 3 && colorSensor.getValue() != 0) {
+                    if (outOfMapInt == 3) {
+                        outOfMap();
+                        break;
+                    } else {
+                        outOfMapInt++;
+                    }
+                } else {
+                    outOfMapInt = 0;
+                }
+
                 // 減速部
                 if (distanceDeceleration - distanceStop < degreeTachoCount) {
                     speedNow = ((speed - speedMin) * (distanceDeceleration - degreeTachoCount) / distanceStop + speedMin);
@@ -152,6 +178,148 @@ public class GrabBottle2 extends AbstractUtil {
 
     private void search() {
         setOperationMode("Grab Bottle Search");
+        Sound.beep();
+
+        float tempAngle = angle;
+
+        // 速度(500)角度(angle/2)で回転
+        setSpeed(500);
+        setAngle(tempAngle / 2);
+        // 初期化
+        int initTachoCount = leftMotor.getTachoCount();
+        int minimumSpeed = 300;
+        int degreeCount = 0;
+        leftMotor.setSpeed(minimumSpeed);
+        rightMotor.setSpeed(minimumSpeed);
+
+        // 角度累計計算
+        float cum = ((((angle / 2 * width * (float) Math.PI) / 360) / diameter / (float) Math.PI) * 360);
+
+        //速度から必要な距離を求める(可変距離)
+        float distanceVariable = speed * 0.28F;
+
+        // 移動開始
+        leftMotor.forward();
+        rightMotor.backward();
+
+        // 移動判定
+        try {
+            while (degreeCount <= cum) {
+                if (degreeCount > cum - distanceVariable) {
+                    //減速部
+                    speedNow = ((speed - minimumSpeed) * (cum - degreeCount) / distanceVariable + minimumSpeed);
+                } else if (degreeCount < distanceVariable) {
+                    //加速部
+                    speedNow = ((speed - minimumSpeed) * degreeCount / distanceVariable + minimumSpeed);
+                } else {
+                    //巡航部
+                    speedNow = speed;
+                }
+                leftMotor.setSpeed(speedNow);
+                rightMotor.setSpeed(speedNow);
+                Thread.sleep(wait);
+                degreeCount = leftMotor.getTachoCount() - initTachoCount;
+            }
+        } catch (InterruptedException ignored) {
+            Sound.beep();
+            LCD.clear(6);
+            LCD.drawString("Error", 1, 6);
+            LCD.refresh();
+        }
+
+        // 停止
+        leftMotor.stop(true);
+        rightMotor.stop(true);
+
+        //速度(100)角度(angle)で探索回転
+        setSpeed(100);
+        setAngle(tempAngle);
+        //サーチ処理(探索)
+        // 初期化
+        initTachoCount = rightMotor.getTachoCount();
+        degreeCount = 0;
+        float exploreUltrasonicValue = ultrasonicSensor.getValue();
+        float nowUltrasonicValue;
+        int exploreTachoCount = 0;
+        leftMotor.setSpeed(40);
+        rightMotor.setSpeed(40);
+
+        // 角度累計計算
+        cum = ((((angle * width * (float) Math.PI) / 360) / diameter / (float) Math.PI) * 360);
+
+        // 移動開始
+        leftMotor.backward();
+        rightMotor.forward();
+
+        // 移動判定
+        try {
+            while (degreeCount <= cum) {
+                //探索部
+                nowUltrasonicValue = ultrasonicSensor.getValue();
+                Thread.sleep(wait);
+                degreeCount = rightMotor.getTachoCount() - initTachoCount;
+                if (nowUltrasonicValue < exploreUltrasonicValue) {
+                    exploreUltrasonicValue = nowUltrasonicValue;
+                    exploreTachoCount = degreeCount;
+                    Sound.beep();
+                }
+            }
+        } catch (InterruptedException ignored) {
+            Sound.beep();
+            LCD.clear(6);
+            LCD.drawString("Error", 1, 6);
+            LCD.refresh();
+        }
+
+        // 停止
+        leftMotor.stop(true);
+        rightMotor.stop(true);
+
+        // 速度(500)角度(angle)減算値(exploreTachoCount)で回転
+        setSpeed(500);
+        setAngle(tempAngle);
+        // 初期化
+        initTachoCount = leftMotor.getTachoCount();
+        degreeCount = 0;
+        int maximumSpeed = 100;
+        leftMotor.setSpeed(minimumSpeed);
+        rightMotor.setSpeed(minimumSpeed);
+
+        // 角度累計計算
+        cum = ((((angle * width * (float) Math.PI) / 360) / diameter / (float) Math.PI) * 360) - exploreTachoCount;
+
+        // 移動開始
+        leftMotor.forward();
+        rightMotor.backward();
+
+        // 移動判定
+        try {
+            while (degreeCount <= cum) {
+                if (degreeCount > cum - distanceVariable) {
+                    //減速部
+                    speedNow = ((float) (maximumSpeed - minimumSpeed) * (cum - degreeCount) / distanceVariable + minimumSpeed);
+                } else if (degreeCount < distanceVariable) {
+                    //加速部
+                    speedNow = ((float) (maximumSpeed - minimumSpeed) * degreeCount / distanceVariable + minimumSpeed);
+                } else {
+                    //巡航部
+                    speedNow = maximumSpeed;
+                }
+                leftMotor.setSpeed(speedNow);
+                rightMotor.setSpeed(speedNow);
+                Thread.sleep(wait);
+                degreeCount = leftMotor.getTachoCount() - initTachoCount;
+            }
+        } catch (InterruptedException ignored) {
+            Sound.beep();
+            LCD.clear(6);
+            LCD.drawString("Error", 1, 6);
+            LCD.refresh();
+        }
+
+        // 停止
+        leftMotor.stop(true);
+        rightMotor.stop(true);
     }
 
     private void outOfMap() {

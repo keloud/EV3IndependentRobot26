@@ -62,13 +62,13 @@ public abstract class AbstractUtil implements ImplementMachine, ImplementUtil {
                 setColorId(7);
                 break;
             case "BLUE":
-                setColorId(2);
+                setColorId(6);
                 break;
             case "GREEN":
                 //
                 break;
             case "YELLOW":
-                setColorId(3);
+                //
                 break;
             case "RED":
                 setColorId(0);

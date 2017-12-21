@@ -124,7 +124,7 @@ public class leJOS {
         //速度(100)角度(-90度°)で回転
         turn.run(300, -90);
         //速度(600)カラー(赤)で後進
-        backwardWithColor.run(600, "RED");
+        backwardWithColor.run(600, 0);
         //速度(300)走行距離(10cm)で後進
         backward.run(300, 10);
         //アームを開ける
@@ -135,11 +135,11 @@ public class leJOS {
         //速度(100)角度(90°)で回転
         turn.run(100, 90);
         //速度(400)カラー(白)で前進
-        forwardWithColor.run(800, "WHITE");
+        forwardWithColor.run(800, 6);
         //ボトルを取得する
         grabBottle.run(60, false);
         //速度(600)カラー(赤)で後進
-        backwardWithColor.run(600, "RED");
+        backwardWithColor.run(600, 0);
         //速度(300)走行距離(10cm)で後進
         backward.run(300, 10);
         //アームを開ける
@@ -150,13 +150,13 @@ public class leJOS {
         //速度(100)角度(90°)で回転
         turn.run(100, 90);
         //速度(400)カラー(白)で前進
-        forwardWithColor.run(400, "WHITE");
+        forwardWithColor.run(400, 6);
         //速度(400)走行距離(235m)で前進
         forward.run(400, 25);
         //ボトルを取得する
         grabBottle.run(60, false);
         //速度(600)カラー(赤)で後進
-        backwardWithColor.run(600, "RED");
+        backwardWithColor.run(600, 0);
         //速度(300)走行距離(10cm)で後進
         backward.run(300, 10);
         //アームを開ける
@@ -167,7 +167,7 @@ public class leJOS {
         //速度(100)角度(90°)で回転
         turn.run(100, 90);
         //速度(400)カラー(白)で前進
-        forwardWithColor.run(400, "WHITE");
+        forwardWithColor.run(400, 6);
         //ボトルを取得する
         grabBottle.run(60, false);
         /*
@@ -184,7 +184,7 @@ public class leJOS {
         //速度(100)角度(-90°)で回転
         turn.run(100, -90);
         //速度(600)カラー(黒)で後進
-        backwardWithColor.run(600, "BLACK");
+        backwardWithColor.run(600, 7);
         //速度(100)角度(180°)で回転
         turn.run(100, 180);
         /*
@@ -222,7 +222,8 @@ public class leJOS {
         LCD.drawString("EV3 running", 1, 5);
         LCD.refresh();
         //アームを開ける
-        turn.run(MaxSpeed, 720);
+        turn.run(500, 90);
+        turn.run(500, -90);
         //ボトルを取得する
         //grabBottle.run(60,false);
 

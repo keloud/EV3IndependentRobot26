@@ -23,10 +23,17 @@ public class Turn extends AbstractUtil {
         int initTachoCount = rightMotor.getTachoCount();
         int speedMin = 100;
         int degreeTachoCount = 0;
+        boolean turnBoolean = false;
         leftMotor.setSpeed(speedMin);
         rightMotor.setSpeed(speedMin);
 
         // 角度累計計算
+        if (angle < 0) {
+            setAngle(-angle);
+            turnBoolean = true;
+            initTachoCount = leftMotor.getTachoCount();
+        }
+
         float cum = ((((angle * width * (float) Math.PI) / 360) / diameter / (float) Math.PI) * 360);
 
         //速度から必要な距離を求める(可変距離)
@@ -41,7 +48,7 @@ public class Turn extends AbstractUtil {
         Left turn is +.
         Right turn is -.
         */
-        if (0 < angle) {
+        if (!turnBoolean) {
             setOperationMode("Turn Left");
             // 移動開始
             leftMotor.backward();
@@ -70,7 +77,7 @@ public class Turn extends AbstractUtil {
                 LCD.drawString("Error", 1, 6);
                 LCD.refresh();
             }
-        } else if (angle < 0) {
+        } else {
             setOperationMode("Turn Right");
             // 移動開始
             leftMotor.forward();
