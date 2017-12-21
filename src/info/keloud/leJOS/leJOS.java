@@ -19,12 +19,15 @@ public class leJOS {
     private static Arm arm;
     private static Forward forward;
     private static ForwardWithColor forwardWithColor;
+    private static ForwardWithSonar forwardWithSonar;
     private static Backward backward;
     private static BackwardWithColor backwardWithColor;
-    private static Turn turn;
+    private static TurnWithGyro turn;
     private static GrabBottle2 grabBottle;
+    // センサー
+    private static GyroSensor gyroSensor;
     // 最大速度
-    private static float MaxSpeed;
+    private static float maxSpeed;
 
     public static void main(String[] args) {
         // ディスプレイ案内開始
@@ -44,7 +47,7 @@ public class leJOS {
         LCD.drawString("Init GyroSensor", 1, 5);
         LCD.refresh();
         // ジャイロセンサーの初期化
-        GyroSensor gyroSensor = new GyroSensor();
+        gyroSensor = new GyroSensor();
         // ディスプレイ案内の更新
         LCD.clear(5);
         LCD.drawString("Init Motor", 1, 5);
@@ -53,7 +56,7 @@ public class leJOS {
         CenterMotor centerMotor = new CenterMotor();
         LeftMotor leftMotor = new LeftMotor();
         RightMotor rightMotor = new RightMotor();
-        MaxSpeed = leftMotor.getMaxSpeed();
+        maxSpeed = leftMotor.getMaxSpeed();
         // ディスプレイ案内の更新
         LCD.clear(5);
         LCD.drawString("Init Thread", 1, 5);
@@ -65,9 +68,10 @@ public class leJOS {
         arm = new Arm(centerMotor);
         forward = new Forward(leftMotor, rightMotor);
         forwardWithColor = new ForwardWithColor(leftMotor, rightMotor, colorSensor);
+        forwardWithSonar = new ForwardWithSonar(leftMotor, rightMotor, ultrasonicSensor);
         backward = new Backward(leftMotor, rightMotor);
         backwardWithColor = new BackwardWithColor(leftMotor, rightMotor, colorSensor);
-        turn = new Turn(leftMotor, rightMotor);
+        turn = new TurnWithGyro(leftMotor, rightMotor, gyroSensor);
         grabBottle = new GrabBottle2(centerMotor, leftMotor, rightMotor, ultrasonicSensor, colorSensor, arm);
         // ディスプレイ案内の更新
         LCD.clear(5);
@@ -93,9 +97,14 @@ public class leJOS {
         switch (Button.waitForAnyPress()) {
             case Button.ID_LEFT:
                 runTest();
+                menu();
                 break;
             case Button.ID_RIGHT:
                 correctArm();
+                menu();
+                break;
+            case Button.ID_DOWN:
+                initGyro();
                 menu();
                 break;
             case Button.ID_ENTER:
@@ -111,6 +120,7 @@ public class leJOS {
     }
 
     private static void run() {
+        initGyro();
         // 開始確認
         setOperationMode("Waiting for operation");
         LCD.clear(5);
@@ -123,12 +133,18 @@ public class leJOS {
         LCD.refresh();
         //アームを開ける
         arm.run(true);
+        //速度(800)で手前距離(7cm)で前進
+        forwardWithSonar.run(800, 7);
+        //速度(100)で走行距離(10cm)で前進
+        forward.run(100, 8);
+        //アームを閉じる
+        arm.run("CLOSE");
         //ボトルを取得する
-        grabBottle.run(60, false);
+        //grabBottle.run(60, false);
         //速度(100)角度(-90度°)で回転
-        turn.run(500, -90);
+        turn.run(120, -90);
         //速度(600)カラー(赤)で後進
-        backwardWithColor.run(MaxSpeed, 0);
+        backwardWithColor.run(700, 0);
         //速度(300)走行距離(10cm)で後進
         backward.run(300, 10);
         //アームを開ける
@@ -137,13 +153,13 @@ public class leJOS {
         backward.run(300, 10);
         // 2個目
         //速度(100)角度(90°)で回転
-        turn.run(500, 90);
+        turn.run(120, 90);
         //速度(400)カラー(白)で前進
-        forwardWithColor.run(MaxSpeed, 6);
+        forwardWithColor.run(700, 6);
         //ボトルを取得する
         grabBottle.run(60, false);
         //速度(600)カラー(赤)で後進
-        backwardWithColor.run(MaxSpeed, 0);
+        backwardWithColor.run(700, 0);
         //速度(300)走行距離(10cm)で後進
         backward.run(300, 10);
         //アームを開ける
@@ -152,7 +168,7 @@ public class leJOS {
         backward.run(300, 10);
         // 3個目
         //速度(100)角度(90°)で回転
-        turn.run(500, 90);
+        turn.run(120, 90);
         //速度(400)カラー(白)で前進
         forwardWithColor.run(600, 6);
         //速度(400)走行距離(25m)で前進
@@ -160,7 +176,7 @@ public class leJOS {
         //ボトルを取得する
         grabBottle.run(60, false);
         //速度(600)カラー(赤)で後進
-        backwardWithColor.run(MaxSpeed, 0);
+        backwardWithColor.run(700, 0);
         //速度(300)走行距離(10cm)で後進
         backward.run(300, 10);
         //アームを開ける
@@ -169,7 +185,7 @@ public class leJOS {
         backward.run(300, 10);
         // 4個目
         //速度(100)角度(90°)で回転
-        turn.run(500, 90);
+        turn.run(120, 90);
         //速度(400)カラー(白)で前進
         forwardWithColor.run(600, 6);
         //ボトルを取得する
@@ -186,17 +202,21 @@ public class leJOS {
         */
         // 帰り
         //速度(100)角度(-90°)で回転
-        turn.run(500, -90);
+        turn.run(120, -90);
         //速度(600)カラー(黒)で後進
-        backwardWithColor.run(MaxSpeed, 7);
+        backwardWithColor.run(700, 7);
         //速度(100)角度(180°)で回転
-        turn.run(500, 180);
+        turn.run(120, 180);
+        //アームを開く
+        arm.run("OPEN");
+        //速度(100)距離(15cm)で後進
+        backward.run(100, 15);
         /*
         //速度(100)角度(20°)で回転
         turn.setAngle(20);
         turn.run();
-        //スピード(MaxSpeed)走行距離(100cm)で前進
-        forward.setSpeed(MaxSpeed);
+        //スピード(700)走行距離(100cm)で前進
+        forward.setSpeed(700);
         forward.setDistance(100);
         forward.run();
         //速度(200)カラー(黒)で前進
@@ -216,6 +236,7 @@ public class leJOS {
     }
 
     private static void runTest() {
+        initGyro();
         // 開始確認
         setOperationMode("Waiting for operation");
         LCD.clear(5);
@@ -228,7 +249,10 @@ public class leJOS {
         LCD.refresh();
 
         //回転テスト
-        turn.run(500, -90);
+        Button.ENTER.waitForPress();
+        turn.run(800, -720);
+        Button.ENTER.waitForPress();
+        turn.run(800, 720);
     }
 
     private static void correctArm() {
@@ -240,5 +264,10 @@ public class leJOS {
 
     public static void setOperationMode(String operationMode) {
         scheduler.setOperationMode(operationMode);
+    }
+
+    private static void initGyro() {
+        setOperationMode("Initialize Gyro");
+        gyroSensor.initGyro();
     }
 }

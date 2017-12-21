@@ -65,27 +65,34 @@ public class GrabBottle2 extends AbstractUtil {
                 if (distanceUltrasonic + distanceStop < ((ultrasonicSensor.getValue() * 100 / diameter / (float) Math.PI) * 360)) {
                     // 減速に必要な角度累計を代入する
                     distanceDeceleration = degreeTachoCount + distanceStop;
-                } else {
+
+                    Sound.buzz();
+
                     /*
                     // 一時停止
                     leftMotor.stop(true);
                     rightMotor.stop(true);
                     float tempTachoCount = leftMotor.getTachoCount();
-                    search();
+                    //サーチ処理
+                    //search();
                     //再始動
                     initTachoCount += leftMotor.getTachoCount() - tempTachoCount;
                     leftMotor.forward();
                     rightMotor.forward();
                     */
+                } else {
+                    Sound.beep();
                 }
+
                 // 停止する
                 if (((ultrasonicSensor.getValue() * 100 / diameter / (float) Math.PI) * 360) < distanceUltrasonic) {
                     break;
                 }
 
+
                 //コース外へ行くのを防ぐ(白と黄と赤以外の色を検知したらペットボトルを取りに行くのをやめる)
                 if (colorSensor.getValue() != 6 && colorSensor.getValue() != 3 && colorSensor.getValue() != 0) {
-                    if (outOfMapInt == 3) {
+                    if (outOfMapInt == 5) {
                         outOfMap();
                         break;
                     } else {
@@ -125,9 +132,9 @@ public class GrabBottle2 extends AbstractUtil {
         //アームを開ける
         arm.run("OPEN");
 
-        //速度(100)で走行距離(10cm)で前進
+        //速度(100)で走行距離(8cm)で前進
         setSpeed(100);
-        setDistance(10);
+        setDistance(8);
         // 初期化
         setOperationMode("Forward");
         initTachoCount = leftMotor.getTachoCount();
@@ -186,7 +193,7 @@ public class GrabBottle2 extends AbstractUtil {
         float tempAngle = angle;
         float tempSpeed = speed;
 
-        // 速度(500)角度(angle/2)で回転
+        // 速度(500)角度(angle/2)で右回転
         setSpeed(500);
         setAngle(tempAngle / 2);
         // 初期化
@@ -235,7 +242,7 @@ public class GrabBottle2 extends AbstractUtil {
         leftMotor.stop(true);
         rightMotor.stop(true);
 
-        //速度(60)角度(angle)で探索しつつ回転
+        //速度(60)角度(angle)で探索しつつ左回転
         setSpeed(100);
         setAngle(tempAngle);
         // 初期化
@@ -278,7 +285,7 @@ public class GrabBottle2 extends AbstractUtil {
         leftMotor.stop(true);
         rightMotor.stop(true);
 
-        // 速度(500)角度(angle)減算値(exploreTachoCount)で回転
+        // 速度(500)角度(angle)減算値(exploreTachoCount)で右回転
         setSpeed(500);
         setAngle(tempAngle);
         // 初期化

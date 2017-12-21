@@ -16,4 +16,8 @@ public class GyroSensor {
         gyro.getAngleMode().fetchSample(gyroValue, 0);
         return gyroValue[0];
     }
+
+    public void initGyro() {
+        gyro.reset();
+    }
 }
