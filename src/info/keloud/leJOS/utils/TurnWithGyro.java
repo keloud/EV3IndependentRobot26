@@ -20,6 +20,7 @@ public class TurnWithGyro extends AbstractUtil {
 
     @Override
     public void run() {
+        setSpeed(240);
         /*
         Angle
         Left turn is +.

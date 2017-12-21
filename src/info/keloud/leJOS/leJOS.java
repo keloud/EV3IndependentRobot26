@@ -8,7 +8,8 @@ import info.keloud.leJOS.sensor.ColorSensor;
 import info.keloud.leJOS.sensor.GyroSensor;
 import info.keloud.leJOS.sensor.UltrasonicSensor;
 import info.keloud.leJOS.utils.*;
-import info.keloud.leJOS.utils.advanced.GrabBottle2;
+import info.keloud.leJOS.utils.advanced.GrabBottle3;
+import info.keloud.leJOS.utils.advanced.SearchGyro;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 
@@ -23,7 +24,8 @@ public class leJOS {
     private static Backward backward;
     private static BackwardWithColor backwardWithColor;
     private static TurnWithGyro turn;
-    private static GrabBottle2 grabBottle;
+    private static GrabBottle3 grabBottle;
+    private static SearchGyro searchGyro;
     // センサー
     private static GyroSensor gyroSensor;
     // 最大速度
@@ -72,7 +74,8 @@ public class leJOS {
         backward = new Backward(leftMotor, rightMotor);
         backwardWithColor = new BackwardWithColor(leftMotor, rightMotor, colorSensor);
         turn = new TurnWithGyro(leftMotor, rightMotor, gyroSensor);
-        grabBottle = new GrabBottle2(centerMotor, leftMotor, rightMotor, ultrasonicSensor, colorSensor, arm);
+        searchGyro = new SearchGyro(leftMotor, rightMotor, ultrasonicSensor, gyroSensor, turn);
+        grabBottle = new GrabBottle3(centerMotor, leftMotor, rightMotor, ultrasonicSensor, colorSensor, arm, searchGyro);
         // ディスプレイ案内の更新
         LCD.clear(5);
         LCD.drawString("End of initialization processing", 1, 5);
@@ -156,6 +159,8 @@ public class leJOS {
         turn.run(120, 90);
         //速度(400)カラー(白)で前進
         forwardWithColor.run(700, 6);
+        //速度(400)距離(10cm)で前進
+        forward.run(400, 10);
         //ボトルを取得する
         grabBottle.run(60, false);
         //速度(600)カラー(赤)で後進
@@ -171,8 +176,8 @@ public class leJOS {
         turn.run(120, 90);
         //速度(400)カラー(白)で前進
         forwardWithColor.run(600, 6);
-        //速度(400)走行距離(25m)で前進
-        forward.run(600, 25);
+        //速度(400)走行距離(30cm)で前進
+        forward.run(600, 30);
         //ボトルを取得する
         grabBottle.run(60, false);
         //速度(600)カラー(赤)で後進
@@ -188,6 +193,8 @@ public class leJOS {
         turn.run(120, 90);
         //速度(400)カラー(白)で前進
         forwardWithColor.run(600, 6);
+        //速度(400)距離(10cm)で前進
+        forward.run(400, 10);
         //ボトルを取得する
         grabBottle.run(60, false);
         /*

@@ -19,11 +19,16 @@ public class SearchGyro extends AbstractUtil {
         this.turnWithGyro = turnWithGyro;
     }
 
+    public void run(float angle) {
+        setAngle(angle);
+        run();
+    }
+
     @Override
     public void run() {
         setOperationMode("Search Gyro");
         //サーチ初期位置に動く
-        turnWithGyro.setSpeed(100);
+        turnWithGyro.setSpeed(240);
         turnWithGyro.setAngle(angle / 2);
         turnWithGyro.run();
 
@@ -60,7 +65,7 @@ public class SearchGyro extends AbstractUtil {
         leftMotor.stop(true);
         rightMotor.stop(true);
 
-        //turnWithGyro.run(100, angle * 0.86 + gyroValue);
+        turnWithGyro.run(100, (float) (angle * 0.86 + gyroValue));
 
         LCD.clear(6);
         LCD.drawString("Stopped", 1, 6);
