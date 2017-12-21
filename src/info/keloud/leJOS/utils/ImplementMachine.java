@@ -8,7 +8,7 @@ interface ImplementMachine {
     float diameter = 5.55F;
     // タイヤの中心からタイヤの中心までの距離
     // Width of wheel
-    float width = 10.5F;
+    float width = 7.5F;
     // Thread wait time
     int wait = 10;
 }

@@ -32,7 +32,7 @@ public class GrabBottle2 extends AbstractUtil {
         setOperationMode("Grab Bottle");
 
         //最初に探索を行う
-        search();
+        // search();
 
         //速度(800)で手前距離(7cm)で止まる
         setSpeed(800);
@@ -66,6 +66,7 @@ public class GrabBottle2 extends AbstractUtil {
                     // 減速に必要な角度累計を代入する
                     distanceDeceleration = degreeTachoCount + distanceStop;
                 } else {
+                    /*
                     // 一時停止
                     leftMotor.stop(true);
                     rightMotor.stop(true);
@@ -75,6 +76,7 @@ public class GrabBottle2 extends AbstractUtil {
                     initTachoCount += leftMotor.getTachoCount() - tempTachoCount;
                     leftMotor.forward();
                     rightMotor.forward();
+                    */
                 }
                 // 停止する
                 if (((ultrasonicSensor.getValue() * 100 / diameter / (float) Math.PI) * 360) < distanceUltrasonic) {
@@ -87,7 +89,7 @@ public class GrabBottle2 extends AbstractUtil {
                         outOfMap();
                         break;
                     } else {
-                        //outOfMapInt++;
+                        outOfMapInt++;
                     }
                 } else {
                     outOfMapInt = 0;
