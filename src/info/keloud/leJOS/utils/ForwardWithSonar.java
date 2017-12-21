@@ -12,7 +12,7 @@ public class ForwardWithSonar extends AbstractUtil {
         this.ultrasonicSensor = ultrasonicSensor;
     }
 
-    public void run(int speed, int distance) {
+    public void run(float speed, int distance) {
         setSpeed(speed);
         setDistance(distance);
         run();
@@ -23,7 +23,7 @@ public class ForwardWithSonar extends AbstractUtil {
         // 初期化
         setOperationMode("Forward Sonar");
         int initTachoCount = leftMotor.getTachoCount();
-        int speedMin = 100;
+        float speedMin = 100;
         int degreeTachoCount = 0;
         leftMotor.setSpeed(speedMin);
         rightMotor.setSpeed(speedMin);

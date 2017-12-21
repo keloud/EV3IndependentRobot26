@@ -135,7 +135,7 @@ public class leJOS {
         //速度(100)角度(90°)で回転
         turn.run(100, 90);
         //速度(400)カラー(白)で前進
-        forwardWithColor.run(800, 6);
+        forwardWithColor.run(MaxSpeed, 6);
         //ボトルを取得する
         grabBottle.run(60, false);
         //速度(600)カラー(赤)で後進
@@ -191,8 +191,8 @@ public class leJOS {
         //速度(100)角度(20°)で回転
         turn.setAngle(20);
         turn.run();
-        //スピード(800)走行距離(100cm)で前進
-        forward.setSpeed(800);
+        //スピード(MaxSpeed)走行距離(100cm)で前進
+        forward.setSpeed(MaxSpeed);
         forward.setDistance(100);
         forward.run();
         //速度(200)カラー(黒)で前進
@@ -221,11 +221,24 @@ public class leJOS {
         LCD.clear(5);
         LCD.drawString("EV3 running", 1, 5);
         LCD.refresh();
-        //アームを開ける
+        /*
+        //アームテスト
+        arm.run("OPEN");
+        arm.run("CLOSE");
+        //回転テスト
+        turn.run(100, 90);
         turn.run(500, 90);
-        turn.run(500, -90);
-        //ボトルを取得する
-        //grabBottle.run(60,false);
+        turn.run(100,-90);
+        turn.run(500,-90);
+        //前進後退テスト
+        forward.run(100,10);
+        backward.run(100,10);
+        forward.run(MaxSpeed,10);
+        backward.run(MaxSpeed,10);
+        */
+
+        //ボトルを取得するだけ
+        grabBottle.run(60, false);
 
         // メニューに戻る
         menu();

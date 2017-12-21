@@ -35,7 +35,7 @@ public class GrabBottle2 extends AbstractUtil {
         setSpeed(800);
         setDistance(7);
         int initTachoCount = leftMotor.getTachoCount();
-        int speedMin = 100;
+        float speedMin = 100;
         int degreeTachoCount = 0;
         int outOfMapInt = 0;
         leftMotor.setSpeed(speedMin);
@@ -86,7 +86,7 @@ public class GrabBottle2 extends AbstractUtil {
                         outOfMap();
                         break;
                     } else {
-                        outOfMapInt++;
+                        //outOfMapInt++;
                     }
                 } else {
                     outOfMapInt = 0;
@@ -231,10 +231,9 @@ public class GrabBottle2 extends AbstractUtil {
         leftMotor.stop(true);
         rightMotor.stop(true);
 
-        //速度(100)角度(angle)で探索回転
+        //速度(100)角度(angle)で探索しつつ回転
         setSpeed(100);
         setAngle(tempAngle);
-        //サーチ処理(探索)
         // 初期化
         initTachoCount = rightMotor.getTachoCount();
         degreeCount = 0;
@@ -245,7 +244,7 @@ public class GrabBottle2 extends AbstractUtil {
         rightMotor.setSpeed(40);
 
         // 角度累計計算
-        cum = ((((angle * width * (float) Math.PI) / 360) / diameter / (float) Math.PI) * 360);
+        cum = ((((angle * width * (float) Math.PI) / 360) / diameter / (float) Math.PI) * 360) - exploreTachoCount;
 
         // 移動開始
         leftMotor.backward();

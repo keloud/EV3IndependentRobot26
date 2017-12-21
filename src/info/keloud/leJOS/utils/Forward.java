@@ -10,7 +10,7 @@ public class Forward extends AbstractUtil {
         this.rightMotor = rightMotor;
     }
 
-    public void run(int speed, int distance) {
+    public void run(float speed, float distance) {
         setSpeed(speed);
         setDistance(distance);
         run();
@@ -21,7 +21,7 @@ public class Forward extends AbstractUtil {
         // 初期化
         setOperationMode("Forward");
         int initTachoCount = leftMotor.getTachoCount();
-        int speedMin = 100;
+        float speedMin = 100;
         int degreeTachoCount = 0;
         leftMotor.setSpeed(speedMin);
         rightMotor.setSpeed(speedMin);

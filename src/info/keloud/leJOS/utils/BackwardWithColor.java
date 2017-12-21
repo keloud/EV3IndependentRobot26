@@ -13,13 +13,13 @@ public class BackwardWithColor extends AbstractUtil {
 
     }
 
-    public void run(int speed, int colorId) {
+    public void run(float speed, int colorId) {
         setSpeed(speed);
         setColorId(colorId);
         run();
     }
 
-    public void run(int speed, String colorId) {
+    public void run(float speed, String colorId) {
         setSpeed(speed);
         setColorId(colorId);
     }
@@ -29,7 +29,7 @@ public class BackwardWithColor extends AbstractUtil {
         // 初期化
         setOperationMode("Backward Color");
         int initTachoCount = leftMotor.getTachoCount();
-        int speedMin = 100;
+        float speedMin = 100;
         int degreeTachoCount = 0;
         leftMotor.setSpeed(speedMin);
         rightMotor.setSpeed(speedMin);

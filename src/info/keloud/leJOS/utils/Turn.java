@@ -21,7 +21,7 @@ public class Turn extends AbstractUtil {
         // 初期化
         setOperationMode("Turn Initialize");
         int initTachoCount = rightMotor.getTachoCount();
-        int speedMin = 100;
+        float speedMin = 100;
         int degreeTachoCount = 0;
         boolean turnBoolean = false;
         leftMotor.setSpeed(speedMin);

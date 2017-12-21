@@ -17,7 +17,7 @@ public class Arm extends AbstractUtil {
         centerMotor.setSpeed(speed);
     }
 
-    public void run(int speed, int angle) {
+    public void run(float speed, int angle) {
         setSpeed(speed);
         setAngle(angle);
         run();
