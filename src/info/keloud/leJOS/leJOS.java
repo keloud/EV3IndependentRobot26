@@ -149,7 +149,7 @@ public class leJOS {
         //速度(600)カラー(赤)で後進
         backwardWithColor.run(700, 0);
         //速度(300)走行距離(10cm)で後進
-        backward.run(300, 20);
+        backward.run(300, 10);
         //アームを開ける
         arm.run(true);
         //速度(300)走行距離(10cm)で後進

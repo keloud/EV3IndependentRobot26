@@ -92,7 +92,7 @@ public class GrabBottle3 extends AbstractUtil {
 
                 //コース外へ行くのを防ぐ(白以外の色を検知したらペットボトルを取りに行くのをやめる)
                 if (colorSensor.getValue() != 6) {
-                    if (outOfMapInt == 5) {
+                    if (outOfMapInt == 3) {
                         outOfMap();
                         break;
                     } else {
