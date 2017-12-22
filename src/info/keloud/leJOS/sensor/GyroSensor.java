@@ -10,6 +10,7 @@ public class GyroSensor {
     public GyroSensor() {
         gyro = new EV3GyroSensor(SensorPort.S3);
         gyroValue = new float[gyro.getAngleMode().sampleSize()];
+        gyro.reset();
     }
 
     public float getValue() {
