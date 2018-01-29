@@ -23,4 +23,26 @@ HOURS
 MINUTES
 }
 
+class leJOS{
+Scheduler
+Arm
+Forward
+ForwardWithColor
+ForwardWithSonar
+Backward
+BackwardWithColor
+TurnWithGyro2
+GrabBottle3
+SearchGyro
+float MaxSpeed
+main()
+menu()
+stop()
+run()
+runTest()
+correctArm()
+setOperationMode()
+initGyro()
+}
+
 @enduml
