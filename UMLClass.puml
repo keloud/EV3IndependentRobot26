@@ -1,29 +1,27 @@
 @startuml
-
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
-}
-
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
-}
-
-class leJOS{
+class DisplayUpdater
+class Monitoring
+class Scheduler
+abstract class AbstractMotor
+class CenterMotor
+class LeftMotor
+class RightMotor
+class ColorSensor
+class GyroSensor
+class UltrasonicMotor
+class GrabBottle3
+interface ImplementMachine
+interface ImplementUtil
+abstract class AbstractUtil
+class Arm
+class Backward
+class BackwardWithColor
+class Forward
+class ForwardWithColor
+class ForwardWithSonar
+class Turn
+class TurnWithGyro2
++class leJOS{
 Scheduler
 Arm
 Forward
