@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>info.keloud.leJOS.leJOS</OriginalElement>
+  <nodes>
+    <node x="896.354448723895" y="0.0">info.keloud.leJOS.motor.AbstractMotor</node>
+    <node x="1293.5310616271208" y="518.0">info.keloud.leJOS.utils.advanced.SearchGyro</node>
+    <node x="1284.7297398757225" y="1344.0">info.keloud.leJOS.utils.Arm</node>
+    <node x="39.04131091217096" y="0.0">info.keloud.leJOS.sensor.GyroSensor</node>
+    <node x="1423.4575276239457" y="1344.0">info.keloud.leJOS.utils.TurnWithGyro</node>
+    <node x="1626.465450783643" y="976.0">info.keloud.leJOS.utils.ImplementUtil</node>
+    <node x="846.2818680787339" y="976.0">info.keloud.leJOS.leJOS</node>
+    <node x="1422.5310616271208" y="727.0">info.keloud.leJOS.utils.ForwardWithColor</node>
+    <node x="1125.5310616271208" y="727.0">info.keloud.leJOS.utils.ForwardWithSonar</node>
+    <node x="1531.1575276239455" y="1503.0">info.keloud.leJOS.utils.advanced.GrabBottle</node>
+    <node x="318.86719099986703" y="727.0">info.keloud.leJOS.manager.Scheduler</node>
+    <node x="0.0" y="1577.0">info.keloud.leJOS.manager.Monitoring</node>
+    <node x="315.1684960033921" y="518.0">info.keloud.leJOS.manager.DisplayUpdater</node>
+    <node x="590.8503141852103" y="399.0">info.keloud.leJOS.motor.CenterMotor</node>
+    <node x="1577.4626537231698" y="399.0">info.keloud.leJOS.utils.TurnWithGyro2</node>
+    <node x="1481.4075276239455" y="1165.0">info.keloud.leJOS.utils.AbstractUtil</node>
+    <node x="725.8503141852103" y="399.0">info.keloud.leJOS.motor.RightMotor</node>
+    <node x="816.4581000907762" y="518.0">info.keloud.leJOS.sensor.ColorSensor</node>
+    <node x="1846.9400884648023" y="1344.0">info.keloud.leJOS.utils.Turn</node>
+    <node x="2031.6219066466203" y="727.0">info.keloud.leJOS.utils.Forward</node>
+    <node x="1902.092365382972" y="0.0">info.keloud.leJOS.utils.ImplementMachine</node>
+    <node x="1292.5310616271208" y="727.0">info.keloud.leJOS.utils.advanced.GrabBottle3</node>
+    <node x="1280.4203899427862" y="1503.0">info.keloud.leJOS.utils.advanced.GrabBottle2</node>
+    <node x="1782.4400884648023" y="727.0">info.keloud.leJOS.utils.Backward</node>
+    <node x="469.8503141852103" y="399.0">info.keloud.leJOS.motor.LeftMotor</node>
+    <node x="953.5310616271208" y="727.0">info.keloud.leJOS.utils.BackwardWithColor</node>
+    <node x="121.59446372713978" y="399.0">info.keloud.leJOS.sensor.UltrasonicSensor</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="info.keloud.leJOS.manager.Scheduler" target="info.keloud.leJOS.manager.DisplayUpdater">
+      <point x="15.0" y="-14.5" />
+      <point x="383.86719099986703" y="637.0" />
+      <point x="411.1684960033921" y="637.0" />
+      <point x="32.0" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle3" target="info.keloud.leJOS.sensor.UltrasonicSensor">
+      <point x="-27.5" y="-14.5" />
+      <point x="1320.0310616271208" y="597.0" />
+      <point x="1283.0310616271208" y="597.0" />
+      <point x="1283.0310616271208" y="478.0" />
+      <point x="237.1944637271397" y="478.0" />
+      <point x="47.59999999999991" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.Backward" target="info.keloud.leJOS.utils.AbstractUtil">
+      <point x="37.125" y="14.5" />
+      <point x="1869.0650884648023" y="936.0" />
+      <point x="1859.0813928126283" y="936.0" />
+      <point x="1859.0813928126283" y="1105.0" />
+      <point x="1574.668397189163" y="1105.0" />
+      <point x="38.26086956521749" y="-14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.Forward" target="info.keloud.leJOS.utils.AbstractUtil">
+      <point x="-7.5833333333332575" y="14.5" />
+      <point x="2069.538573313287" y="956.0" />
+      <point x="2079.1972689654613" y="956.0" />
+      <point x="2079.1972689654613" y="1125.0" />
+      <point x="1584.233614580467" y="1125.0" />
+      <point x="47.82608695652175" y="-14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle" target="info.keloud.leJOS.utils.AbstractUtil">
+      <point x="5.199999999999818" y="-14.5" />
+      <point x="1588.3575276239453" y="1254.0" />
+      <point x="1563.9075276239455" y="1254.0" />
+      <point x="27.5" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.leJOS" target="info.keloud.leJOS.motor.CenterMotor">
+      <point x="-12.258064516129025" y="-14.5" />
+      <point x="872.0238035626048" y="816.0" />
+      <point x="675.4581000907762" y="816.0" />
+      <point x="675.4581000907762" y="498.0" />
+      <point x="677.1003141852103" y="498.0" />
+      <point x="28.75" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.ForwardWithSonar" target="info.keloud.leJOS.utils.AbstractUtil">
+      <point x="54.75" y="14.5" />
+      <point x="1253.2810616271208" y="846.0" />
+      <point x="1259.5459870565032" y="846.0" />
+      <point x="1259.5459870565032" y="1065.0" />
+      <point x="1517.2770928413365" y="1065.0" />
+      <point x="-19.130434782608745" y="-14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.Turn" target="info.keloud.leJOS.utils.ImplementMachine">
+      <point x="27.0" y="-14.5" />
+      <point x="1909.9400884648023" y="1314.0" />
+      <point x="2055.5539828509495" y="1314.0" />
+      <point x="2055.5539828509495" y="1145.0" />
+      <point x="2133.12190664662" y="1145.0" />
+      <point x="2133.12190664662" y="69.0" />
+      <point x="2025.3066510972578" y="69.0" />
+      <point x="48.21428571428578" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.TurnWithGyro2" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="0.0" y="-14.5" />
+      <point x="1641.4626537231698" y="219.0" />
+      <point x="990.104448723895" y="219.0" />
+      <point x="31.25" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.Turn" target="info.keloud.leJOS.utils.AbstractUtil">
+      <point x="-27.0" y="-14.5" />
+      <point x="1855.9400884648023" y="1244.0" />
+      <point x="1574.9075276239455" y="1244.0" />
+      <point x="38.5" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.motor.LeftMotor" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="-25.25" y="-14.5" />
+      <point x="495.1003141852103" y="329.0" />
+      <point x="927.604448723895" y="329.0" />
+      <point x="-31.25" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle2" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="-34.375" y="-14.5" />
+      <point x="1301.0453899427862" y="1473.0" />
+      <point x="105.84325264517565" y="1473.0" />
+      <point x="105.84325264517565" y="946.0" />
+      <point x="268.0944637271398" y="946.0" />
+      <point x="268.0944637271398" y="279.0" />
+      <point x="899.1953578148041" y="279.0" />
+      <point x="-59.65909090909088" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.ForwardWithColor" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="0.0" y="-14.5" />
+      <point x="1494.5310616271208" y="657.0" />
+      <point x="1532.5133783608512" y="657.0" />
+      <point x="1532.5133783608512" y="239.0" />
+      <point x="984.4226305420768" y="239.0" />
+      <point x="25.56818181818187" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.leJOS" target="info.keloud.leJOS.manager.Scheduler">
+      <point x="-24.51612903225805" y="-14.5" />
+      <point x="859.7657390464758" y="866.0" />
+      <point x="368.86719099986703" y="866.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle" target="info.keloud.leJOS.utils.ImplementMachine">
+      <point x="46.80000000000018" y="-14.5" />
+      <point x="1629.9575276239457" y="1483.0" />
+      <point x="2154.5504780751917" y="1483.0" />
+      <point x="2154.5504780751917" y="49.0" />
+      <point x="2046.7352225258292" y="49.0" />
+      <point x="69.64285714285711" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle" target="info.keloud.leJOS.utils.Forward">
+      <point x="36.40000000000009" y="-14.5" />
+      <point x="1619.5575276239456" y="1473.0" />
+      <point x="2105.379877661113" y="1473.0" />
+      <point x="2105.379877661113" y="956.0" />
+      <point x="2115.038573313287" y="956.0" />
+      <point x="37.91666666666674" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.motor.RightMotor" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="-27.25" y="-14.5" />
+      <point x="753.1003141852103" y="369.0" />
+      <point x="950.3317214511677" y="369.0" />
+      <point x="-8.522727272727252" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle3" target="info.keloud.leJOS.utils.Arm">
+      <point x="9.166666666666742" y="14.5" />
+      <point x="1356.6977282937876" y="876.0" />
+      <point x="1351.9060616271208" y="876.0" />
+      <point x="1351.9060616271208" y="1244.0" />
+      <point x="1324.1047398757225" y="1244.0" />
+      <point x="4.375" y="-14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.SearchGyro" target="info.keloud.leJOS.utils.AbstractUtil">
+      <point x="27.0" y="14.5" />
+      <point x="1374.5310616271208" y="577.0" />
+      <point x="1577.0310616271208" y="577.0" />
+      <point x="1577.0310616271208" y="1035.0" />
+      <point x="1541.1901363195975" y="1035.0" />
+      <point x="4.782608695652243" y="-14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.BackwardWithColor" target="info.keloud.leJOS.utils.AbstractUtil">
+      <point x="19.0" y="14.5" />
+      <point x="1048.5310616271208" y="826.0" />
+      <point x="1062.24901574603" y="826.0" />
+      <point x="1062.24901574603" y="1095.0" />
+      <point x="1502.92926675438" y="1095.0" />
+      <point x="-33.47826086956525" y="-14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.AbstractUtil" target="info.keloud.leJOS.leJOS">
+      <point x="-43.043478260869506" y="-14.5" />
+      <point x="1493.364049363076" y="1115.0" />
+      <point x="909.6152014120671" y="1115.0" />
+      <point x="25.333333333333258" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.TurnWithGyro2" target="info.keloud.leJOS.utils.AbstractUtil">
+      <point x="53.33333333333337" y="14.5" />
+      <point x="1694.7959870565032" y="498.0" />
+      <point x="1758.965450783643" y="498.0" />
+      <point x="1758.965450783643" y="1075.0" />
+      <point x="1560.3205711022065" y="1075.0" />
+      <point x="23.913043478260988" y="-14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.BackwardWithColor" target="info.keloud.leJOS.utils.ImplementMachine">
+      <point x="50.66666666666674" y="-14.5" />
+      <point x="1080.1977282937876" y="667.0" />
+      <point x="1946.1219066466206" y="667.0" />
+      <point x="1946.1219066466206" y="159.0" />
+      <point x="1928.8780796686863" y="159.0" />
+      <point x="-48.21428571428578" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.TurnWithGyro" target="info.keloud.leJOS.utils.AbstractUtil">
+      <point x="0.0" y="-14.5" />
+      <point x="1484.4575276239457" y="1274.0" />
+      <point x="1508.9075276239455" y="1274.0" />
+      <point x="-27.5" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.Forward" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="-22.749999999999773" y="-14.5" />
+      <point x="2054.3719066466206" y="657.0" />
+      <point x="1935.1219066466206" y="657.0" />
+      <point x="1935.1219066466206" y="169.0" />
+      <point x="1018.513539632986" y="169.0" />
+      <point x="59.65909090909099" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.SearchGyro" target="info.keloud.leJOS.utils.ImplementMachine">
+      <point x="9.0" y="-14.5" />
+      <point x="1356.5310616271208" y="448.0" />
+      <point x="1543.5133783608512" y="448.0" />
+      <point x="1543.5133783608512" y="369.0" />
+      <point x="1907.449508240115" y="369.0" />
+      <point x="-69.64285714285711" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle3" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="27.5" y="-14.5" />
+      <point x="1375.0310616271208" y="657.0" />
+      <point x="1412.0310616271208" y="657.0" />
+      <point x="1412.0310616271208" y="249.0" />
+      <point x="978.7408123602586" y="249.0" />
+      <point x="19.886363636363626" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.leJOS" target="info.keloud.leJOS.utils.Backward">
+      <point x="29.41935483870975" y="-14.5" />
+      <point x="913.7012229174436" y="926.0" />
+      <point x="1794.8150884648023" y="926.0" />
+      <point x="-37.125" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.manager.Scheduler" target="info.keloud.leJOS.leJOS">
+      <point x="33.33333333333326" y="14.5" />
+      <point x="402.2005243332003" y="856.0" />
+      <point x="862.2173519497017" y="856.0" />
+      <point x="-22.0645161290322" y="-14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.manager.Scheduler" target="info.keloud.leJOS.sensor.GyroSensor">
+      <point x="-35.0" y="-14.5" />
+      <point x="333.86719099986703" y="697.0" />
+      <point x="111.09446372713978" y="697.0" />
+      <point x="111.09446372713978" y="379.0" />
+      <point x="113.29131091217096" y="379.0" />
+      <point x="20.25" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.leJOS" target="info.keloud.leJOS.utils.BackwardWithColor">
+      <point x="2.4516129032258505" y="-14.5" />
+      <point x="886.7334809819597" y="816.0" />
+      <point x="972.5310616271208" y="816.0" />
+      <point x="-57.0" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.Backward" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="-24.75" y="-14.5" />
+      <point x="1807.1900884648023" y="199.0" />
+      <point x="1001.4680850875313" y="199.0" />
+      <point x="42.613636363636374" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.Forward" target="info.keloud.leJOS.utils.ImplementMachine">
+      <point x="22.750000000000227" y="-14.5" />
+      <point x="2099.8719066466206" y="79.0" />
+      <point x="2014.592365382972" y="79.0" />
+      <point x="37.5" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.leJOS" target="info.keloud.leJOS.utils.Forward">
+      <point x="36.774193548387075" y="-14.5" />
+      <point x="921.0560616271209" y="956.0" />
+      <point x="2054.37190664662" y="956.0" />
+      <point x="-22.75" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.TurnWithGyro2" target="info.keloud.leJOS.sensor.GyroSensor">
+      <point x="-42.66666666666663" y="-14.5" />
+      <point x="1598.7959870565032" y="229.0" />
+      <point x="140.29131091217096" y="229.0" />
+      <point x="47.25" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle2" target="info.keloud.leJOS.utils.ImplementMachine">
+      <point x="48.125" y="-14.5" />
+      <point x="1383.5453899427862" y="1453.0" />
+      <point x="1973.789859474326" y="1453.0" />
+      <point x="1973.789859474326" y="1324.0" />
+      <point x="2143.8361923609054" y="1324.0" />
+      <point x="2143.8361923609054" y="59.0" />
+      <point x="2036.0209368115434" y="59.0" />
+      <point x="58.92857142857133" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.TurnWithGyro" target="info.keloud.leJOS.sensor.GyroSensor">
+      <point x="-48.80000000000001" y="-14.5" />
+      <point x="1435.6575276239455" y="1224.0" />
+      <point x="0.0" y="1224.0" />
+      <point x="0.0" y="339.0" />
+      <point x="45.79131091217096" y="339.0" />
+      <point x="-47.25" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.BackwardWithColor" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="0.0" y="-14.5" />
+      <point x="1029.5310616271208" y="637.0" />
+      <point x="995.033906542389" y="637.0" />
+      <point x="995.033906542389" y="379.0" />
+      <point x="961.6953578148041" y="379.0" />
+      <point x="2.840909090909122" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.AbstractUtil" target="info.keloud.leJOS.sensor.UltrasonicSensor">
+      <point x="-47.82608695652175" y="-14.5" />
+      <point x="1488.5814406674235" y="1125.0" />
+      <point x="479.1890381848981" y="1125.0" />
+      <point x="479.1890381848981" y="926.0" />
+      <point x="100.09446372713978" y="926.0" />
+      <point x="100.09446372713978" y="498.0" />
+      <point x="155.59446372713978" y="498.0" />
+      <point x="-34.0" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.Backward" target="info.keloud.leJOS.utils.ImplementMachine">
+      <point x="24.75" y="-14.5" />
+      <point x="1856.6900884648023" y="707.0" />
+      <point x="1988.9790495037635" y="707.0" />
+      <point x="1988.9790495037635" y="119.0" />
+      <point x="1971.7352225258292" y="119.0" />
+      <point x="-5.35714285714289" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle3" target="info.keloud.leJOS.sensor.ColorSensor">
+      <point x="-45.83333333333326" y="-14.5" />
+      <point x="1301.6977282937876" y="607.0" />
+      <point x="910.8081000907761" y="607.0" />
+      <point x="38.84999999999991" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.SearchGyro" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="-9.0" y="-14.5" />
+      <point x="1338.5310616271208" y="498.0" />
+      <point x="1335.0310616271208" y="498.0" />
+      <point x="1335.0310616271208" y="259.0" />
+      <point x="973.0589941784405" y="259.0" />
+      <point x="14.204545454545496" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.leJOS" target="info.keloud.leJOS.utils.ForwardWithColor">
+      <point x="19.61290322580635" y="-14.5" />
+      <point x="903.8947713045402" y="886.0" />
+      <point x="1440.5310616271208" y="886.0" />
+      <point x="-54.0" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.AbstractUtil" target="info.keloud.leJOS.utils.ImplementMachine">
+      <point x="43.043478260869506" y="-14.5" />
+      <point x="1579.451005884815" y="1115.0" />
+      <point x="1999.6933352180492" y="1115.0" />
+      <point x="1999.6933352180492" y="109.0" />
+      <point x="1982.449508240115" y="109.0" />
+      <point x="5.35714285714289" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.ForwardWithColor" target="info.keloud.leJOS.utils.ImplementMachine">
+      <point x="48.0" y="-14.5" />
+      <point x="1542.5310616271208" y="697.0" />
+      <point x="1978.2647637894777" y="697.0" />
+      <point x="1978.2647637894777" y="129.0" />
+      <point x="1961.0209368115434" y="129.0" />
+      <point x="-16.07142857142867" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.ForwardWithSonar" target="info.keloud.leJOS.sensor.UltrasonicSensor">
+      <point x="-48.66666666666674" y="-14.5" />
+      <point x="1149.864394960454" y="617.0" />
+      <point x="240.34446372713978" y="617.0" />
+      <point x="240.34446372713978" y="488.0" />
+      <point x="223.59446372713978" y="488.0" />
+      <point x="34.0" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.leJOS" target="info.keloud.leJOS.utils.TurnWithGyro2">
+      <point x="26.9677419354839" y="-14.5" />
+      <point x="911.2496100142178" y="916.0" />
+      <point x="1604.965450783643" y="916.0" />
+      <point x="1604.965450783643" y="488.0" />
+      <point x="1652.1293203898365" y="488.0" />
+      <point x="10.666666666666629" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle" target="info.keloud.leJOS.sensor.UltrasonicSensor">
+      <point x="-46.80000000000018" y="-14.5" />
+      <point x="1536.3575276239453" y="1423.0" />
+      <point x="58.753554636230774" y="1423.0" />
+      <point x="58.753554636230774" y="956.0" />
+      <point x="89.09446372713978" y="956.0" />
+      <point x="89.09446372713978" y="488.0" />
+      <point x="141.99446372713987" y="488.0" />
+      <point x="-47.59999999999991" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.manager.Scheduler" target="info.keloud.leJOS.sensor.UltrasonicSensor">
+      <point x="-15.0" y="-14.5" />
+      <point x="353.86719099986703" y="677.0" />
+      <point x="229.34446372713978" y="677.0" />
+      <point x="229.34446372713978" y="498.0" />
+      <point x="209.99446372713965" y="498.0" />
+      <point x="20.399999999999864" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.BackwardWithColor" target="info.keloud.leJOS.sensor.ColorSensor">
+      <point x="-50.66666666666674" y="-14.5" />
+      <point x="978.8643949604541" y="627.0" />
+      <point x="899.7081000907762" y="627.0" />
+      <point x="27.75" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.AbstractUtil" target="info.keloud.leJOS.sensor.GyroSensor">
+      <point x="-52.608695652173765" y="-14.5" />
+      <point x="1483.7988319717715" y="1135.0" />
+      <point x="94.84325264517565" y="1135.0" />
+      <point x="94.84325264517565" y="936.0" />
+      <point x="41.02774818461785" y="936.0" />
+      <point x="41.02774818461785" y="349.0" />
+      <point x="59.29131091217096" y="349.0" />
+      <point x="-33.75" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.TurnWithGyro" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="-24.399999999999977" y="-14.5" />
+      <point x="1460.0575276239456" y="1214.0" />
+      <point x="297.67182409046393" y="1214.0" />
+      <point x="297.67182409046393" y="936.0" />
+      <point x="459.3503141852103" y="936.0" />
+      <point x="459.3503141852103" y="319.0" />
+      <point x="921.9226305420768" y="319.0" />
+      <point x="-36.93181818181813" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle3" target="info.keloud.leJOS.utils.ImplementMachine">
+      <point x="45.83333333333326" y="-14.5" />
+      <point x="1393.364394960454" y="687.0" />
+      <point x="1967.5504780751921" y="687.0" />
+      <point x="1967.5504780751921" y="139.0" />
+      <point x="1950.3066510972578" y="139.0" />
+      <point x="-26.78571428571422" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.SearchGyro" target="info.keloud.leJOS.utils.TurnWithGyro2">
+      <point x="27.0" y="-14.5" />
+      <point x="1374.5310616271208" y="458.0" />
+      <point x="1588.1293203898365" y="458.0" />
+      <point x="-53.33333333333337" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.Arm" target="info.keloud.leJOS.utils.AbstractUtil">
+      <point x="21.875" y="-14.5" />
+      <point x="1341.6047398757225" y="1264.0" />
+      <point x="1497.9075276239455" y="1264.0" />
+      <point x="-38.5" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.leJOS" target="info.keloud.leJOS.sensor.UltrasonicSensor">
+      <point x="-29.41935483870975" y="-14.5" />
+      <point x="854.8625132400241" y="886.0" />
+      <point x="188.49446372713976" y="886.0" />
+      <point x="188.49446372713976" y="488.0" />
+      <point x="182.79446372713983" y="488.0" />
+      <point x="-6.7999999999999545" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.leJOS" target="info.keloud.leJOS.sensor.ColorSensor">
+      <point x="-2.4516129032258505" y="-14.5" />
+      <point x="881.830255175508" y="776.0" />
+      <point x="857.5822936391631" y="776.0" />
+      <point x="857.5822936391631" y="707.0" />
+      <point x="877.5081000907761" y="707.0" />
+      <point x="5.5499999999999545" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle2" target="info.keloud.leJOS.sensor.ColorSensor">
+      <point x="-20.625" y="-14.5" />
+      <point x="1314.7953899427862" y="1463.0" />
+      <point x="457.1890381848981" y="1463.0" />
+      <point x="457.1890381848981" y="946.0" />
+      <point x="783.9581000907762" y="946.0" />
+      <point x="783.9581000907762" y="677.0" />
+      <point x="844.2081000907762" y="677.0" />
+      <point x="-27.75" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.ForwardWithColor" target="info.keloud.leJOS.utils.AbstractUtil">
+      <point x="54.0" y="14.5" />
+      <point x="1548.5310616271208" y="896.0" />
+      <point x="1544.7810616271208" y="896.0" />
+      <point x="1544.7810616271208" y="1025.0" />
+      <point x="1536.4075276239455" y="1025.0" />
+      <point x="0.0" y="-14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle3" target="info.keloud.leJOS.utils.advanced.SearchGyro">
+      <point x="-9.166666666666742" y="-14.5" />
+      <point x="-9.0" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle" target="info.keloud.leJOS.utils.Arm">
+      <point x="-15.599999999999909" y="-14.5" />
+      <point x="1567.5575276239456" y="1393.0" />
+      <point x="1345.9797398757225" y="1393.0" />
+      <point x="26.25" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.manager.Scheduler" target="info.keloud.leJOS.sensor.ColorSensor">
+      <point x="45.0" y="-14.5" />
+      <point x="413.86719099986703" y="667.0" />
+      <point x="833.1081000907762" y="667.0" />
+      <point x="-38.84999999999991" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.Arm" target="info.keloud.leJOS.utils.ImplementMachine">
+      <point x="30.625" y="-14.5" />
+      <point x="1350.3547398757225" y="1294.0" />
+      <point x="2010.407620932335" y="1294.0" />
+      <point x="2010.407620932335" y="99.0" />
+      <point x="1993.1637939544007" y="99.0" />
+      <point x="16.07142857142867" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle3" target="info.keloud.leJOS.utils.AbstractUtil">
+      <point x="27.5" y="14.5" />
+      <point x="1375.0310616271208" y="876.0" />
+      <point x="1416.1727986507062" y="876.0" />
+      <point x="1416.1727986507062" y="1055.0" />
+      <point x="1522.059701536989" y="1055.0" />
+      <point x="-14.347826086956502" y="-14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle2" target="info.keloud.leJOS.utils.AbstractUtil">
+      <point x="20.625" y="-14.5" />
+      <point x="1356.0453899427862" y="1433.0" />
+      <point x="1555.9575276239457" y="1433.0" />
+      <point x="1555.9575276239457" y="1284.0" />
+      <point x="1530.9075276239455" y="1284.0" />
+      <point x="-5.5" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle2" target="info.keloud.leJOS.sensor.UltrasonicSensor">
+      <point x="-48.125" y="-14.5" />
+      <point x="1287.2953899427862" y="1483.0" />
+      <point x="21.669962279052015" y="1483.0" />
+      <point x="21.669962279052015" y="946.0" />
+      <point x="78.09446372713978" y="946.0" />
+      <point x="78.09446372713978" y="478.0" />
+      <point x="128.39446372713974" y="478.0" />
+      <point x="-61.200000000000045" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="15.599999999999909" y="-14.5" />
+      <point x="1598.7575276239454" y="1443.0" />
+      <point x="1929.4400884648023" y="1443.0" />
+      <point x="1929.4400884648023" y="179.0" />
+      <point x="1012.8317214511677" y="179.0" />
+      <point x="53.97727272727275" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.leJOS" target="info.keloud.leJOS.utils.advanced.SearchGyro">
+      <point x="0.0" y="-14.5" />
+      <point x="884.2818680787339" y="806.0" />
+      <point x="900.9069648093841" y="806.0" />
+      <point x="900.9069648093841" y="647.0" />
+      <point x="1302.5310616271208" y="647.0" />
+      <point x="-45.0" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.manager.Scheduler" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="-5.0" y="-14.5" />
+      <point x="363.86719099986703" y="667.0" />
+      <point x="304.6684960033921" y="667.0" />
+      <point x="304.6684960033921" y="299.0" />
+      <point x="910.5589941784405" y="299.0" />
+      <point x="-48.295454545454504" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.AbstractUtil" target="info.keloud.leJOS.sensor.ColorSensor">
+      <point x="-38.26086956521726" y="-14.5" />
+      <point x="1498.146658058728" y="1105.0" />
+      <point x="943.0310616271208" y="1105.0" />
+      <point x="943.0310616271208" y="637.0" />
+      <point x="888.608100090776" y="637.0" />
+      <point x="16.649999999999864" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.Arm" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="-30.625" y="-14.5" />
+      <point x="1289.1047398757225" y="1324.0" />
+      <point x="188.72312909398897" y="1324.0" />
+      <point x="188.72312909398897" y="956.0" />
+      <point x="273.7762819089579" y="956.0" />
+      <point x="273.7762819089579" y="289.0" />
+      <point x="904.8771759966222" y="289.0" />
+      <point x="-53.97727272727275" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.AbstractUtil" target="info.keloud.leJOS.utils.ImplementUtil">
+      <point x="19.130434782608745" y="-14.5" />
+      <point x="1555.537962406554" y="1065.0" />
+      <point x="1687.465450783643" y="1065.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.SearchGyro" target="info.keloud.leJOS.sensor.GyroSensor">
+      <point x="-27.0" y="-14.5" />
+      <point x="1320.5310616271208" y="498.0" />
+      <point x="1324.0310616271208" y="498.0" />
+      <point x="1324.0310616271208" y="269.0" />
+      <point x="126.79131091217096" y="269.0" />
+      <point x="33.75" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.leJOS" target="info.keloud.leJOS.motor.LeftMotor">
+      <point x="-17.161290322580726" y="-14.5" />
+      <point x="867.1205777561531" y="836.0" />
+      <point x="543.9581000907762" y="836.0" />
+      <point x="543.9581000907762" y="498.0" />
+      <point x="545.6003141852103" y="498.0" />
+      <point x="25.25" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.ForwardWithColor" target="info.keloud.leJOS.sensor.ColorSensor">
+      <point x="-48.0" y="-14.5" />
+      <point x="1446.5310616271208" y="587.0" />
+      <point x="921.9081000907762" y="587.0" />
+      <point x="49.950000000000045" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle" target="info.keloud.leJOS.sensor.ColorSensor">
+      <point x="-36.40000000000009" y="-14.5" />
+      <point x="1546.7575276239454" y="1413.0" />
+      <point x="468.1890381848981" y="1413.0" />
+      <point x="468.1890381848981" y="956.0" />
+      <point x="794.9581000907762" y="956.0" />
+      <point x="794.9581000907762" y="687.0" />
+      <point x="855.3081000907761" y="687.0" />
+      <point x="-16.65000000000009" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.ForwardWithSonar" target="info.keloud.leJOS.utils.ImplementMachine">
+      <point x="48.66666666666674" y="-14.5" />
+      <point x="1247.1977282937876" y="677.0" />
+      <point x="1956.8361923609064" y="677.0" />
+      <point x="1956.8361923609064" y="149.0" />
+      <point x="1939.592365382972" y="149.0" />
+      <point x="-37.5" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.TurnWithGyro2" target="info.keloud.leJOS.utils.ImplementMachine">
+      <point x="42.66666666666663" y="-14.5" />
+      <point x="1684.1293203898365" y="379.0" />
+      <point x="1918.1637939544007" y="379.0" />
+      <point x="-58.92857142857133" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.motor.CenterMotor" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="-28.75" y="-14.5" />
+      <point x="619.6003141852103" y="349.0" />
+      <point x="938.9680850875313" y="349.0" />
+      <point x="-19.886363636363626" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.SearchGyro" target="info.keloud.leJOS.sensor.UltrasonicSensor">
+      <point x="-45.0" y="-14.5" />
+      <point x="1302.5310616271208" y="468.0" />
+      <point x="250.79446372713983" y="468.0" />
+      <point x="61.200000000000045" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.leJOS" target="info.keloud.leJOS.motor.RightMotor">
+      <point x="-9.806451612903174" y="-14.5" />
+      <point x="874.4754164658307" y="806.0" />
+      <point x="772.9581000907762" y="806.0" />
+      <point x="772.9581000907762" y="498.0" />
+      <point x="753.1003141852103" y="498.0" />
+      <point x="-27.25" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.AbstractUtil" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="28.695652173913004" y="-14.5" />
+      <point x="1565.1031797978585" y="1085.0" />
+      <point x="1771.9400884648023" y="1085.0" />
+      <point x="1771.9400884648023" y="209.0" />
+      <point x="995.7862669057132" y="209.0" />
+      <point x="36.931818181818244" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.leJOS" target="info.keloud.leJOS.utils.advanced.GrabBottle3">
+      <point x="14.709677419354875" y="-14.5" />
+      <point x="898.9915454980887" y="866.0" />
+      <point x="1301.6977282937876" y="866.0" />
+      <point x="-45.83333333333326" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.TurnWithGyro" target="info.keloud.leJOS.utils.ImplementMachine">
+      <point x="48.80000000000001" y="-14.5" />
+      <point x="1533.2575276239456" y="1304.0" />
+      <point x="2021.1219066466203" y="1304.0" />
+      <point x="2021.1219066466203" y="89.0" />
+      <point x="2003.8780796686863" y="89.0" />
+      <point x="26.78571428571422" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.advanced.GrabBottle2" target="info.keloud.leJOS.utils.Arm">
+      <point x="6.875" y="-14.5" />
+      <point x="1342.2953899427862" y="1443.0" />
+      <point x="1310.9797398757225" y="1443.0" />
+      <point x="-8.75" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.leJOS" target="info.keloud.leJOS.utils.Arm">
+      <point x="-25.333333333333258" y="14.5" />
+      <point x="858.9485347454006" y="1145.0" />
+      <point x="851.283906542389" y="1145.0" />
+      <point x="851.283906542389" y="1314.0" />
+      <point x="1297.8547398757225" y="1314.0" />
+      <point x="-21.875" y="-14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.leJOS" target="info.keloud.leJOS.sensor.GyroSensor">
+      <point x="-36.774193548387075" y="-14.5" />
+      <point x="847.5076745303468" y="916.0" />
+      <point x="53.64285082391393" y="916.0" />
+      <point x="53.64285082391393" y="359.0" />
+      <point x="72.79131091217096" y="359.0" />
+      <point x="-20.25" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.leJOS" target="info.keloud.leJOS.utils.ForwardWithSonar">
+      <point x="9.806451612903174" y="-14.5" />
+      <point x="894.088319691637" y="846.0" />
+      <point x="1180.2810616271208" y="846.0" />
+      <point x="-18.25" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.ForwardWithSonar" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="0.0" y="-14.5" />
+      <point x="1198.5310616271208" y="637.0" />
+      <point x="1164.0339065423889" y="637.0" />
+      <point x="1164.0339065423889" y="369.0" />
+      <point x="967.3771759966222" y="369.0" />
+      <point x="8.522727272727252" y="14.5" />
+    </edge>
+    <edge source="info.keloud.leJOS.utils.Turn" target="info.keloud.leJOS.motor.AbstractMotor">
+      <point x="9.0" y="-14.5" />
+      <point x="1891.9400884648023" y="189.0" />
+      <point x="1007.1499032693496" y="189.0" />
+      <point x="48.29545454545462" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5675500969618616" x="1181.5" y="763.5" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
