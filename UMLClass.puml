@@ -1,22 +1,95 @@
 @startuml
-class DisplayUpdater
-class Monitoring
-class Scheduler
+class DisplayUpdater{
+    DisplayUpdater()
+    updateValue()
+}
+class Monitoring{
+    Monitoring()
+    monitoringStop()
+    updateValue()
+}
+class Scheduler{
+    String operationMode
+    boolean mode
+    AbstractMotor centerMotor
+    AbstractMotor leftMotor
+    AbstractMotor rightMotor
+    ColorSensor
+    UltrasonicSensor
+    GyroSensor
+    Scheduler()
+    run()
+    countStop()
+    setOperationMode()
+}
 Scheduler -- DisplayUpdater
 Scheduler -- Monitoring
-abstract class AbstractMotor
+abstract class AbstractMotor{
+    BaseRegulatedMotor
+    forward()
+    backward()
+    stop()
+    flt()
+    getTachoCount()
+    getMaxSpeed()
+    setAcceleration()
+    setSpeed()
+    synchronizeWith()
+    startSynchronization()
+}
 class CenterMotor
 class LeftMotor
 class RightMotor
 AbstractMotor -- CenterMotor
 AbstractMotor -- LeftMotor
 AbstractMotor -- RightMotor
-class ColorSensor
-class GyroSensor
-class UltrasonicSenor
-interface ImplementMachine
-interface ImplementUtil
-abstract class AbstractUtil
+class ColorSensor{
+    EV3ColorSensor
+    float[] colorValue
+    ColorSensor()
+    getValue()
+}
+class GyroSensor{
+    EV3GyroSensor
+    float[] gyroValue
+    GyroSensor()
+    getValue()
+    initGyro()
+}
+class UltrasonicSenor{
+    EV3UltrasonicSensor
+    float[] ultrasonicValue
+    UltrasonicSensor()
+    getValue()
+}
+interface ImplementMachine{
+    float diameter
+    float width
+    int wait
+}
+interface ImplementUtil{
+    run()
+    setSpeed()
+    setDistance()
+    setAngle()
+    setColorId()
+    getOperationMode()
+}
+abstract class AbstractUtil{
+    AbstractMotor leftMotor
+    AbstractMotor rightMotor
+    AbstractMotor centerMotor
+    ColorSensor
+    UltrasonicSensor
+    GyroSensor
+    float speed
+    float speedNow
+    float distance
+    float angle
+    int colorId
+    String operationMode
+    setOperationMode()
+}
 ImplementMachine -- AbstractUtil
 ImplementUtil -- AbstractUtil
 class Arm
