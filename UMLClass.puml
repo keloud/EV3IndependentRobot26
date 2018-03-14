@@ -2,17 +2,23 @@
 class DisplayUpdater
 class Monitoring
 class Scheduler
+Scheduler -- DisplayUpdater
+Scheduler -- Monitoring
 abstract class AbstractMotor
 class CenterMotor
 class LeftMotor
 class RightMotor
+AbstractMotor -- CenterMotor
+AbstractMotor -- LeftMotor
+AbstractMotor -- RightMotor
 class ColorSensor
 class GyroSensor
-class UltrasonicMotor
-class GrabBottle3
+class UltrasonicSenor
 interface ImplementMachine
 interface ImplementUtil
 abstract class AbstractUtil
+ImplementMachine -- AbstractUtil
+ImplementUtil -- AbstractUtil
 class Arm
 class Backward
 class BackwardWithColor
@@ -21,26 +27,51 @@ class ForwardWithColor
 class ForwardWithSonar
 class Turn
 class TurnWithGyro2
+class GrabBottle
+AbstractUtil -- Arm
+AbstractUtil -- Backward
+AbstractUtil -- BackwardWithColor
+AbstractUtil -- Forward
+AbstractUtil -- ForwardWithColor
+AbstractUtil -- ForwardWithSonar
+AbstractUtil -- Turn
+AbstractUtil -- TurnWithGyro2
+AbstractUtil -- GrabBottle
 +class leJOS{
-Scheduler
-Arm
-Forward
-ForwardWithColor
-ForwardWithSonar
-Backward
-BackwardWithColor
-TurnWithGyro2
-GrabBottle3
-SearchGyro
-float MaxSpeed
-main()
-menu()
-stop()
-run()
-runTest()
-correctArm()
-setOperationMode()
-initGyro()
+    Scheduler
+    Arm
+    Forward
+    ForwardWithColor
+    ForwardWithSonar
+    Backward
+    BackwardWithColor
+    TurnWithGyro2
+    GrabBottle3
+    SearchGyro
+    float MaxSpeed
+    main()
+    menu()
+    stop()
+    run()
+    runTest()
+    correctArm()
+    setOperationMode()
+    initGyro()
 }
-
+leJOS --- Scheduler
+leJOS --- Arm
+leJOS --- Backward
+leJOS --- BackwardWithColor
+leJOS --- Forward
+leJOS --- ForwardWithColor
+leJOS --- ForwardWithSonar
+leJOS --- Turn
+leJOS --- TurnWithGyro2
+leJOS --- GrabBottle
+leJOS --- ColorSensor
+leJOS --- GyroSensor
+leJOS --- UltrasonicSenor
+leJOS --- CenterMotor
+leJOS --- LeftMotor
+leJOS --- RightMotor
 @enduml
